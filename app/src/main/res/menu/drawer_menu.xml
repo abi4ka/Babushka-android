@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/menu_home"
-        android:title="Home" />
+        android:id="@+id/menu_inicio"
+        android:title="Inicio" />
 
     <item
-        android:id="@+id/menu_favorites"
-        android:title="Favorites" />
+        android:id="@+id/menu_categorias"
+        android:title="Categorías" />
 
     <item
-        android:id="@+id/menu_profile"
-        android:title="Profile" />
+        android:id="@+id/menu_perfil"
+        android:title="Perfil" />
 </menu>
