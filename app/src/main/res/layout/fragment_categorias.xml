@@ -1,5 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#90EE90" />
+    android:background="#90EE90">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- TITULO -->
+            <!-- 1.- Damos nombre al titulo-->
+            <!-- 2.- Ajustamos ancho y alto a las necesidades del contenido-->
+            <!-- 3.- Texto del titulo-->
+            <!-- 4.- Tamaño del texto-->
+            <!-- 5.- Convertimos el tipo de texto a negrita con "bold" (normal seria "normal" y cursiva seria "italic"-->
+            <!-- 6.- Damos color al titulo-->
+            <!-- 7.- Definimos el margen al rededor del texto-->
+            <!-- 8.- Anclamos el texto a la parte superior y a los dos lados (va al centro) del contenedor principal -->
+
+        <TextView
+            android:id="@+id/Categorias"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CATEGORÍAS"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#E89A57"
+            android:layout_margin="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
