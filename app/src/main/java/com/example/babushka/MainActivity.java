@@ -28,13 +28,13 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
 
         if (savedInstanceState == null) {
-            replaceFragment(new CategoriasFragment());
+            replaceFragment(new InicioFragment());
         }
 
         navigationView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
-            if (id == R.id.menu_inicio) replaceFragment(new CategoriasFragment());
-            else if (id == R.id.menu_categorias) replaceFragment(new InicioFragment());
+            if (id == R.id.menu_inicio) replaceFragment(new InicioFragment());
+            else if (id == R.id.menu_categorias) replaceFragment(new CategoriasFragment());
             else if (id == R.id.menu_perfil) replaceFragment(new PerfilFragment());
             drawerLayout.closeDrawer(GravityCompat.START);
             return true;
