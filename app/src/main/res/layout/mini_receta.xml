@@ -1,0 +1,72 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_weight="1"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Imagen receta -->
+    <View
+        android:id="@+id/vwImagen"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:background="#FFC107"
+        tools:ignore="MissingConstraints" />
+
+    <!-- Nombre receta -->
+    <!-- maxLines = si el txNombre es largo, salta de línea máximo 2 líneas-->
+    <TextView
+        android:id="@+id/txNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre Receta"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:maxLines="2"
+        android:textColor="#000000"
+        android:layout_marginTop="26dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/vwImagen"/>
+
+    <!-- Descripción -->
+    <!-- maxLines = si el txDescripcion es largo, salta de línea máximo 4 líneas-->
+
+    <TextView
+        android:id="@+id/txDescripcion"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="5dp"
+        android:text="Breve descripción de la receta"
+        android:textSize="14dp"
+        android:maxLines="4"
+        app:layout_constraintLeft_toRightOf="@id/vwImagen"
+        app:layout_constraintTop_toBottomOf="@id/txNombre" />
+
+    <!-- Dificultad -->
+    <TextView
+        android:id="@+id/tvDificultad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dificultad"
+        android:textSize="12dp"
+        android:textColor="#666666"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintTop_toBottomOf="@id/txDescripcion"
+        app:layout_constraintLeft_toRightOf="@id/vwImagen"/>
+
+    <!-- Estrella -->
+    <ImageView
+        android:id="@+id/Estrella"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@android:drawable/btn_star_big_off"
+        android:layout_marginTop="2dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
