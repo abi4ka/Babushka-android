@@ -31,7 +31,11 @@ public class InicioFragment extends Fragment {
         List<Receta> recetas = new ArrayList<>();
 
         for (int i = 0; i < 6; i++) {
-            recetas.add(new Receta("Tarta de queso", "Una tarta de queso cremosa y suave, perfecta como postre tradicional.", 3));
+            recetas.add(new Receta(
+                    "Tarta de queso",
+                    "Una tarta de queso cremosa y suave, perfecta como postre tradicional.",
+                    "3"
+            ));
         }
 
         RecetaAdapter adapter = new RecetaAdapter(recetas);
