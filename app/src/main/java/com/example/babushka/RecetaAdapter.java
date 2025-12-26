@@ -44,7 +44,11 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
         return new ViewHolder(view);
     }
 
-
+    public void addRecetas(List<Receta> nuevas) {
+        int start = listaReceta.size();
+        listaReceta.addAll(nuevas);
+        notifyItemRangeInserted(start, nuevas.size());
+    }
 
 // Asignar visualización de información
     static class ViewHolder extends RecyclerView.ViewHolder{
