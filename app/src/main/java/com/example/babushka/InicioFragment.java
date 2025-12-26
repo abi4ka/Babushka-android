@@ -1,9 +1,8 @@
 package com.example.babushka;
 
-import static android.nfc.tech.MifareUltralight.PAGE_SIZE;
-
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,8 +10,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.babushka.network.RecipeResponseDto;
+import com.example.babushka.network.RetrofitClient;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class InicioFragment extends Fragment {
 
@@ -62,26 +68,48 @@ public class InicioFragment extends Fragment {
         });
     }
 
-    //Similación de peticiones (luego implementamos la API)
     private void loadNextPage() {
+        Toast.makeText(getContext(), "loadNextPage", Toast.LENGTH_SHORT).show();
         isLoading = true;
 
-        List<Receta> nuevas = new ArrayList<>();
+        RetrofitClient.getApi()
+                .getRecipes(currentPage, PAGE_SIZE)
+                .enqueue(new Callback<List<RecipeResponseDto>>() {
+                    @Override
+                    public void onResponse(Call<List<RecipeResponseDto>> call,
+                                           Response<List<RecipeResponseDto>> response) {
 
-        for (int i = 0; i < PAGE_SIZE; i++) {
-            nuevas.add(new Receta(
-                    "Tarta de queso",
-                    "Una tarta de queso cremosa y suave, perfecta como postre tradicional.",
-                    "2",
-                    "Galletas tipo María, mantequilla, queso crema, azúcar, huevos, nata líquida y vainilla.",
-                    "Triturar las galletas y mezclarlas con mantequilla derretida. Forrar la base del molde. Batir el queso crema con el azúcar, añadir los huevos uno a uno, la nata y la vainilla. Verter la mezcla sobre la base y hornear a 170°C durante 50 minutos.",
-                    null
-            ));
-        }
+                        if (response.isSuccessful() && response.body() != null) {
 
-        adapter.addRecetas(nuevas);
-        currentPage++;
-        isLoading = false;
+                            List<Receta> nuevas = new ArrayList<>();
+
+                            for (RecipeResponseDto dto : response.body()) {
+                                nuevas.add(mapToReceta(dto));
+                            }
+
+                            adapter.addRecetas(nuevas);
+                            currentPage++;
+                        }
+
+                        isLoading = false;
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<RecipeResponseDto>> call, Throwable t) {
+                        t.printStackTrace();
+                        isLoading = false;
+                    }
+                });
     }
 
+    private Receta mapToReceta(RecipeResponseDto dto) {
+        return new Receta(
+                dto.title,
+                dto.description,
+                String.valueOf(dto.difficulty),
+                dto.ingredients,
+                dto.preparation,
+                dto.image
+        );
+    }
 }
