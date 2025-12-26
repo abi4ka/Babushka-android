@@ -15,7 +15,7 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
 
     private List<Receta> listaReceta;
 
-    //Constructor
+//Constructor
     public RecetaAdapter(List<Receta> listaReceta){
         this.listaReceta = listaReceta;
     }
