@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_fragment_container, fragment)
+                .addToBackStack(null) //Para salir de la receta grande sin cerrar aplicación
                 .commit();
     }
 }
