@@ -1,7 +1,9 @@
 package com.example.babushka;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,12 +31,20 @@ public class DetalleFragment extends Fragment {
         TextView descripcion = view.findViewById(R.id.txDescripcion);
         TextView ingredientes = view.findViewById(R.id.txIngredientes);
         TextView preparacion = view.findViewById(R.id.txPreparacion);
+        ImageView imagen = view.findViewById(R.id.vwImagen);
 
         // Mostramos los datos
         nombre.setText(receta.nombre);
         descripcion.setText(receta.descripcion);
         ingredientes.setText(receta.ingredientes);
         preparacion.setText(receta.preparacion);
+
+        // Convertirmos BASE64 a BITMAP
+        Bitmap bitmap = ImagenBase.base64ToBitmap(receta.imagen);
+
+        if (bitmap != null) {
+          imagen.setImageBitmap(bitmap);
+        }
     }
 }
 

@@ -7,5 +7,5 @@ public class RecipeResponseDto {
     public String ingredients;
     public String preparation;
     public int difficulty;
-    public String image;
+    public String imageBase64;
 }

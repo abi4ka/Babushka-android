@@ -10,12 +10,15 @@
     android:background="#FFF9F9">
 
     <!-- Imagen Receta -->
-    <View
+    <ImageView
         android:id="@+id/vwImagen"
         android:layout_width="180dp"
         android:layout_height="150dp"
         android:background="#EBE6DF"
-        tools:ignore="MissingConstraints" />
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
 
     <!-- Nombre Receta -->
         <!-- maxLines="2" : si el txNombre es largo, salta de línea máximo 2 líneas-->

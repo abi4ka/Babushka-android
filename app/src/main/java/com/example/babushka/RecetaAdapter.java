@@ -1,10 +1,14 @@
 package com.example.babushka;
 
 
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +19,7 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
 
     private List<Receta> listaReceta;
     private OnRecetaClickListener listener;
+    private Context context;
 
 
     // Interfaz para comunicar el click al Fragment
@@ -24,9 +29,10 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
     }
 
 //Constructor
-    public RecetaAdapter(List<Receta> listaReceta, OnRecetaClickListener listener){
+    public RecetaAdapter(List<Receta> listaReceta, OnRecetaClickListener listener, Context context){
         this.listaReceta = listaReceta;
         this.listener = listener;
+        this.context = context;
     }
 
 // Contar total de Recetas
@@ -52,10 +58,15 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
         holder.descrip.setText(receta.descripcion);
         holder.dificult.setText(receta.dificultad);
 
-        /*
-         * Cuando se hace click en una mini receta,
-         * avisamos al Fragment y le pasamos la receta clicada
-         */
+        // Convertirmos BASE64 a BITMAP
+        Bitmap bitmap = ImagenBase.base64ToBitmap(receta.imagen);
+
+        if (bitmap != null) {
+            holder.imagen.setImageBitmap(bitmap);
+        }
+
+        //Cuando se hace click en una mini receta,
+        // avisamos al Fragment y le pasamos la receta clicada
         holder.itemView.setOnClickListener(v -> {
             listener.onRecetaClick(receta);
         });
@@ -70,11 +81,14 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
 // Asignar visualización de información
     static class ViewHolder extends RecyclerView.ViewHolder{
         TextView nombre, descrip, dificult;
+        ImageView imagen;
         ViewHolder(View view){
             super(view);
             nombre = view.findViewById(R.id.txNombre);
             descrip = view.findViewById(R.id.txDescripcion);
             dificult = view.findViewById(R.id.tvDificultad);
+            imagen = view.findViewById(R.id.vwImagen);
+
         }
 
     }

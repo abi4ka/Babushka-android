@@ -55,7 +55,7 @@ public class InicioFragment extends Fragment {
          */
         adapter = new RecetaAdapter(recetas, receta -> {
             abrirDetalleReceta(receta);
-        });
+        },getContext());
 
         rvRecetas.setAdapter(adapter);
 
@@ -127,7 +127,7 @@ public class InicioFragment extends Fragment {
                 String.valueOf(dto.difficulty),
                 dto.ingredients,
                 dto.preparation,
-                dto.image
+                dto.imageBase64 // Llega el Base64
         );
     }
 }
