@@ -8,11 +8,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class DetalleRecetaFragment extends Fragment {
+public class DetalleFragment extends Fragment {
 
     private Receta receta;
 
-    public DetalleRecetaFragment(Receta receta) {
+    public DetalleFragment(Receta receta) {
         super(R.layout.receta);
         this.receta = receta;
     }

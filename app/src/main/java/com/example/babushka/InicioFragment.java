@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.babushka.network.RecipeResponseDto;
 import com.example.babushka.network.RetrofitClient;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,22 +82,7 @@ public class InicioFragment extends Fragment {
     }
 
     private void abrirDetalleReceta(Receta receta) {
-        mainActivity.replaceFragment(new DetalleRecetaFragment(receta));
-
-//        com.example.babushka.DetalleRecetaFragment fragment = new com.example.babushka.DetalleRecetaFragment();
-//
-//        // Bundle para enviar datos
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable("receta", receta);
-//
-//        fragment.setArguments(bundle);
-//
-//        // Reemplazamos el fragment actual por el de detalle
-//        getParentFragmentManager()
-//                .beginTransaction()
-//                .replace(R.id.fragmentContainerView, fragment)
-//                .addToBackStack(null) // permite volver atrás
-//                .commit();
+        mainActivity.replaceFragment(new DetalleFragment(receta));
     }
 
     // Simulación de carga de recetas (scroll infinito)
