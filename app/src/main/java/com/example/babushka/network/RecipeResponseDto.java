@@ -1,11 +1,10 @@
 package com.example.babushka.network;
 
 public class RecipeResponseDto {
-    public long id;
+    public Long id;
     public String title;
     public String description;
     public String ingredients;
     public String preparation;
     public int difficulty;
-    public String imageBase64;
 }

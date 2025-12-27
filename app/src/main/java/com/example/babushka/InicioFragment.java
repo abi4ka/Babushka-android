@@ -122,12 +122,12 @@ public class InicioFragment extends Fragment {
 
     private Receta mapToReceta(RecipeResponseDto dto) {
         return new Receta(
+                dto.id,
                 dto.title,
                 dto.description,
                 String.valueOf(dto.difficulty),
                 dto.ingredients,
-                dto.preparation,
-                dto.imageBase64 // Llega el Base64
+                dto.preparation
         );
     }
 }

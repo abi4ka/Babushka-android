@@ -3,6 +3,7 @@ package com.example.babushka;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.babushka.network.RetrofitClient;
+
 import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder> {
 
@@ -58,12 +66,26 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
         holder.descrip.setText(receta.descripcion);
         holder.dificult.setText(receta.dificultad);
 
-        // Convertirmos BASE64 a BITMAP
-        Bitmap bitmap = ImagenBase.base64ToBitmap(receta.imagen);
+        RetrofitClient.getApi()
+                .getRecipeImage(receta.id)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call,
+                                           Response<ResponseBody> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            Bitmap bitmap = BitmapFactory.decodeStream(
+                                    response.body().byteStream()
+                            );
+                            receta.bitmapImage = bitmap;
+                            holder.imagen.setImageBitmap(bitmap);
+                        }
+                    }
 
-        if (bitmap != null) {
-            holder.imagen.setImageBitmap(bitmap);
-        }
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
 
         //Cuando se hace click en una mini receta,
         // avisamos al Fragment y le pasamos la receta clicada

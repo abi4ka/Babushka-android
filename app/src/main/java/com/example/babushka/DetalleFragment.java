@@ -40,7 +40,8 @@ public class DetalleFragment extends Fragment {
         preparacion.setText(receta.preparacion);
 
         // Convertirmos BASE64 a BITMAP
-        Bitmap bitmap = ImagenBase.base64ToBitmap(receta.imagen);
+        //Bitmap bitmap = ImagenBase.base64ToBitmap(receta.imagen);
+        Bitmap bitmap = receta.bitmapImage;
 
         if (bitmap != null) {
           imagen.setImageBitmap(bitmap);
