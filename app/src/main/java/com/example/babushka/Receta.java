@@ -1,6 +1,11 @@
 package com.example.babushka;
 
-public class Receta {
+
+import java.io.Serializable;
+// Implementamos Serializable para poder enviar objetos Receta entre fragments usando Bundle
+
+public class Receta implements Serializable {
+
     String nombre;
     String descripcion;
     String dificultad;

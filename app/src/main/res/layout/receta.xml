@@ -86,7 +86,7 @@
     
     <!-- Preparación Receta -->
     <TextView
-        android:id="@+id/tx"
+        android:id="@+id/txPreparacion"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:text="Preparación:"

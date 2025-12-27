@@ -30,8 +30,12 @@ public class InicioFragment extends Fragment {
     private final int PAGE_SIZE = 6;
     private boolean isLoading = false;
 
-    public InicioFragment() {
+    private MainActivity mainActivity;
+
+    //
+    public InicioFragment(MainActivity mainActivity) {
         super(R.layout.fragment_inicio);
+        this.mainActivity = mainActivity;
     }
 
     @Override
@@ -40,10 +44,18 @@ public class InicioFragment extends Fragment {
 
         rvRecetas = view.findViewById(R.id.rvRecetas);
 
+        // Layout vertical
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvRecetas.setLayoutManager(layoutManager);
 
-        adapter = new RecetaAdapter(recetas);
+        /*
+         * Creamos el adapter y definimos
+         * qué pasa cuando se hace click en una receta
+         */
+        adapter = new RecetaAdapter(recetas, receta -> {
+            abrirDetalleReceta(receta);
+        });
+
         rvRecetas.setAdapter(adapter);
 
         loadNextPage();
@@ -68,6 +80,26 @@ public class InicioFragment extends Fragment {
         });
     }
 
+    private void abrirDetalleReceta(Receta receta) {
+        mainActivity.replaceFragment(new DetalleRecetaFragment(receta));
+
+//        com.example.babushka.DetalleRecetaFragment fragment = new com.example.babushka.DetalleRecetaFragment();
+//
+//        // Bundle para enviar datos
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("receta", receta);
+//
+//        fragment.setArguments(bundle);
+//
+//        // Reemplazamos el fragment actual por el de detalle
+//        getParentFragmentManager()
+//                .beginTransaction()
+//                .replace(R.id.fragmentContainerView, fragment)
+//                .addToBackStack(null) // permite volver atrás
+//                .commit();
+    }
+
+    // Simulación de carga de recetas (scroll infinito)
     private void loadNextPage() {
         Toast.makeText(getContext(), "loadNextPage", Toast.LENGTH_SHORT).show();
         isLoading = true;

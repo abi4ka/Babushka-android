@@ -14,10 +14,19 @@ import java.util.List;
 public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder> {
 
     private List<Receta> listaReceta;
+    private OnRecetaClickListener listener;
+
+
+    // Interfaz para comunicar el click al Fragment
+    // (el Adapter NO abre fragments, solo avisa)
+    public interface OnRecetaClickListener {
+        void onRecetaClick(Receta receta);
+    }
 
 //Constructor
-    public RecetaAdapter(List<Receta> listaReceta){
+    public RecetaAdapter(List<Receta> listaReceta, OnRecetaClickListener listener){
         this.listaReceta = listaReceta;
+        this.listener = listener;
     }
 
 // Contar total de Recetas
@@ -26,7 +35,15 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
         return listaReceta.size();
     }
 
-// Asignar valor a variables que luego se visualizarán
+    // Crear mini Receta
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.mini_receta, parent, false);
+        return new ViewHolder(view);
+    }
+
+    // Asignar valor a variables que luego se visualizarán
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Receta receta = listaReceta.get(position);
@@ -34,14 +51,14 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
         holder.nombre.setText(receta.nombre);
         holder.descrip.setText(receta.descripcion);
         holder.dificult.setText(receta.dificultad);
-    }
 
-// Crear mini Receta
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.mini_receta, parent, false);
-        return new ViewHolder(view);
+        /*
+         * Cuando se hace click en una mini receta,
+         * avisamos al Fragment y le pasamos la receta clicada
+         */
+        holder.itemView.setOnClickListener(v -> {
+            listener.onRecetaClick(receta);
+        });
     }
 
     public void addRecetas(List<Receta> nuevas) {
@@ -61,6 +78,8 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
         }
 
     }
+
+
 
 
 
