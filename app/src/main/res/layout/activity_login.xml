@@ -1,90 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-    Layout principal de la pantalla de login.
-    Usa ConstraintLayout como contenedor raíz.
--->
+
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--
-        Imagen de fondo que ocupa toda la pantalla.
-    -->
+    <!-- Fondo general -->
     <ImageView
         android:id="@+id/imgFondo"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
+        android:src="@drawable/gatoCocinando"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!--
-        Contenedor central del formulario de login.
-    -->
-    <LinearLayout
-        android:id="@+id/contenedorLogin"
-        android:layout_width="0dp"
+    <!-- CardView -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="24dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="10dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.55">
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Campo usuario -->
-        <EditText
-            android:id="@+id/etUsuario"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Usuario"
-            android:background="@android:drawable/edit_text"
-            android:padding="12dp"
-            android:inputType="textPersonName"
-            android:layout_marginBottom="12dp" />
+            android:layout_height="wrap_content">
 
-        <!-- Campo contraseña -->
-        <EditText
-            android:id="@+id/etClave"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Clave"
-            android:background="@android:drawable/edit_text"
-            android:padding="12dp"
-            android:inputType="textPassword"
-            android:layout_marginBottom="20dp" />
+            <!-- Fondo del card -->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:alpha="0.6"
+                android:scaleType="centerCrop"
+                android:src="@drawable/gatoCocinando" />
 
-        <!-- Contenedor de botones -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnEntrar"
-                android:layout_width="0dp"
+            <!-- Contenido -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Entrar"
-                android:textAllCaps="false"
-                android:layout_marginEnd="8dp" />
+                android:orientation="vertical"
+                android:padding="24dp">
 
-            <Button
-                android:id="@+id/btnRegistrarse"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Registrarse"
-                android:textAllCaps="false"
-                android:layout_marginStart="8dp" />
+                <EditText
+                    android:id="@+id/etUsuario"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Usuario"
+                    android:inputType="textPersonName"
+                    android:padding="12dp"
+                    android:layout_marginBottom="12dp" />
 
-        </LinearLayout>
+                <EditText
+                    android:id="@+id/etClave"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Clave"
+                    android:inputType="textPassword"
+                    android:padding="12dp"
+                    android:layout_marginBottom="20dp" />
 
-    </LinearLayout>
+                <!-- Botones -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnEntrar"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Entrar"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/white"
+                        android:backgroundTint="@android:color/black"
+                        android:layout_marginEnd="8dp" />
+
+                    <Button
+                        android:id="@+id/btnRegistrarse"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Registrarse"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/white"
+                        android:backgroundTint="@android:color/black"
+                        android:layout_marginStart="8dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
