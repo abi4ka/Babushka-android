@@ -40,21 +40,21 @@
         <!-- maxLines="4" : si el txDescripcion es largo, salta de línea máximo 4 líneas-->
         <!-- ellipsize="end" : cuando se hay más texto del q puede salir en pantalla, en vez de cortarse usa "..." al final-->
 
+    <!-- Dificultad -->
+
     <TextView
         android:id="@+id/txDescripcion"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="0dp"
+
+        android:ellipsize="end"
+        android:maxLines="4"
         android:text="Breve descripción de la receta"
         android:textSize="15dp"
-        android:maxLines="4"
-        android:ellipsize="end"
         app:layout_constraintLeft_toLeftOf="@id/txNombre"
         app:layout_constraintTop_toBottomOf="@id/txNombre"
         tools:ignore="MissingConstraints" />
 
-    <!-- Dificultad -->
     <TextView
         android:id="@+id/tvDificultad"
         android:layout_width="wrap_content"
