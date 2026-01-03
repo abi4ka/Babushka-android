@@ -13,6 +13,7 @@
         android:theme="@style/Theme.Babushka">
         <activity
             android:name=".RegisterActivity"
+            android:name=".CategoriasDetailActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -24,5 +25,5 @@
             </intent-filter>
         </activity>
     </application>
-
+    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>

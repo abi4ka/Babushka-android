@@ -14,7 +14,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="Recipes App"
+            app:title="BABUSHKA"
             app:navigationIcon="@drawable/ic_menu" />
 
         <androidx.fragment.app.FragmentContainerView
