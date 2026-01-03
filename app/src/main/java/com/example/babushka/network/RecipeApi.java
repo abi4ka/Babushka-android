@@ -10,12 +10,12 @@ import retrofit2.http.Query;
 
 public interface RecipeApi {
 
-    @GET("/recipes")
+    @GET("/recipe/get-page")
     Call<List<RecipeResponseDto>> getRecipes(
             @Query("page") int page,
             @Query("size") int size
     );
 
-    @GET("/recipes/{id}/image")
+    @GET("/recipe/{id}/image")
     Call<ResponseBody> getRecipeImage(@Path("id") long id);
 }
