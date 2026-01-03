@@ -28,12 +28,12 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
 
         if (savedInstanceState == null) {
-            replaceFragment(new InicioFragment());
+            replaceFragment(new InicioFragment(this));
         }
 
         navigationView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
-            if (id == R.id.menu_inicio) replaceFragment(new InicioFragment());
+            if (id == R.id.menu_inicio) replaceFragment(new InicioFragment(this));
             else if (id == R.id.menu_categorias) replaceFragment(new CategoriasFragment());
             else if (id == R.id.menu_perfil) replaceFragment(new PerfilFragment());
             drawerLayout.closeDrawer(GravityCompat.START);
@@ -41,10 +41,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void replaceFragment(Fragment fragment) {
+    public void replaceFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_fragment_container, fragment)
+                .addToBackStack(null) //Para salir de la receta grande sin cerrar aplicación
                 .commit();
     }
 }
