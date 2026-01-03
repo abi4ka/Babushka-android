@@ -1,4 +1,4 @@
-package com.example.babushka;
+package com.example.babushka.categorias;
 
 import android.os.Bundle;
 import android.widget.TextView;
@@ -6,6 +6,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
+
+import com.example.babushka.R;
 
 public class CategoriasDetailActivity extends AppCompatActivity {
 

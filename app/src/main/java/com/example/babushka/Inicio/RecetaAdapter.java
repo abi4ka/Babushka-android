@@ -1,4 +1,4 @@
-package com.example.babushka;
+package com.example.babushka.Inicio;
 
 
 import android.content.Context;
@@ -9,11 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.babushka.R;
 import com.example.babushka.network.RetrofitClient;
 
 import java.util.List;

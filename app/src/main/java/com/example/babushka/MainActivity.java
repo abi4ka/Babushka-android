@@ -7,6 +7,9 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import com.example.babushka.Inicio.InicioFragment;
+import com.example.babushka.categorias.CategoriasFragment;
+import com.example.babushka.user.PerfilFragment;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 

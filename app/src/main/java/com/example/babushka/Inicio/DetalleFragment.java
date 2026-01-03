@@ -1,4 +1,4 @@
-package com.example.babushka;
+package com.example.babushka.Inicio;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.example.babushka.R;
 
 public class DetalleFragment extends Fragment {
 

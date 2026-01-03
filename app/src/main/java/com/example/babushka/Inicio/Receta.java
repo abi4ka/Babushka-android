@@ -1,4 +1,4 @@
-package com.example.babushka;
+package com.example.babushka.Inicio;
 
 
 import android.graphics.Bitmap;
@@ -7,14 +7,14 @@ import java.io.Serializable;
 // Implementamos Serializable para poder enviar objetos Receta entre fragments usando Bundle
 
 public class Receta implements Serializable {
-    Long id;
-    String nombre;
-    String descripcion;
-    String dificultad;
-    String ingredientes;
-    String preparacion;
-    String imagen;
-    Bitmap bitmapImage;
+    public Long id;
+    public String nombre;
+    public String descripcion;
+    public String dificultad;
+    public String ingredientes;
+    public String preparacion;
+    public String imagen;
+    public Bitmap bitmapImage;
 
     public Receta(Long id,
                   String nombre,

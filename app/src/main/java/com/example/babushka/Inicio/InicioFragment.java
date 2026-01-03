@@ -1,4 +1,4 @@
-package com.example.babushka;
+package com.example.babushka.Inicio;
 
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.babushka.MainActivity;
+import com.example.babushka.R;
 import com.example.babushka.network.RecipeResponseDto;
 import com.example.babushka.network.RetrofitClient;
 
