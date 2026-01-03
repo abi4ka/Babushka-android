@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Babushka">
         <activity
+            android:name=".RegisterActivity"
             android:name=".CategoriasDetailActivity"
             android:exported="false" />
         <activity

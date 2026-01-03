@@ -64,37 +64,16 @@
                     android:hint="Clave"
                     android:inputType="textPassword"
                     android:padding="12dp"
-                    android:layout_marginBottom="20dp" />
+                    android:layout_marginBottom="24dp" />
 
-                <!-- Botones -->
-                <LinearLayout
+                <Button
+                    android:id="@+id/btnRegistrarse"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/btnEntrar"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Entrar"
-                        android:textAllCaps="false"
-                        android:textColor="@android:color/white"
-                        android:backgroundTint="@android:color/black"
-                        android:layout_marginEnd="8dp" />
-
-                    <Button
-                        android:id="@+id/btnRegistrarse"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Registrarse"
-                        android:textAllCaps="false"
-                        android:textColor="@android:color/white"
-                        android:backgroundTint="@android:color/black"
-                        android:layout_marginStart="8dp" />
-
-                </LinearLayout>
+                    android:text="Registrarse"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:backgroundTint="@android:color/black" />
 
             </LinearLayout>
 
