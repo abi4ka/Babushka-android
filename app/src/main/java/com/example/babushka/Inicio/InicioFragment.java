@@ -6,6 +6,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,15 +37,24 @@ public class InicioFragment extends Fragment {
 
     private MainActivity mainActivity;
 
-    //
-    public InicioFragment(MainActivity mainActivity) {
+    private String category;
+    private int color;
+
+    //Constructor
+    public InicioFragment(MainActivity mainActivity, String category, int color) {
         super(R.layout.fragment_inicio);
         this.mainActivity = mainActivity;
+        this.category = category;
+        this.color = color;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        // Queremos guardar el fondo del fragment inicio para despues asignar color
+        ConstraintLayout rootLayout = view.findViewById(R.id.rootLayout);
+        rootLayout.setBackgroundColor(ContextCompat.getColor(mainActivity, color));
 
         rvRecetas = view.findViewById(R.id.rvRecetas);
 
