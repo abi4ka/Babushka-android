@@ -1,7 +1,10 @@
 package com.example.babushka.Inicio;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -39,6 +42,7 @@ public class InicioFragment extends Fragment {
 
     private String category;
     private int color;
+    private String search;
 
     //Constructor
     public InicioFragment(MainActivity mainActivity, String category, int color) {
@@ -51,6 +55,34 @@ public class InicioFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        //Barra buscador
+        EditText barraBuscador = view.findViewById(R.id.etBuscar);
+
+        barraBuscador.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Guardamos el texto que escribe el usuario
+                search = s.toString();
+
+                // Reiniciamos paginación y lista
+                currentPage = 0;
+                recetas.clear();
+                adapter.notifyDataSetChanged();
+
+                // Pedimos la primera página con el texto de búsqueda
+                loadNextPage();
+            }
+
+        });
+
 
         // Queremos guardar el fondo del fragment inicio para despues asignar color
         ConstraintLayout rootLayout = view.findViewById(R.id.rootLayout);
@@ -104,7 +136,7 @@ public class InicioFragment extends Fragment {
         isLoading = true;
 
         RetrofitClient.getApi()
-                .getRecipes(currentPage, PAGE_SIZE)
+                .getRecipes(currentPage, PAGE_SIZE, search)
                 .enqueue(new Callback<List<RecipeResponseDto>>() {
                     @Override
                     public void onResponse(Call<List<RecipeResponseDto>> call,

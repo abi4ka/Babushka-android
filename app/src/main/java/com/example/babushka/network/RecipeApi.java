@@ -13,7 +13,8 @@ public interface RecipeApi {
     @GET("/recipe/get-page")
     Call<List<RecipeResponseDto>> getRecipes(
             @Query("page") int page,
-            @Query("size") int size
+            @Query("size") int size,
+            @Query("search") String search
     );
 
     @GET("/recipe/{id}/get-image")
