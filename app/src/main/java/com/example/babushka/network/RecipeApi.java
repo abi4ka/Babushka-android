@@ -16,6 +16,6 @@ public interface RecipeApi {
             @Query("size") int size
     );
 
-    @GET("/recipe/{id}/image")
+    @GET("/recipe/{id}/get-image")
     Call<ResponseBody> getRecipeImage(@Path("id") long id);
 }
