@@ -38,7 +38,7 @@ public class DetalleFragment extends Fragment {
         // Mostramos los datos
         nombre.setText(receta.nombre);
         descripcion.setText(receta.descripcion);
-        ingredientes.setText(receta.ingredientes);
+        ingredientes.setText(ingredientesBetterLook(receta.ingredientes));
         preparacion.setText(receta.preparacion);
 
         // Convertirmos BASE64 a BITMAP
@@ -48,6 +48,22 @@ public class DetalleFragment extends Fragment {
         if (bitmap != null) {
           imagen.setImageBitmap(bitmap);
         }
+    }
+
+    //Pasar ingredientes a listado en receta
+    public String ingredientesBetterLook(String ingredientes){
+        StringBuilder new_ingredientes = new StringBuilder();
+
+        String[] ingredientes_list = ingredientes.split(", ");
+
+        for (String ingredient : ingredientes_list){
+            new_ingredientes.append("▶ ")
+                    .append(Character.toUpperCase(ingredient.charAt(0)))
+                    .append(ingredient.substring(1))
+                    .append("\n");
+        }
+
+        return new_ingredientes.toString();
     }
 }
 
