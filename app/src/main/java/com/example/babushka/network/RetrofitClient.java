@@ -6,19 +6,18 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
-
     private static final String BASE_URL = "http://47.59.1.79:25565";
-
     private static Retrofit retrofit;
 
     public static RecipeApi getApi() {
         if (retrofit == null) {
 
-            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+//            Para mostrar info de peticiones (DEBUG)
+//            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+//            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
             OkHttpClient client = new OkHttpClient.Builder()
-                    .addInterceptor(logging)
+//                    .addInterceptor(logging)
                     .build();
 
             retrofit = new Retrofit.Builder()
