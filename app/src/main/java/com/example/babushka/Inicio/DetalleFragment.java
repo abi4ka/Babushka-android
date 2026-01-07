@@ -41,13 +41,16 @@ public class DetalleFragment extends Fragment {
 
         // Referencias a TextView del layout
         TextView nombre = view.findViewById(R.id.txNombre);
+        TextView dificultad = view.findViewById(R.id.tvDificultad);
         TextView descripcion = view.findViewById(R.id.txDescripcion);
         TextView ingredientes = view.findViewById(R.id.txIngredientes);
         TextView preparacion = view.findViewById(R.id.txPreparacion);
         ImageView imagen = view.findViewById(R.id.vwImagen);
 
+
         // Mostramos los datos
         nombre.setText(receta.nombre);
+        dificultad.setText("Dificultad " + receta.dificultad);
         descripcion.setText(receta.descripcion);
         ingredientes.setText(ingredientesBetterLook(receta.ingredientes));
         preparacion.setText(receta.preparacion);
