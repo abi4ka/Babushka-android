@@ -2,6 +2,8 @@ package com.example.babushka.Inicio;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -28,6 +30,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class InicioFragment extends Fragment {
+    private Handler searchHandler = new Handler(Looper.getMainLooper());
+    private Runnable searchRunnable;
+    private static final long SEARCH_DELAY = 500; // milisegundos
     private RecyclerView rvRecetas;
     private RecetaAdapter adapter;
     private List<Receta> recetas = new ArrayList<>();
@@ -70,16 +75,24 @@ public class InicioFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Guardamos el texto que escribe el usuario
+
                 search = s.toString();
 
-                // Reiniciamos paginación y lista
-                currentPage = 0;
-                recetas.clear();
-                adapter.notifyDataSetChanged();
+                // Cancelamos cualquier búsqueda pendiente
+                if (searchRunnable != null) {
+                    searchHandler.removeCallbacks(searchRunnable);
+                }
 
-                // Pedimos la primera página con el texto de búsqueda
-                loadNextPage();
+                // Creamos una nueva búsqueda con delay
+                searchRunnable = () -> {
+                    currentPage = 0;
+                    recetas.clear();
+                    adapter.notifyDataSetChanged();
+                    loadNextPage();
+                };
+
+                // Ejecutamos tras X ms desde la última tecla
+                searchHandler.postDelayed(searchRunnable, SEARCH_DELAY);
             }
         });
 
