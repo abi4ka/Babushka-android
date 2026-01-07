@@ -1,11 +1,11 @@
 package com.example.babushka.Inicio;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.babushka.MainActivity;
 import com.example.babushka.R;
 import com.example.babushka.network.RecipeResponseDto;
 import com.example.babushka.network.RetrofitClient;
@@ -38,15 +37,25 @@ public class InicioFragment extends Fragment {
     private String category;
     private int color;
     private String search;
-    public InicioFragment(String category, int color) {
+    public InicioFragment() {
         super(R.layout.fragment_inicio);
-        this.category = category;
-        this.color = color;
+    }
+    public static InicioFragment newInstance(String categoria, int colorRes) {
+        InicioFragment fragment = new InicioFragment();
+        Bundle args = new Bundle();
+        args.putString("categoria", categoria);
+        args.putInt("color", colorRes);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Bundle args = requireArguments();
+        category = args.getString("categoria");
+        color = args.getInt("color");
 
         //Barra buscador
         EditText barraBuscador = view.findViewById(R.id.etBuscar);
@@ -72,9 +81,7 @@ public class InicioFragment extends Fragment {
                 // Pedimos la primera página con el texto de búsqueda
                 loadNextPage();
             }
-
         });
-
 
         // Queremos guardar el fondo del fragment inicio para despues asignar color
         ConstraintLayout rootLayout = view.findViewById(R.id.rootLayout);
@@ -118,29 +125,31 @@ public class InicioFragment extends Fragment {
         });
     }
 
+    private InicioNavigation navigation;
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof InicioNavigation) {
+            navigation = (InicioNavigation) context;
+        } else {
+            throw new IllegalStateException(
+                    "MainActivity must implement InicioNavigation"
+            );
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        navigation = null;
+    }
     private void abrirDetalleReceta(Receta receta) {
-        mainActivity.replaceFragment(new DetalleFragment(receta));
+        navigation.abrirDetalle(receta);
     }
 
     // Simulación de carga de recetas (scroll infinito)
     private void loadNextPage() {
         isLoading = true;
-
-        List<Receta> nuevas = new ArrayList<>();
-
-        for (int i = 0; i < PAGE_SIZE; i++) {
-            nuevas.add(new Receta(
-                    1L,
-                    "Tarta de queso",
-                    "Una tarta de queso cremosa y suave, perfecta como postre tradicional.",
-                    "3",
-                    "Galletas tipo María, mantequilla, queso crema, azúcar, huevos, nata líquida y vainilla.",
-                    "Triturar las galletas y mezclarlas con mantequilla derretida. Forrar la base del molde. Batir el queso crema con el azúcar, añadir los huevos uno a uno, la nata y la vainilla. Verter la mezcla sobre la base y hornear a 170°C durante 50 minutos."
-            ));
-        }
-        adapter.addRecetas(nuevas);
-        currentPage++;
-        isLoading = false;
 
         RetrofitClient.getApi()
                 .getRecipes(currentPage, PAGE_SIZE, search)

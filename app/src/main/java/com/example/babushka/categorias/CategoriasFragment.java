@@ -14,19 +14,20 @@ import com.example.babushka.MainActivity;
 import com.example.babushka.R;
 
 public class CategoriasFragment extends Fragment {
-    private MainActivity mainActivity;
+    private OnCategoriaSelected listener;
 
     public CategoriasFragment() {
         super(R.layout.fragment_categorias);
-        this.mainActivity = mainActivity;
     }
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        if (context instanceof MainActivity) {
-            mainActivity = (MainActivity) context;
+        if (context instanceof OnCategoriaSelected) {
+            listener = (OnCategoriaSelected) context;
         }
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -50,43 +51,43 @@ public class CategoriasFragment extends Fragment {
 
         // Al hacer click, abrir la pantalla de la categoria:
         categoriaHealth.setOnClickListener(v -> {
-            mainActivity.replaceFragment(new InicioFragment("health",R.color.cat_health));
+            listener.onCategoriaSelected("health",R.color.cat_health);
         });
 
         categoriaEntrantes.setOnClickListener(v -> {
-            mainActivity.replaceFragment(new InicioFragment("entrantes",R.color.cat_entrantes));
+            listener.onCategoriaSelected("entrantes",R.color.cat_entrantes);
         });
 
         categoriaCarnes.setOnClickListener(v -> {
-            mainActivity.replaceFragment(new InicioFragment("carnes",R.color.cat_carnes));
+            listener.onCategoriaSelected("carnes",R.color.cat_carnes);
         });
 
         categoriaPasta.setOnClickListener(v -> {
-            mainActivity.replaceFragment(new InicioFragment("pasta",R.color.cat_pasta));
+            listener.onCategoriaSelected("pasta",R.color.cat_pasta);
         });
 
         categoriaMar.setOnClickListener(v -> {
-            mainActivity.replaceFragment(new InicioFragment("mar", R.color.cat_mar));
+            listener.onCategoriaSelected("mar", R.color.cat_mar);
         });
 
         categoriaEnsaladas.setOnClickListener(v -> {
-            mainActivity.replaceFragment(new InicioFragment("ensaladas", R.color.cat_ensaladas));
+            listener.onCategoriaSelected("ensaladas", R.color.cat_ensaladas);
         });
 
         categoriaPostres.setOnClickListener(v -> {
-            mainActivity.replaceFragment(new InicioFragment("postres", R.color.cat_postres));
+            listener.onCategoriaSelected("postres", R.color.cat_postres);
         });
 
         categoriaVegetariano.setOnClickListener(v -> {
-            mainActivity.replaceFragment(new InicioFragment("vegetariano", R.color.cat_vegetariano));
+            listener.onCategoriaSelected("vegetariano", R.color.cat_vegetariano);
         });
 
         categoriaVegano.setOnClickListener(v -> {
-            mainActivity.replaceFragment(new InicioFragment("vegano", R.color.cat_vegano));
+            listener.onCategoriaSelected("vegano", R.color.cat_vegano);
         });
 
         categoriaSinGluten.setOnClickListener(v -> {
-            mainActivity.replaceFragment(new InicioFragment("sin_gluten", R.color.cat_sin_gluten));
+            listener.onCategoriaSelected("sin_gluten", R.color.cat_sin_gluten);
         });
     }
 }
