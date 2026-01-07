@@ -29,25 +29,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class InicioFragment extends Fragment {
-
     private RecyclerView rvRecetas;
     private RecetaAdapter adapter;
     private List<Receta> recetas = new ArrayList<>();
-
     private int currentPage = 0;
     private final int PAGE_SIZE = 6;
     private boolean isLoading = false;
-
-    private MainActivity mainActivity;
-
     private String category;
     private int color;
     private String search;
-
-    //Constructor
-    public InicioFragment(MainActivity mainActivity, String category, int color) {
+    public InicioFragment(String category, int color) {
         super(R.layout.fragment_inicio);
-        this.mainActivity = mainActivity;
         this.category = category;
         this.color = color;
     }
@@ -86,7 +78,7 @@ public class InicioFragment extends Fragment {
 
         // Queremos guardar el fondo del fragment inicio para despues asignar color
         ConstraintLayout rootLayout = view.findViewById(R.id.rootLayout);
-        rootLayout.setBackgroundColor(ContextCompat.getColor(mainActivity, color));
+        rootLayout.setBackgroundColor(ContextCompat.getColor(requireContext(), color));
 
         rvRecetas = view.findViewById(R.id.rvRecetas);
 
@@ -100,7 +92,7 @@ public class InicioFragment extends Fragment {
          */
         adapter = new RecetaAdapter(recetas, receta -> {
             abrirDetalleReceta(receta);
-        },getContext());
+        });
 
         rvRecetas.setAdapter(adapter);
 
@@ -133,6 +125,22 @@ public class InicioFragment extends Fragment {
     // Simulación de carga de recetas (scroll infinito)
     private void loadNextPage() {
         isLoading = true;
+
+        List<Receta> nuevas = new ArrayList<>();
+
+        for (int i = 0; i < PAGE_SIZE; i++) {
+            nuevas.add(new Receta(
+                    1L,
+                    "Tarta de queso",
+                    "Una tarta de queso cremosa y suave, perfecta como postre tradicional.",
+                    "3",
+                    "Galletas tipo María, mantequilla, queso crema, azúcar, huevos, nata líquida y vainilla.",
+                    "Triturar las galletas y mezclarlas con mantequilla derretida. Forrar la base del molde. Batir el queso crema con el azúcar, añadir los huevos uno a uno, la nata y la vainilla. Verter la mezcla sobre la base y hornear a 170°C durante 50 minutos."
+            ));
+        }
+        adapter.addRecetas(nuevas);
+        currentPage++;
+        isLoading = false;
 
         RetrofitClient.getApi()
                 .getRecipes(currentPage, PAGE_SIZE, search)

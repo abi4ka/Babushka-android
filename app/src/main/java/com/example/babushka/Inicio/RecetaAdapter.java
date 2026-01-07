@@ -27,7 +27,6 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
 
     private List<Receta> listaReceta;
     private OnRecetaClickListener listener;
-    private Context context;
 
     // Interfaz para comunicar el click al Fragment
     // (el Adapter NO abre fragments, solo avisa)
@@ -35,10 +34,9 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
         void onRecetaClick(Receta receta);
     }
 
-    public RecetaAdapter(List<Receta> listaReceta, OnRecetaClickListener listener, Context context) {
+    public RecetaAdapter(List<Receta> listaReceta, OnRecetaClickListener listener) {
         this.listaReceta = listaReceta;
         this.listener = listener;
-        this.context = context;
     }
 
     // Contar total de Recetas
