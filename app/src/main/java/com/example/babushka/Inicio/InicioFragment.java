@@ -186,7 +186,7 @@ public class InicioFragment extends Fragment {
                 dto.id,
                 dto.title,
                 dto.description,
-                String.valueOf(dto.difficulty),
+                dto.difficulty,
                 dto.ingredients,
                 dto.preparation
         );
