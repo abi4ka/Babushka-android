@@ -132,7 +132,6 @@ public class InicioFragment extends Fragment {
 
     // Simulación de carga de recetas (scroll infinito)
     private void loadNextPage() {
-        Toast.makeText(getContext(), "loadNextPage", Toast.LENGTH_SHORT).show();
         isLoading = true;
 
         RetrofitClient.getApi()
