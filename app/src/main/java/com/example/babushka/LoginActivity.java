@@ -8,6 +8,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.babushka.network.RetrofitClient;
+import com.example.babushka.network.UserDto;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class LoginActivity extends AppCompatActivity {
 
     private EditText etUsuario;
@@ -38,22 +46,38 @@ public class LoginActivity extends AppCompatActivity {
         String usuario = etUsuario.getText().toString().trim();
         String clave = etClave.getText().toString().trim();
 
-        // Validación básica
         if (usuario.isEmpty() || clave.isEmpty()) {
-            Toast.makeText(this, "Rellena usuario y clave", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Rellena usuario y contraseña", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Llamamos al API (por hacer)
+        RetrofitClient.getApi()
+                .login(new UserDto(usuario, clave))
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (response.isSuccessful()) {
+                            // Login correcto
+                            // Opcional: gestionar tokens de sesión
+                            irAInicio();
+                        } else {
+                            Toast.makeText(LoginActivity.this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
-        /*
-        1. Enviar usuario y clave al servidor
-        2. Esperar respuesta
-        3. Si es correcto: ir a la siguiente pantalla
-        4. Si falla: mostrar error
-        */
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        t.printStackTrace();
+                        Toast.makeText(LoginActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
-        Toast.makeText(this, "Login correcto", Toast.LENGTH_SHORT).show();
+    }
+
+    private void irAInicio() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish(); // Para que no vuelva atrás al login
     }
 
     private void irARegistro() {

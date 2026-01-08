@@ -8,6 +8,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.babushka.network.RetrofitClient;
+import com.example.babushka.network.UserDto;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText etUsuario;
@@ -33,26 +41,35 @@ public class RegisterActivity extends AppCompatActivity {
         String usuario = etUsuario.getText().toString().trim();
         String clave = etClave.getText().toString().trim();
 
-        // Validaciones
         if (usuario.isEmpty() || clave.isEmpty()) {
             Toast.makeText(this, "Rellena todos los campos", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Aquí llamaremos al API
+        RetrofitClient.getApi()
+                .register(new UserDto(usuario, clave))
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (response.code() == 201) {
+                            Toast.makeText(RegisterActivity.this, "Registro completado", Toast.LENGTH_SHORT).show();
+                            volverALogin();
+                        } else {
+                            etUsuario.setText("");
+                            etClave.setText("");
+                            Toast.makeText(RegisterActivity.this, "Error: usuario ya existente o inválido", Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        t.printStackTrace();
+                        etUsuario.setText("");
+                        etClave.setText("");
+                        Toast.makeText(RegisterActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
-        /*
-        1. Enviar usuario y clave al servidor
-        2. Esperar respuesta
-        3. Si es correcto → volver al login
-        4. Si hay error → mostrar mensaje
-        */
-
-        // Simulación de registro correcto
-        Toast.makeText(this, "Registro completado", Toast.LENGTH_SHORT).show();
-
-        volverALogin();
     }
 
     private void volverALogin() {
