@@ -72,7 +72,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private void volverALogin() {
+    private void volverALogin() { //Usamos esta función para volver al Login desde una Activity (Register)
         startActivity(new Intent(this, LoginActivity.class));
         finish(); // cerramos esta pantalla
     }
