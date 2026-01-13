@@ -1,11 +1,13 @@
 package com.example.babushka.Inicio;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,7 +17,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.babushka.MainActivity;
 import com.example.babushka.R;
 import com.example.babushka.network.RecipeResponseDto;
 import com.example.babushka.network.RetrofitClient;
@@ -29,32 +30,37 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class InicioFragment extends Fragment {
-
+    private Handler searchHandler = new Handler(Looper.getMainLooper());
+    private Runnable searchRunnable;
+    private static final long SEARCH_DELAY = 500; // milisegundos
     private RecyclerView rvRecetas;
     private RecetaAdapter adapter;
     private List<Receta> recetas = new ArrayList<>();
-
     private int currentPage = 0;
     private final int PAGE_SIZE = 6;
     private boolean isLoading = false;
-
-    private MainActivity mainActivity;
-
     private String category;
     private int color;
     private String search;
-
-    //Constructor
-    public InicioFragment(MainActivity mainActivity, String category, int color) {
+    public InicioFragment() {
         super(R.layout.fragment_inicio);
-        this.mainActivity = mainActivity;
-        this.category = category;
-        this.color = color;
+    }
+    public static InicioFragment newInstance(String categoria, int colorRes) {
+        InicioFragment fragment = new InicioFragment();
+        Bundle args = new Bundle();
+        args.putString("categoria", categoria);
+        args.putInt("color", colorRes);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Bundle args = requireArguments();
+        category = args.getString("categoria");
+        color = args.getInt("color");
 
         //Barra buscador
         EditText barraBuscador = view.findViewById(R.id.etBuscar);
@@ -69,24 +75,30 @@ public class InicioFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Guardamos el texto que escribe el usuario
+
                 search = s.toString();
 
-                // Reiniciamos paginación y lista
-                currentPage = 0;
-                recetas.clear();
-                adapter.notifyDataSetChanged();
+                // Cancelamos cualquier búsqueda pendiente
+                if (searchRunnable != null) {
+                    searchHandler.removeCallbacks(searchRunnable);
+                }
 
-                // Pedimos la primera página con el texto de búsqueda
-                loadNextPage();
+                // Creamos una nueva búsqueda con delay
+                searchRunnable = () -> {
+                    currentPage = 0;
+                    recetas.clear();
+                    adapter.notifyDataSetChanged();
+                    loadNextPage();
+                };
+
+                // Ejecutamos tras X ms desde la última tecla
+                searchHandler.postDelayed(searchRunnable, SEARCH_DELAY);
             }
-
         });
-
 
         // Queremos guardar el fondo del fragment inicio para despues asignar color
         ConstraintLayout rootLayout = view.findViewById(R.id.rootLayout);
-        rootLayout.setBackgroundColor(ContextCompat.getColor(mainActivity, color));
+        rootLayout.setBackgroundColor(ContextCompat.getColor(requireContext(), color));
 
         rvRecetas = view.findViewById(R.id.rvRecetas);
 
@@ -100,7 +112,7 @@ public class InicioFragment extends Fragment {
          */
         adapter = new RecetaAdapter(recetas, receta -> {
             abrirDetalleReceta(receta);
-        },getContext());
+        });
 
         rvRecetas.setAdapter(adapter);
 
@@ -126,13 +138,30 @@ public class InicioFragment extends Fragment {
         });
     }
 
+    private InicioNavigation navigation;
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof InicioNavigation) {
+            navigation = (InicioNavigation) context;
+        } else {
+            throw new IllegalStateException(
+                    "MainActivity must implement InicioNavigation"
+            );
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        navigation = null;
+    }
     private void abrirDetalleReceta(Receta receta) {
-        mainActivity.replaceFragment(new DetalleFragment(receta));
+        navigation.abrirDetalle(receta);
     }
 
     // Simulación de carga de recetas (scroll infinito)
     private void loadNextPage() {
-        Toast.makeText(getContext(), "loadNextPage", Toast.LENGTH_SHORT).show();
         isLoading = true;
 
         RetrofitClient.getApi()
@@ -170,7 +199,7 @@ public class InicioFragment extends Fragment {
                 dto.id,
                 dto.title,
                 dto.description,
-                String.valueOf(dto.difficulty),
+                dto.difficulty,
                 dto.ingredients,
                 dto.preparation
         );

@@ -16,27 +16,41 @@ public class DetalleFragment extends Fragment {
 
     private Receta receta;
 
-    public DetalleFragment(Receta receta) {
+    public DetalleFragment() {
         super(R.layout.receta);
-        this.receta = receta;
+    }
+
+    public static DetalleFragment newInstance(Receta receta) {
+        DetalleFragment fragment = new DetalleFragment();
+        Bundle args = new Bundle();
+        args.putSerializable("receta", receta);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // Recuperamos la receta enviada desde InicioFragment
+        receta = (Receta) requireArguments().getSerializable("receta");
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Recuperamos la receta enviada desde InicioFragment
-
-
         // Referencias a TextView del layout
         TextView nombre = view.findViewById(R.id.txNombre);
+        TextView dificultad = view.findViewById(R.id.tvDificultad);
         TextView descripcion = view.findViewById(R.id.txDescripcion);
         TextView ingredientes = view.findViewById(R.id.txIngredientes);
         TextView preparacion = view.findViewById(R.id.txPreparacion);
         ImageView imagen = view.findViewById(R.id.vwImagen);
 
+
         // Mostramos los datos
         nombre.setText(receta.nombre);
+        dificultad.setText("Dificultad " + receta.dificultad);
         descripcion.setText(receta.descripcion);
         ingredientes.setText(ingredientesBetterLook(receta.ingredientes));
         preparacion.setText(receta.preparacion);

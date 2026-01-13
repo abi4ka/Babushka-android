@@ -14,11 +14,12 @@ public class RetrofitClient {
     public static RecipeApi getApi() {
         if (retrofit == null) {
 
-            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+//            Para mostrar info de peticiones (DEBUG)
+//            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+//            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
             OkHttpClient client = new OkHttpClient.Builder()
-                    .addInterceptor(logging)
+//                    .addInterceptor(logging)
                     .build();
 
             retrofit = new Retrofit.Builder()

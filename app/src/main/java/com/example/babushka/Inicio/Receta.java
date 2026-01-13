@@ -10,7 +10,7 @@ public class Receta implements Serializable {
     public Long id;
     public String nombre;
     public String descripcion;
-    public String dificultad;
+    public int dificultad;
     public String ingredientes;
     public String preparacion;
     public String imagen;
@@ -19,7 +19,7 @@ public class Receta implements Serializable {
     public Receta(Long id,
                   String nombre,
                   String descripcion,
-                  String dificultad,
+                  int dificultad,
                   String ingredientes,
                   String preparacion) {
         this.id = id;

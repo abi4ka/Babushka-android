@@ -27,8 +27,6 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
 
     private List<Receta> listaReceta;
     private OnRecetaClickListener listener;
-    private Context context;
-
 
     // Interfaz para comunicar el click al Fragment
     // (el Adapter NO abre fragments, solo avisa)
@@ -36,23 +34,21 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
         void onRecetaClick(Receta receta);
     }
 
-//Constructor
-    public RecetaAdapter(List<Receta> listaReceta, OnRecetaClickListener listener, Context context){
+    public RecetaAdapter(List<Receta> listaReceta, OnRecetaClickListener listener) {
         this.listaReceta = listaReceta;
         this.listener = listener;
-        this.context = context;
     }
 
-// Contar total de Recetas
+    // Contar total de Recetas
     @Override
-    public int getItemCount(){
+    public int getItemCount() {
         return listaReceta.size();
     }
 
     // Crear mini Receta
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.mini_receta, parent, false);
         return new ViewHolder(view);
     }
@@ -64,7 +60,7 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
 
         holder.nombre.setText(receta.nombre);
         holder.descrip.setText(receta.descripcion);
-        holder.dificult.setText("Difucultad " + receta.dificultad);
+        holder.dificult.setText("Dificultad " + receta.dificultad);
 
         RetrofitClient.getApi()
                 .getRecipeImage(receta.id)
@@ -100,24 +96,17 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
         notifyItemRangeInserted(start, nuevas.size());
     }
 
-// Asignar visualización de información
-    static class ViewHolder extends RecyclerView.ViewHolder{
+    // Asignar visualización de información
+    class ViewHolder extends RecyclerView.ViewHolder {
         TextView nombre, descrip, dificult;
         ImageView imagen;
-        ViewHolder(View view){
+
+        ViewHolder(View view) {
             super(view);
             nombre = view.findViewById(R.id.txNombre);
             descrip = view.findViewById(R.id.txDescripcion);
             dificult = view.findViewById(R.id.tvDificultad);
             imagen = view.findViewById(R.id.vwImagen);
-
         }
-
     }
-
-
-
-
-
 }
-
