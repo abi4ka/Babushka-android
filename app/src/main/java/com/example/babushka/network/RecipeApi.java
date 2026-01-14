@@ -23,10 +23,10 @@ public interface RecipeApi {
     @GET("/recipes/{id}/image")
     Call<ResponseBody> getRecipeImage(@Path("id") long id);
 
-    @POST("/users/login")
-    Call<ResponseBody> login(@Body UserDto user);
+    @POST("/sessions")
+    Call<LoginResponseDto> login(@Body UserDto user);
 
-    @POST("/users/create")
+    @POST("/users")
     Call<ResponseBody> register(@Body UserDto user);
 
 

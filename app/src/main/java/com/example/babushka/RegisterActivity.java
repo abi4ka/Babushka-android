@@ -46,6 +46,11 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
+        if (clave.length() < 6 || clave.length() > 20){
+            Toast.makeText(this, "La contraseña tiene que estar entre 6 y 20 caracteres", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         RetrofitClient.getApi()
                 .register(new UserDto(usuario, clave))
                 .enqueue(new Callback<ResponseBody>() {

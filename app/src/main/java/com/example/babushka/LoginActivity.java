@@ -8,10 +8,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.babushka.network.LoginResponseDto;
 import com.example.babushka.network.RetrofitClient;
 import com.example.babushka.network.UserDto;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -26,6 +26,15 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Comprobar si ya hay token guardado
+        String token = getSharedPreferences("session", MODE_PRIVATE)
+                .getString("sessionToken", null);
+        if (token != null) {
+            irAInicio();
+            return;
+        }
+
         setContentView(R.layout.activity_login);
 
         // Enlazamos vistas
@@ -42,7 +51,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login() {
-
         String usuario = etUsuario.getText().toString().trim();
         String clave = etClave.getText().toString().trim();
 
@@ -53,30 +61,41 @@ public class LoginActivity extends AppCompatActivity {
 
         RetrofitClient.getApi()
                 .login(new UserDto(usuario, clave))
-                .enqueue(new Callback<ResponseBody>() {
+                .enqueue(new Callback<LoginResponseDto>() {
                     @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if (response.isSuccessful()) {
-                            // Login correcto
-                            // Opcional: gestionar tokens de sesión
+                    public void onResponse(Call<LoginResponseDto> call, Response<LoginResponseDto> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            String token = response.body().sessionToken;
+
+                            // Guardar token en SharedPreferences
+                            saveSessionToken(token);
+
                             irAInicio();
                         } else {
-                            Toast.makeText(LoginActivity.this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this,
+                                    "Usuario o contraseña incorrectos",
+                                    Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    public void onFailure(Call<LoginResponseDto> call, Throwable t) {
                         t.printStackTrace();
                         Toast.makeText(LoginActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
 
+    // Guardar token de sesión
+    private void saveSessionToken(String token) {
+        getSharedPreferences("session", MODE_PRIVATE)
+                .edit()
+                .putString("sessionToken", token)
+                .apply();
     }
 
     private void irAInicio() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(this, MainActivity.class));
         finish(); // Para que no vuelva atrás al login
     }
 
@@ -84,4 +103,3 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(new Intent(this, RegisterActivity.class));
     }
 }
-
