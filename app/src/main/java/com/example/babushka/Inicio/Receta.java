@@ -13,7 +13,6 @@ public class Receta implements Serializable {
     public int dificultad;
     public String ingredientes;
     public String preparacion;
-    public String imagen;
     public Bitmap bitmapImage;
 
     public Receta(Long id,

@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.babushka.R;
+import com.example.babushka.network.ClientResponse;
 import com.example.babushka.network.RecipeResponseDto;
 import com.example.babushka.network.RetrofitClient;
 
@@ -166,16 +167,19 @@ public class InicioFragment extends Fragment {
 
         RetrofitClient.getApi()
                 .getRecipes(currentPage, PAGE_SIZE, search)
-                .enqueue(new Callback<List<RecipeResponseDto>>() {
+                .enqueue(new Callback<ClientResponse<List<RecipeResponseDto>>>() {
                     @Override
-                    public void onResponse(Call<List<RecipeResponseDto>> call,
-                                           Response<List<RecipeResponseDto>> response) {
+                    public void onResponse(
+                            Call<ClientResponse<List<RecipeResponseDto>>> call,
+                            Response<ClientResponse<List<RecipeResponseDto>>> response) {
 
-                        if (response.isSuccessful() && response.body() != null) {
+                        if (response.isSuccessful()
+                                && response.body() != null
+                                && response.body().getData() != null) {
 
                             List<Receta> nuevas = new ArrayList<>();
 
-                            for (RecipeResponseDto dto : response.body()) {
+                            for (RecipeResponseDto dto : response.body().getData()) {
                                 nuevas.add(mapToReceta(dto));
                             }
 
@@ -187,12 +191,15 @@ public class InicioFragment extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<List<RecipeResponseDto>> call, Throwable t) {
+                    public void onFailure(
+                            Call<ClientResponse<List<RecipeResponseDto>>> call,
+                            Throwable t) {
                         t.printStackTrace();
                         isLoading = false;
                     }
                 });
     }
+
 
     private Receta mapToReceta(RecipeResponseDto dto) {
         return new Receta(
