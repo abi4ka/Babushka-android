@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.babushka.R;
+import com.example.babushka.recipe.Receta;
 import com.example.babushka.network.RetrofitClient;
 
 import java.util.List;

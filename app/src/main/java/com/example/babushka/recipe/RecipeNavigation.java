@@ -1,6 +1,4 @@
-package com.example.babushka;
-
-import com.example.babushka.Inicio.Receta;
+package com.example.babushka.recipe;
 
 public interface RecipeNavigation {
     void abrirDetalle(Receta receta);

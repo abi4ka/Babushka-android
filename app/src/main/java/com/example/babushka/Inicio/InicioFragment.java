@@ -18,7 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.babushka.R;
-import com.example.babushka.RecipeNavigation;
+import com.example.babushka.recipe.Receta;
+import com.example.babushka.recipe.RecipeNavigation;
 import com.example.babushka.network.ClientResponse;
 import com.example.babushka.network.RecipeResponseDto;
 import com.example.babushka.network.RetrofitClient;

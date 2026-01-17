@@ -1,4 +1,4 @@
-package com.example.babushka.Inicio;
+package com.example.babushka.recipe;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
