@@ -1,7 +1,6 @@
 package com.example.babushka.Inicio;
 
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -58,9 +57,9 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder, int position) {
         Receta receta = listaReceta.get(position);
 
-        holder.nombre.setText(receta.nombre);
-        holder.descrip.setText(receta.descripcion);
-        holder.dificult.setText("Dificultad " + receta.dificultad);
+        holder.nombre.setText(receta.title);
+        holder.descrip.setText(receta.description);
+        holder.dificult.setText("Dificultad " + receta.difficulty);
 
         RetrofitClient.getApi()
                 .getRecipeImage(receta.id)

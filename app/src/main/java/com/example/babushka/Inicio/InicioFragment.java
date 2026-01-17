@@ -180,7 +180,7 @@ public class InicioFragment extends Fragment {
                             List<Receta> nuevas = new ArrayList<>();
 
                             for (RecipeResponseDto dto : response.body().getData()) {
-                                nuevas.add(mapToReceta(dto));
+                                nuevas.add(new Receta(dto));
                             }
 
                             adapter.addRecetas(nuevas);
@@ -198,18 +198,5 @@ public class InicioFragment extends Fragment {
                         isLoading = false;
                     }
                 });
-    }
-
-
-    private Receta mapToReceta(RecipeResponseDto dto) {
-        return new Receta(
-                dto.id,
-                dto.title,
-                dto.description,
-                dto.difficulty,
-                dto.ingredients,
-                dto.preparation,
-                dto.isFavorite
-        );
     }
 }

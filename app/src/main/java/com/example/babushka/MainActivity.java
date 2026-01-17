@@ -13,7 +13,7 @@ import com.example.babushka.Inicio.InicioNavigation;
 import com.example.babushka.Inicio.Receta;
 import com.example.babushka.categorias.CategoriasFragment;
 import com.example.babushka.categorias.OnCategoriaSelected;
-import com.example.babushka.user.PerfilFragment;
+import com.example.babushka.perfil.PerfilFragment;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 

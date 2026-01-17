@@ -49,11 +49,11 @@ public class DetalleFragment extends Fragment {
 
 
         // Mostramos los datos
-        nombre.setText(receta.nombre);
-        dificultad.setText("Dificultad " + receta.dificultad);
-        descripcion.setText(receta.descripcion);
-        ingredientes.setText(ingredientesBetterLook(receta.ingredientes));
-        preparacion.setText(receta.preparacion);
+        nombre.setText(receta.title);
+        dificultad.setText("Dificultad " + receta.difficulty);
+        descripcion.setText(receta.description);
+        ingredientes.setText(ingredientesBetterLook(receta.ingredients));
+        preparacion.setText(receta.preparation);
 
         // Convertirmos BASE64 a BITMAP
         //Bitmap bitmap = ImagenBase.base64ToBitmap(receta.imagen);
