@@ -208,7 +208,8 @@ public class InicioFragment extends Fragment {
                 dto.description,
                 dto.difficulty,
                 dto.ingredients,
-                dto.preparation
+                dto.preparation,
+                dto.isFavorite
         );
     }
 }

@@ -14,18 +14,21 @@ public class Receta implements Serializable {
     public String ingredientes;
     public String preparacion;
     public Bitmap bitmapImage;
+    public boolean isFavorite;
 
     public Receta(Long id,
                   String nombre,
                   String descripcion,
                   int dificultad,
                   String ingredientes,
-                  String preparacion) {
+                  String preparacion,
+                  boolean isFavorite) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.dificultad = dificultad;
         this.preparacion = preparacion;
         this.ingredientes = ingredientes;
+        this.isFavorite = isFavorite;
     }
 }
