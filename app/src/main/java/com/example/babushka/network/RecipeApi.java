@@ -31,4 +31,8 @@ public interface RecipeApi {
             @Path("userId") long userId,
             @Query("page") int page,
             @Query("size") int size);
+
+    @GET("/users/{userId}/info")
+    Call<ClientResponse<UserInfoDto>> getUserInfo(
+            @Path("userId") long userId);
 }

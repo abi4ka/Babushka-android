@@ -1,5 +1,99 @@
-<androidx.viewpager2.widget.ViewPager2
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/viewPager"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+    android:layout_height="match_parent"
+    android:background="#FAC16C"
+    android:padding="16dp">
+
+    <!-- Username -->
+    <TextView
+        android:id="@+id/tvUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Username"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="16dp"/>
+
+    <!-- Stats -->
+    <LinearLayout
+        android:id="@+id/statsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:weightSum="2">
+
+        <!-- Created -->
+        <LinearLayout
+            android:id="@+id/createdContainer"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="8dp"
+            android:layout_height="wrap_content" android:layout_width="wrap_content">
+            <TextView
+                android:id="@+id/tvCreatedCount"
+                android:text="0"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+            <TextView
+                android:id="@+id/tvCreatedLabel"
+                android:text="Created"
+                android:textSize="14sp"
+                android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+        </LinearLayout>
+
+        <!-- Favorite -->
+        <LinearLayout
+            android:id="@+id/favoriteContainer"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="8dp"
+            android:layout_height="wrap_content" android:layout_width="wrap_content">
+            <TextView
+                android:id="@+id/tvFavoriteCount"
+                android:text="0"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+            <TextView
+                android:id="@+id/tvFavoriteLabel"
+                android:text="Favorite"
+                android:textSize="14sp"
+                android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tabContainer"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <View
+            android:id="@+id/indicatorCreated"
+            android:layout_width="40dp"
+            android:layout_height="3dp"
+            android:background="#FFFFFF"/>
+
+        <View
+            android:id="@+id/indicatorFavorite"
+            android:layout_width="40dp"
+            android:layout_height="3dp"
+            android:background="#00000000"
+            android:layout_marginStart="50dp"/>
+    </LinearLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+</LinearLayout>
