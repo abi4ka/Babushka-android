@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.babushka.R;
+import com.example.babushka.RecipeNavigation;
 import com.example.babushka.network.ClientResponse;
 import com.example.babushka.network.RecipeResponseDto;
 import com.example.babushka.network.RetrofitClient;
@@ -139,15 +140,15 @@ public class InicioFragment extends Fragment {
         });
     }
 
-    private InicioNavigation navigation;
+    private RecipeNavigation navigation;
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        if (context instanceof InicioNavigation) {
-            navigation = (InicioNavigation) context;
+        if (context instanceof RecipeNavigation) {
+            navigation = (RecipeNavigation) context;
         } else {
             throw new IllegalStateException(
-                    "MainActivity must implement InicioNavigation"
+                    "MainActivity must implement RecipeNavigation"
             );
         }
     }

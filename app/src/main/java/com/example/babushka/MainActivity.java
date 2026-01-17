@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.babushka.Inicio.DetalleFragment;
 import com.example.babushka.Inicio.InicioFragment;
-import com.example.babushka.Inicio.InicioNavigation;
 import com.example.babushka.Inicio.Receta;
 import com.example.babushka.categorias.CategoriasFragment;
 import com.example.babushka.categorias.OnCategoriaSelected;
@@ -17,7 +16,7 @@ import com.example.babushka.perfil.PerfilFragment;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity implements OnCategoriaSelected, InicioNavigation {
+public class MainActivity extends AppCompatActivity implements OnCategoriaSelected, RecipeNavigation {
 
     private DrawerLayout drawerLayout;
 

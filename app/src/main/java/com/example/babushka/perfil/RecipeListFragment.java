@@ -1,5 +1,6 @@
 package com.example.babushka.perfil;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.babushka.RecipeNavigation;
 import com.example.babushka.Inicio.Receta;
 import com.example.babushka.Inicio.RecetaAdapter;
 import com.example.babushka.R;
@@ -62,7 +64,7 @@ public class RecipeListFragment extends Fragment {
         rv.setLayoutManager(lm);
 
         adapter = new RecetaAdapter(recetas, receta -> {
-            // navegación al detalle
+            abrirDetalleReceta(receta);
         });
 
         rv.setAdapter(adapter);
@@ -83,6 +85,22 @@ public class RecipeListFragment extends Fragment {
                 }
             }
         });
+    }
+
+    private RecipeNavigation navigation;
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof RecipeNavigation) {
+            navigation = (RecipeNavigation) context;
+        } else {
+            throw new IllegalStateException(
+                    "MainActivity must implement InicioNavigation"
+            );
+        }
+    }
+    private void abrirDetalleReceta(Receta receta) {
+        navigation.abrirDetalle(receta);
     }
 
     private void loadNextPage() {
