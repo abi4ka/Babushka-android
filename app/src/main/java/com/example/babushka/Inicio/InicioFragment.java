@@ -168,7 +168,7 @@ public class InicioFragment extends Fragment {
         isLoading = true;
 
         RetrofitClient.getApi()
-                .getRecipes(currentPage, PAGE_SIZE, search)
+                .getRecipes(currentPage, PAGE_SIZE, search, 3L)
                 .enqueue(new Callback<ClientResponse<List<RecipeResponseDto>>>() {
                     @Override
                     public void onResponse(
