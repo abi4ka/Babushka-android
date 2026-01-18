@@ -40,6 +40,6 @@ public class Receta implements Serializable {
         this.difficulty = dto.difficulty;
         this.preparation = dto.preparation;
         this.ingredients = dto.ingredients;
-        this.isFavorite = dto.isFavorite;
+        this.isFavorite = dto.favorite;
     }
 }

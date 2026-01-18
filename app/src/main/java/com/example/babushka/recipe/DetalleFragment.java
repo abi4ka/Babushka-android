@@ -71,7 +71,6 @@ public class DetalleFragment extends Fragment {
 
         // Estado inicial de la estrella
         updateStar(estrella);
-        System.out.println("AAAAAAAAAAAAAAAAAAAAHHH JDR " + receta.isFavorite);
 
         // Click en estrella (añadir/quitar de favoritos)
         estrella.setOnClickListener(v -> {
