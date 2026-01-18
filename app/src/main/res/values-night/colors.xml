@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg_app">#1E2126</color>
+    <color name="bg_card">#252A31</color>
+    <color name="bg_header">#2C323A</color>
+
+    <!-- Text -->
+    <color name="text_primary">#ECEFF3</color>
+    <color name="text_secondary">#B5BBC4</color>
+    <color name="text_hint">#8A909A</color>
+
+    <!-- Dividers / borders -->
+    <color name="divider">#3A404A</color>
+
+    <!-- Neutral accent -->
+    <color name="accent_soft">#3F4652</color>
+</resources>

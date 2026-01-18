@@ -20,7 +20,7 @@
             android:text="Nombre Receta"
             android:textStyle="bold"
             android:textSize="30sp"
-            android:textColor="#1F1C1C"
+            android:textColor="@color/text_primary"
 
             android:layout_marginTop="10dp"
             android:layout_marginStart="16dp"
@@ -69,6 +69,7 @@
         <!-- Dificultad -->
         <TextView
             android:id="@+id/tvDificultad"
+            android:textColor="@color/text_secondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Dificultad"
@@ -83,6 +84,7 @@
         <!-- Descripción -->
         <TextView
             android:id="@+id/txDescripcion"
+            android:textColor="@color/text_secondary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Breve descripción de la receta"
@@ -99,6 +101,7 @@
         <!-- Ingredientes título -->
         <TextView
             android:id="@+id/Ingredientes"
+            android:textColor="@color/text_primary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Ingredientes:"
@@ -116,6 +119,7 @@
         <!-- Ingredientes texto -->
         <TextView
             android:id="@+id/txIngredientes"
+            android:textColor="@color/text_secondary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="lista ingredientes"
@@ -132,6 +136,7 @@
         <!-- Preparación título -->
         <TextView
             android:id="@+id/Preparacion"
+            android:textColor="@color/text_primary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Preparación:"
@@ -149,6 +154,7 @@
         <!-- Preparación texto -->
         <TextView
             android:id="@+id/txPreparacion"
+            android:textColor="@color/text_secondary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="lista preparación"

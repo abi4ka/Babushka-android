@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
@@ -79,12 +80,15 @@ public class PerfilFragment extends Fragment {
         pager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
+                int active = ContextCompat.getColor(requireContext(), R.color.text_secondary);
+                int inactive = Color.TRANSPARENT;
+
                 if (position == 0) {
-                    indicatorCreated.setBackgroundColor(Color.WHITE);
-                    indicatorFavorite.setBackgroundColor(Color.TRANSPARENT);
+                    indicatorCreated.setBackgroundColor(active);
+                    indicatorFavorite.setBackgroundColor(inactive);
                 } else {
-                    indicatorCreated.setBackgroundColor(Color.TRANSPARENT);
-                    indicatorFavorite.setBackgroundColor(Color.WHITE);
+                    indicatorCreated.setBackgroundColor(inactive);
+                    indicatorFavorite.setBackgroundColor(active);
                 }
             }
         });
