@@ -5,6 +5,7 @@ import java.util.List;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -35,4 +36,10 @@ public interface RecipeApi {
     @GET("/users/{userId}/info")
     Call<ClientResponse<UserInfoDto>> getUserInfo(
             @Path("userId") long userId);
+
+    @POST("/recipes/{id}/favorite")
+    Call<ClientResponse> postFavoriteRecipes(
+            @Path("id") long recipeId,
+            @Query("userId") long userId,
+            @Query("favorite") boolean favorite);
 }
