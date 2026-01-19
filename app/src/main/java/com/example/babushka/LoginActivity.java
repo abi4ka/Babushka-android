@@ -18,6 +18,7 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
+    // Declaramos los EditText y los botones
     private EditText etUsuario;
     private EditText etClave;
     private Button btnEntrar;
@@ -51,9 +52,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login() {
+
+        //Recuperamos lo que puso el usuario en los editText de username y contraseña, lo convertimos a STring (toString)
+        //y eliminamos los espacios en blanco del final (trim)
         String usuario = etUsuario.getText().toString().trim();
         String clave = etClave.getText().toString().trim();
 
+        //Si el usuario no introduce el username y/o la contraseña, salta error
         if (usuario.isEmpty() || clave.isEmpty()) {
             Toast.makeText(this, "Rellena usuario y contraseña", Toast.LENGTH_SHORT).show();
             return;
@@ -64,20 +69,29 @@ public class LoginActivity extends AppCompatActivity {
                 .enqueue(new Callback<LoginResponseDto>() {
                     @Override
                     public void onResponse(Call<LoginResponseDto> call, Response<LoginResponseDto> response) {
-                        if (response.isSuccessful() && response.body() != null) {
-                            String token = response.body().sessionToken;
 
-                            // Guardar token en SharedPreferences
-                            saveSessionToken(token);
-
+                        if (response.isSuccessful()) {
+                            saveSessionToken(response.body().sessionToken);
                             irAInicio();
-                        } else {
-                            Toast.makeText(LoginActivity.this,
-                                    "Usuario o contraseña incorrectos",
-                                    Toast.LENGTH_SHORT).show();
+                            return;
                         }
+
+                        //En el backend de Django, asignamos el error 403 a si el usuario estaba inactivo
+                        if (response.code() == 403) {
+                            Toast.makeText(LoginActivity.this, "Tu cuenta está desactivada.", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+                        // Si el error es 401 es que hubo algún problema con el usuario/contraseña, tal y como definimos en el back
+                        if (response.code() == 401) {
+                            Toast.makeText(LoginActivity.this, "Usuario o contraseña incorrectos", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+                        //Cualquier otro error no catcheado
+                        Toast.makeText(LoginActivity.this, "Error inesperado", Toast.LENGTH_LONG).show();
                     }
 
+                    //Si no ha sido capaz de conectarse al servidor:
                     @Override
                     public void onFailure(Call<LoginResponseDto> call, Throwable t) {
                         t.printStackTrace();
@@ -94,11 +108,13 @@ public class LoginActivity extends AppCompatActivity {
                 .apply();
     }
 
+    //Método para ir a la pantalla de inicio
     private void irAInicio() {
         startActivity(new Intent(this, MainActivity.class));
         finish(); // Para que no vuelva atrás al login
     }
 
+    //Método para ir a la pantalla de registro
     private void irARegistro() {
         startActivity(new Intent(this, RegisterActivity.class));
     }
