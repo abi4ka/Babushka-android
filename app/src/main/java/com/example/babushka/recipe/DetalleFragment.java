@@ -116,7 +116,6 @@ public class DetalleFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<ClientResponse> call, Throwable t) {
-
                     }
                 });
     }
