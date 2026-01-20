@@ -34,8 +34,13 @@
             android:orientation="vertical"
             android:gravity="center"
             android:padding="8dp"
-            android:layout_height="wrap_content" android:layout_width="wrap_content">
-            <TextView
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <TextView
                 android:id="@+id/tvCreatedCount"
                 android:textColor="@color/text_primary"
                 android:text="0"
@@ -64,8 +69,13 @@
             android:orientation="vertical"
             android:gravity="center"
             android:padding="8dp"
-            android:layout_height="wrap_content" android:layout_width="wrap_content">
-            <TextView
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <TextView
                 android:id="@+id/tvFavoriteCount"
                 android:textColor="@color/text_primary"
                 android:text="0"

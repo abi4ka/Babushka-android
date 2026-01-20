@@ -3,6 +3,7 @@ package com.example.babushka.perfil;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -40,6 +41,10 @@ public class PerfilFragment extends Fragment {
         indicatorCreated = view.findViewById(R.id.indicatorCreated);
         indicatorFavorite = view.findViewById(R.id.indicatorFavorite);
 
+        LinearLayout createdContainer = view.findViewById(R.id.createdContainer);
+        LinearLayout favoriteContainer = view.findViewById(R.id.favoriteContainer);
+        ViewPager2 pager = view.findViewById(R.id.viewPager);
+
         long userId = 3L;
 
         RetrofitClient.getApi()
@@ -62,7 +67,15 @@ public class PerfilFragment extends Fragment {
                     }
                 });
 
-        ViewPager2 pager = view.findViewById(R.id.viewPager);
+        createdContainer.setOnClickListener(v -> {
+            pager.setCurrentItem(0, true); // Created
+        });
+
+        favoriteContainer.setOnClickListener(v -> {
+            pager.setCurrentItem(1, true); // Favorite
+        });
+
+
         pager.setAdapter(new FragmentStateAdapter(this) {
             @NonNull
             @Override
