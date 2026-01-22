@@ -12,7 +12,7 @@
         android:id="@+id/vwImagen"
         android:layout_width="180dp"
         android:layout_height="150dp"
-        android:background="#EBE6DF"
+        android:background="@drawable/empty_image_background"
         android:scaleType="centerCrop"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
