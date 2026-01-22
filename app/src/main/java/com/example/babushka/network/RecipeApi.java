@@ -25,13 +25,15 @@ public interface RecipeApi {
     Call<ClientResponse<List<RecipeResponseDto>>> getMyRecipes(
             @Path("userId") long userId,
             @Query("page") int page,
-            @Query("size") int size);
+            @Query("size") int size,
+            @Query("userIdFav") long userIdFav);
 
     @GET("/recipes/favorite/user/{userId}")
     Call<ClientResponse<List<RecipeResponseDto>>> getFavoriteRecipes(
             @Path("userId") long userId,
             @Query("page") int page,
-            @Query("size") int size);
+            @Query("size") int size,
+            @Query("userIdFav") long userIdFav);
 
     @GET("/users/{userId}/info")
     Call<ClientResponse<UserInfoDto>> getUserInfo(
