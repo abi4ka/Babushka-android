@@ -1,4 +1,4 @@
-package com.example.babushka;
+package com.example.babushka.user;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.babushka.MainActivity;
+import com.example.babushka.R;
 import com.example.babushka.network.LoginResponseDto;
 import com.example.babushka.network.RetrofitClient;
 import com.example.babushka.network.UserDto;

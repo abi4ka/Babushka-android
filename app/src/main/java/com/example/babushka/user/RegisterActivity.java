@@ -1,4 +1,4 @@
-package com.example.babushka;
+package com.example.babushka.user;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.babushka.R;
 import com.example.babushka.network.RetrofitClient;
 import com.example.babushka.network.UserDto;
 
@@ -56,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
         // Llamamos al singleton de Retrofit que está definido en la clase RetrofitClient
         RetrofitClient.getApi()
-                //Llamamos al método registrar y le pasamos el username y la contraseña que escribió nuestro usuario en el front
+                //Llamamos al metodo registrar y le pasamos el username y la contraseña que escribió nuestro usuario en el front
                 .register(new UserDto(usuario, clave))
                 //Enqueue hace que la petición sea asíncrona, es decir, se ejecuta en segundo plano sin bloquear nada
                 .enqueue(new Callback<ResponseBody>() {

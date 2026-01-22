@@ -13,6 +13,7 @@ public class RetrofitClient {
     En Android Studio, la manera de representar la máquina anfitriona es usando la dirección 10.0.2.2.
     */
     private static final String BASE_URL = "http://10.0.2.2:8000/";
+    //private static final String BASE_URL = "http://82.26.150.189:25569/";
 
     private static Retrofit retrofit;
 
