@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -23,12 +24,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
+        <!-- Título categoría -->
+        <TextView
+            android:id= "@+id/tvCategoria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="blablabla"
+            android:textStyle="bold"
+            android:textSize="25dp"
+
+            android:visibility="gone"
+
+            android:layout_margin="12dp"
+            app:layout_constraintTop_toBottomOf="@id/etBuscar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
         <!-- RecyclerView  Recetas -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvRecetas"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/etBuscar"
+            app:layout_constraintTop_toBottomOf="@id/tvCategoria"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

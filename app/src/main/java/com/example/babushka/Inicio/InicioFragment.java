@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -64,6 +65,13 @@ public class InicioFragment extends Fragment {
 
         //Barra buscador
         EditText barraBuscador = view.findViewById(R.id.etBuscar);
+        TextView tituloCategoria = view.findViewById(R.id.tvCategoria);
+
+        if ( category != null){
+            tituloCategoria.setVisibility(View.VISIBLE);
+            tituloCategoria.setText(category.toUpperCase());
+        }
+
 
         barraBuscador.addTextChangedListener(new TextWatcher() {
 

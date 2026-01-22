@@ -75,7 +75,6 @@ public class PerfilFragment extends Fragment {
             pager.setCurrentItem(1, true); // Favorite
         });
 
-
         pager.setAdapter(new FragmentStateAdapter(this) {
             @NonNull
             @Override
