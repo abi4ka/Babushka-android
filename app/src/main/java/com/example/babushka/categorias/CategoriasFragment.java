@@ -48,43 +48,43 @@ public class CategoriasFragment extends Fragment {
 
         // Al hacer click, abrir la pantalla de la categoria:
         categoriaHealth.setOnClickListener(v -> {
-            listener.onCategoriaSelected("health",R.color.cat_health);
+            listener.onCategoriaSelected("health");
         });
 
         categoriaEntrantes.setOnClickListener(v -> {
-            listener.onCategoriaSelected("entrantes",R.color.cat_entrantes);
+            listener.onCategoriaSelected("entrantes");
         });
 
         categoriaCarnes.setOnClickListener(v -> {
-            listener.onCategoriaSelected("carnes",R.color.cat_carnes);
+            listener.onCategoriaSelected("carnes");
         });
 
         categoriaPasta.setOnClickListener(v -> {
-            listener.onCategoriaSelected("pasta",R.color.cat_pasta);
+            listener.onCategoriaSelected("pasta");
         });
 
         categoriaMar.setOnClickListener(v -> {
-            listener.onCategoriaSelected("mar", R.color.cat_mar);
+            listener.onCategoriaSelected("mar");
         });
 
         categoriaEnsaladas.setOnClickListener(v -> {
-            listener.onCategoriaSelected("ensaladas", R.color.cat_ensaladas);
+            listener.onCategoriaSelected("ensaladas");
         });
 
         categoriaPostres.setOnClickListener(v -> {
-            listener.onCategoriaSelected("postres", R.color.cat_postres);
+            listener.onCategoriaSelected("postres");
         });
 
         categoriaVegetariano.setOnClickListener(v -> {
-            listener.onCategoriaSelected("vegetariano", R.color.cat_vegetariano);
+            listener.onCategoriaSelected("vegetariano");
         });
 
         categoriaVegano.setOnClickListener(v -> {
-            listener.onCategoriaSelected("vegano", R.color.cat_vegano);
+            listener.onCategoriaSelected("vegano");
         });
 
         categoriaSinGluten.setOnClickListener(v -> {
-            listener.onCategoriaSelected("sin_gluten", R.color.cat_sin_gluten);
+            listener.onCategoriaSelected("sin_gluten");
         });
     }
 }

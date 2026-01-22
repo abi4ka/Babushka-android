@@ -43,16 +43,14 @@ public class InicioFragment extends Fragment {
     private final int PAGE_SIZE = 6;
     private boolean isLoading = false;
     private String category;
-    private int color;
     private String search;
     public InicioFragment() {
         super(R.layout.fragment_inicio);
     }
-    public static InicioFragment newInstance(String categoria, int colorRes) {
+    public static InicioFragment newInstance(String categoria) {
         InicioFragment fragment = new InicioFragment();
         Bundle args = new Bundle();
         args.putString("categoria", categoria);
-        args.putInt("color", colorRes);
         fragment.setArguments(args);
         return fragment;
     }
@@ -63,7 +61,6 @@ public class InicioFragment extends Fragment {
 
         Bundle args = requireArguments();
         category = args.getString("categoria");
-        color = args.getInt("color");
 
         //Barra buscador
         EditText barraBuscador = view.findViewById(R.id.etBuscar);
@@ -98,10 +95,6 @@ public class InicioFragment extends Fragment {
                 searchHandler.postDelayed(searchRunnable, SEARCH_DELAY);
             }
         });
-
-        // Queremos guardar el fondo del fragment inicio para despues asignar color
-        ConstraintLayout rootLayout = view.findViewById(R.id.rootLayout);
-        rootLayout.setBackgroundColor(ContextCompat.getColor(requireContext(), color));
 
         rvRecetas = view.findViewById(R.id.rvRecetas);
 
