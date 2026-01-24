@@ -11,25 +11,28 @@ public class Receta implements Serializable {
     public Long id;
     public String title;
     public String description;
-    public int difficulty;
     public String ingredients;
     public String preparation;
-    public Bitmap bitmapImage;
+    public int time;
+    public int difficulty;
     public boolean isFavorite;
+    public Bitmap bitmapImage;
 
     public Receta(Long id,
                   String title,
                   String description,
-                  int difficulty,
                   String ingredients,
                   String preparation,
+                  int time,
+                  int difficulty,
                   boolean isFavorite) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.difficulty = difficulty;
-        this.preparation = preparation;
         this.ingredients = ingredients;
+        this.preparation = preparation;
+        this.time = time;
+        this.difficulty = difficulty;
         this.isFavorite = isFavorite;
     }
 
@@ -37,9 +40,10 @@ public class Receta implements Serializable {
         this.id = dto.id;
         this.title = dto.title;
         this.description = dto.description;
-        this.difficulty = dto.difficulty;
-        this.preparation = dto.preparation;
         this.ingredients = dto.ingredients;
+        this.preparation = dto.preparation;
+        this.time = dto.time;
+        this.difficulty = dto.difficulty;
         this.isFavorite = dto.favorite;
     }
 }

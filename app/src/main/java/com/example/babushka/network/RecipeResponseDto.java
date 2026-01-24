@@ -6,6 +6,7 @@ public class RecipeResponseDto {
     public String description;
     public String ingredients;
     public String preparation;
+    public int time;
     public int difficulty;
     public boolean favorite;
 }
