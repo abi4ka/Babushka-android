@@ -59,7 +59,9 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
 
         holder.nombre.setText(receta.title);
         holder.descrip.setText(receta.description);
-        holder.dificult.setText("Dificultad " + receta.difficulty);
+        holder.dificult.setText(receta.difficulty);
+        holder.tiempo.setText(receta.time);
+
 
         RetrofitClient.getApi()
                 .getRecipeImage(receta.id)
@@ -136,7 +138,7 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
 
     // Asignar visualización de información
     class ViewHolder extends RecyclerView.ViewHolder {
-        TextView nombre, descrip, dificult;
+        TextView nombre, descrip, dificult, tiempo;
         ImageView imagen, estrella;
 
         ViewHolder(View view) {
@@ -146,6 +148,8 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
             dificult = view.findViewById(R.id.tvDificultad);
             imagen = view.findViewById(R.id.vwImagen);
             estrella = view.findViewById(R.id.Estrella);
+            tiempo = view.findViewById(R.id.tvTiempo);
+
         }
 
     }

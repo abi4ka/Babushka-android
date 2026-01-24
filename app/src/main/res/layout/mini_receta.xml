@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:text="Nombre Receta"
         android:textStyle="bold"
-        android:textSize="15sp"
+        android:textSize="18sp"
         android:textColor="@color/text_primary"
         android:maxLines="2"
         android:ellipsize="end"
@@ -40,40 +40,38 @@
         app:layout_constraintStart_toEndOf="@id/vwImagen"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Descripción -->
-    <!-- maxLines="4" : si el txDescripcion es larga, salta de línea máximo 4 líneas-->
-    <!-- ellipsize="end" : cuando se hay más texto del q puede salir en pantalla, en vez de cortarse usa "..." al final-->
+    <!-- FACTOR TIEMPO PREPARACIÓN -->
+    <ImageView
+        android:id="@+id/ivTiempo"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:src="@android:drawable/ic_lock_idle_alarm"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="@id/txNombre"
+        app:layout_constraintTop_toBottomOf="@id/txNombre"/>
 
     <TextView
-        android:id="@+id/txDescripcion"
+        android:id="@+id/tvTiempo"
         android:textColor="@color/text_secondary"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Breve descripción de la receta"
-        android:textSize="14sp"
-        android:maxLines="4"
-        android:ellipsize="end"
+        android:text="Tiempo"
+        android:textSize="12sp"
+        android:layout_marginStart="4dp"
+        app:layout_constraintStart_toEndOf="@id/ivTiempo"
+        app:layout_constraintTop_toTopOf="@id/ivTiempo"
+        />
 
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="4dp"
-
-        app:layout_constraintTop_toBottomOf="@id/txNombre"
-        app:layout_constraintStart_toStartOf="@id/txNombre"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <!-- Estrella-->
+    <!-- FACTOR DIFICULTAD PREPARACIÓN -->
     <ImageView
-        android:id="@+id/Estrella"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
-        android:src="@android:drawable/btn_star_big_off"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="6dp"
+        android:id="@+id/ivDificultad"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:src="@android:drawable/ic_menu_sort_by_size"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@id/tvTiempo"
+        app:layout_constraintTop_toTopOf="@id/tvTiempo"/>
 
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/vwImagen"/>
-
-    <!-- Dificultad -->
     <TextView
         android:id="@+id/tvDificultad"
         android:textColor="@color/text_secondary"
@@ -81,10 +79,43 @@
         android:layout_height="wrap_content"
         android:text="Dificultad"
         android:textSize="12sp"
+        android:layout_marginStart="4dp"
+        app:layout_constraintStart_toEndOf="@id/ivDificultad"
+        app:layout_constraintTop_toTopOf="@id/ivDificultad"/>
 
-        android:layout_marginStart="6dp"
+    <!-- Descripción -->
+    <!-- maxLines="4" : si el txDescripcion es larga, salta de línea máximo 4 líneas-->
+    <!-- ellipsize="end" : cuando se hay más texto del q puede salir en pantalla, en vez de cortarse usa "..." al final-->
+    <TextView
+        android:id="@+id/txDescripcion"
+        android:textColor="@color/text_hint"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Breve descripción de la receta"
+        android:textSize="14sp"
+        android:maxLines="4"
+        android:ellipsize="end"
 
-        app:layout_constraintStart_toEndOf="@id/Estrella"
-        app:layout_constraintBottom_toBottomOf="@id/Estrella"/>
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="6dp"
+
+        app:layout_constraintTop_toBottomOf="@id/tvDificultad"
+        app:layout_constraintStart_toEndOf="@id/vwImagen"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    <!-- ESTRELLA DE FAVORITOS-->
+    <ImageView
+        android:id="@+id/Estrella"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@android:drawable/btn_star_big_off"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
