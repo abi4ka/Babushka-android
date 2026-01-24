@@ -15,7 +15,7 @@ public class Receta implements Serializable {
     public String preparation;
     public int time;
     public int difficulty;
-    public boolean isFavorite;
+    public Boolean isFavorite;
     public Bitmap bitmapImage;
 
     public Receta(Long id,
@@ -44,6 +44,6 @@ public class Receta implements Serializable {
         this.preparation = dto.preparation;
         this.time = dto.time;
         this.difficulty = dto.difficulty;
-        this.isFavorite = dto.favorite;
+        this.isFavorite = dto.isFavorite;
     }
 }

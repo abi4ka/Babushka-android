@@ -8,5 +8,5 @@ public class RecipeResponseDto {
     public String preparation;
     public int time;
     public int difficulty;
-    public boolean favorite;
+    public Boolean isFavorite;
 }
