@@ -1,7 +1,6 @@
 package com.example.babushka.network;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.example.babushka.MyApplication;
 

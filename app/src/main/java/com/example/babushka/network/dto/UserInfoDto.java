@@ -1,4 +1,4 @@
-package com.example.babushka.network;
+package com.example.babushka.network.dto;
 
 public class UserInfoDto {
     public Long id;

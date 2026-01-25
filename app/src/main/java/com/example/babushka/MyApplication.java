@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 public class MyApplication extends Application {
-
+    // Clase para utilizar context en toda la aplicación
     private static Context appContext;
 
     @Override

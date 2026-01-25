@@ -1,4 +1,5 @@
 package com.example.babushka.recipe;
+
 import com.example.babushka.network.RetrofitClient;
 
 import android.graphics.Bitmap;
@@ -45,7 +46,6 @@ public class DetalleFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Referencias a TextView del layout
         TextView nombre = view.findViewById(R.id.txNombre);
         TextView dificultad = view.findViewById(R.id.tvDificultad);
         TextView descripcion = view.findViewById(R.id.txDescripcion);
@@ -60,9 +60,6 @@ public class DetalleFragment extends Fragment {
         descripcion.setText(receta.description);
         ingredientes.setText(ingredientesBetterLook(receta.ingredients));
         preparacion.setText(receta.preparation);
-
-        // Convertirmos BASE64 a BITMAP
-        //Bitmap bitmap = ImagenBase.base64ToBitmap(receta.imagen);
         Bitmap bitmap = receta.bitmapImage;
 
         if (bitmap != null) {
@@ -88,7 +85,7 @@ public class DetalleFragment extends Fragment {
         }
     }
 
-    //Pasar ingredientes a listado en receta
+    // Pasar ingredientes a listado en receta
     public String ingredientesBetterLook(String ingredientes) {
         StringBuilder new_ingredientes = new StringBuilder();
 
@@ -103,7 +100,7 @@ public class DetalleFragment extends Fragment {
         return new_ingredientes.toString();
     }
 
-    private void favorite(ImageView estrella){
+    private void favorite(ImageView estrella) {
 
         RetrofitClient.getApi()
                 .postFavoriteRecipes(receta.id, !receta.isFavorite)
@@ -119,6 +116,5 @@ public class DetalleFragment extends Fragment {
                     }
                 });
     }
-
 }
 

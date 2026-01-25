@@ -3,7 +3,7 @@ package com.example.babushka.recipe;
 
 import android.graphics.Bitmap;
 
-import com.example.babushka.network.RecipeResponseDto;
+import com.example.babushka.network.dto.RecipeResponseDto;
 
 import java.io.Serializable;
 // Implementamos Serializable para poder enviar objetos Receta entre fragments usando Bundle

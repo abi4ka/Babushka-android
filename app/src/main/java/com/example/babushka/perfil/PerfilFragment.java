@@ -16,7 +16,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.babushka.R;
 import com.example.babushka.network.ClientResponse;
 import com.example.babushka.network.RetrofitClient;
-import com.example.babushka.network.UserInfoDto;
+import com.example.babushka.network.dto.UserInfoDto;
 
 
 import retrofit2.Call;
@@ -24,7 +24,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PerfilFragment extends Fragment {
-
     private TextView tvUsername, tvCreatedCount, tvFavoriteCount;
     private View indicatorCreated, indicatorFavorite;
 
@@ -45,8 +44,7 @@ public class PerfilFragment extends Fragment {
         LinearLayout favoriteContainer = view.findViewById(R.id.favoriteContainer);
         ViewPager2 pager = view.findViewById(R.id.viewPager);
 
-        long userId = 3L;
-
+        // Peticion para sacar datos sobre usuario
         RetrofitClient.getApi()
                 .getUserInfo()
                 .enqueue(new Callback<ClientResponse<UserInfoDto>>() {
@@ -67,6 +65,7 @@ public class PerfilFragment extends Fragment {
                     }
                 });
 
+        // Botones para cambiar lista de recetas
         createdContainer.setOnClickListener(v -> {
             pager.setCurrentItem(0, true); // Created
         });
@@ -79,8 +78,8 @@ public class PerfilFragment extends Fragment {
             @NonNull
             @Override
             public Fragment createFragment(int position) {
-                if (position == 0) return RecipeListFragment.newInstance(RecipeListType.MY_RECIPES, userId);
-                else return RecipeListFragment.newInstance(RecipeListType.FAVORITES, userId);
+                if (position == 0) return RecipeListFragment.newInstance(RecipeListType.MY_RECIPES);
+                else return RecipeListFragment.newInstance(RecipeListType.FAVORITES);
             }
 
             @Override

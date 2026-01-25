@@ -12,10 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.babushka.recipe.RecipeNavigation;
 import com.example.babushka.recipe.Receta;
-import com.example.babushka.Inicio.RecetaAdapter;
+import com.example.babushka.recipe.RecetaAdapter;
 import com.example.babushka.R;
 import com.example.babushka.network.ClientResponse;
-import com.example.babushka.network.RecipeResponseDto;
+import com.example.babushka.network.dto.RecipeResponseDto;
 import com.example.babushka.network.RetrofitClient;
 
 import java.util.ArrayList;
@@ -26,26 +26,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RecipeListFragment extends Fragment {
-
-    private static final String ARG_TYPE = "type";
-    private static final String ARG_USER_ID = "userId";
-
     private RecipeListType type;
-    private long userId;
-
-    private RecyclerView rv;
     private RecetaAdapter adapter;
     private List<Receta> recetas = new ArrayList<>();
-
     private int page = 0;
-    private static final int PAGE_SIZE = 6;
     private boolean isLoading = false;
 
-    public static RecipeListFragment newInstance(RecipeListType type, long userId) {
+    public static RecipeListFragment newInstance(RecipeListType type) {
         RecipeListFragment f = new RecipeListFragment();
         Bundle b = new Bundle();
-        b.putString(ARG_TYPE, type.name());
-        b.putLong(ARG_USER_ID, userId);
+        b.putString("type", type.name());
         f.setArguments(b);
         return f;
     }
@@ -56,31 +46,41 @@ public class RecipeListFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        type = RecipeListType.valueOf(getArguments().getString(ARG_TYPE));
-        userId = getArguments().getLong(ARG_USER_ID);
+        type = RecipeListType.valueOf(getArguments().getString("type"));
 
-        rv = view.findViewById(R.id.rvRecetas);
-        LinearLayoutManager lm = new LinearLayoutManager(getContext());
-        rv.setLayoutManager(lm);
+        RecyclerView rvRecetas = view.findViewById(R.id.rvRecetas);
 
+        // Vertical Layout
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        rvRecetas.setLayoutManager(layoutManager);
+
+        /*
+         * Creamos el adapter y definimos
+         * qué pasa cuando se hace click en una receta
+         */
         adapter = new RecetaAdapter(recetas, receta -> {
             abrirDetalleReceta(receta);
         });
 
-        rv.setAdapter(adapter);
+        rvRecetas.setAdapter(adapter);
 
+        // Peticion para recibir primeros elementos
         loadNextPage();
 
-        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        rvRecetas.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrolled(@NonNull RecyclerView rv, int dx, int dy) {
-                if (dy <= 0) return;
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
 
-                int visible = lm.getChildCount();
-                int total = lm.getItemCount();
-                int first = lm.findFirstVisibleItemPosition();
+                if (dy <= 0)
+                    return; //Comprobamos en que elemento estamos (si estamos en el último no se hace nada más)
 
-                if (!isLoading && visible + first >= total - 2) {
+                //Creación de variables para controlar...
+                int visibleItemCount = layoutManager.getChildCount();                //... nº items en pantalla
+                int totalItemCount = layoutManager.getItemCount();                   //... nº total items
+                int firstVisibleItem = layoutManager.findFirstVisibleItemPosition(); //...posición del  primer item visible en el Scroll
+
+                // Si cumple condiciones de variables se crea otro elemento que se mostrará en el Scroll
+                if (!isLoading && (visibleItemCount + firstVisibleItem) >= totalItemCount - 2) {
                     loadNextPage();
                 }
             }
@@ -88,6 +88,7 @@ public class RecipeListFragment extends Fragment {
     }
 
     private RecipeNavigation navigation;
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -99,6 +100,7 @@ public class RecipeListFragment extends Fragment {
             );
         }
     }
+
     private void abrirDetalleReceta(Receta receta) {
         navigation.abrirDetalle(receta);
     }
@@ -110,10 +112,10 @@ public class RecipeListFragment extends Fragment {
 
         if (type == RecipeListType.MY_RECIPES) {
             call = RetrofitClient.getApi()
-                    .getMyRecipes(page, PAGE_SIZE);
+                    .getMyRecipes(page, 6);
         } else {
             call = RetrofitClient.getApi()
-                    .getFavoriteRecipes(page, PAGE_SIZE);
+                    .getFavoriteRecipes(page, 6);
         }
 
         call.enqueue(new Callback<>() {
@@ -125,6 +127,7 @@ public class RecipeListFragment extends Fragment {
                         && response.body() != null
                         && response.body().getData() != null) {
 
+                    // Crear recetas from dto model
                     List<Receta> nuevas = new ArrayList<>();
                     for (RecipeResponseDto dto : response.body().getData()) {
                         nuevas.add(new Receta(dto));
@@ -143,4 +146,3 @@ public class RecipeListFragment extends Fragment {
         });
     }
 }
-

@@ -12,17 +12,16 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.babushka.R;
 import com.example.babushka.recipe.Receta;
+import com.example.babushka.recipe.RecetaAdapter;
 import com.example.babushka.recipe.RecipeNavigation;
 import com.example.babushka.network.ClientResponse;
-import com.example.babushka.network.RecipeResponseDto;
+import com.example.babushka.network.dto.RecipeResponseDto;
 import com.example.babushka.network.RetrofitClient;
 
 
@@ -34,20 +33,19 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class InicioFragment extends Fragment {
+    private String search;
     private Handler searchHandler = new Handler(Looper.getMainLooper());
     private Runnable searchRunnable;
     private static final long SEARCH_DELAY = 500; // milisegundos
-    private RecyclerView rvRecetas;
     private RecetaAdapter adapter;
     private List<Receta> recetas = new ArrayList<>();
     private int currentPage = 0;
-    private final int PAGE_SIZE = 6;
     private boolean isLoading = false;
-    private String category;
-    private String search;
+
     public InicioFragment() {
         super(R.layout.fragment_inicio);
     }
+
     public static InicioFragment newInstance(String categoria) {
         InicioFragment fragment = new InicioFragment();
         Bundle args = new Bundle();
@@ -61,26 +59,19 @@ public class InicioFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Bundle args = requireArguments();
-        category = args.getString("categoria");
+        String category = args.getString("categoria");
 
-        //Barra buscador
-        EditText barraBuscador = view.findViewById(R.id.etBuscar);
         TextView tituloCategoria = view.findViewById(R.id.tvCategoria);
 
-        if ( category != null){
+        if (category != null) {
             tituloCategoria.setVisibility(View.VISIBLE);
             tituloCategoria.setText(category.toUpperCase());
         }
 
+        //Barra buscador
+        EditText barraBuscador = view.findViewById(R.id.etBuscar);
 
         barraBuscador.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void afterTextChanged(Editable s) {}
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
@@ -102,11 +93,19 @@ public class InicioFragment extends Fragment {
                 // Ejecutamos tras X ms desde la última tecla
                 searchHandler.postDelayed(searchRunnable, SEARCH_DELAY);
             }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
         });
 
-        rvRecetas = view.findViewById(R.id.rvRecetas);
+        RecyclerView rvRecetas = view.findViewById(R.id.rvRecetas);
 
-        // Layout vertical
+        // Vertical Layout
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvRecetas.setLayoutManager(layoutManager);
 
@@ -114,12 +113,11 @@ public class InicioFragment extends Fragment {
          * Creamos el adapter y definimos
          * qué pasa cuando se hace click en una receta
          */
-        adapter = new RecetaAdapter(recetas, receta -> {
-            abrirDetalleReceta(receta);
-        });
+        adapter = new RecetaAdapter(recetas, receta -> abrirDetalleReceta(receta));
 
         rvRecetas.setAdapter(adapter);
 
+        // Peticion para recibir primeros elementos
         loadNextPage();
 
         // Scroll que "pide" más elementos una vez se llegue al final
@@ -127,7 +125,8 @@ public class InicioFragment extends Fragment {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
 
-                if (dy <= 0) return; //Comprobamos en que elemento estamos (si estamos en el último no se hace nada más)
+                if (dy <= 0)
+                    return; //Comprobamos en que elemento estamos (si estamos en el último no se hace nada más)
 
                 //Creación de variables para controlar...
                 int visibleItemCount = layoutManager.getChildCount();                //... nº items en pantalla
@@ -143,6 +142,7 @@ public class InicioFragment extends Fragment {
     }
 
     private RecipeNavigation navigation;
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -160,16 +160,16 @@ public class InicioFragment extends Fragment {
         super.onDetach();
         navigation = null;
     }
+
     private void abrirDetalleReceta(Receta receta) {
         navigation.abrirDetalle(receta);
     }
 
-    // Simulación de carga de recetas (scroll infinito)
     private void loadNextPage() {
         isLoading = true;
 
         RetrofitClient.getApi()
-                .getRecipes(currentPage, PAGE_SIZE, search)
+                .getRecipes(currentPage, 6, search)
                 .enqueue(new Callback<ClientResponse<List<RecipeResponseDto>>>() {
                     @Override
                     public void onResponse(
@@ -180,8 +180,8 @@ public class InicioFragment extends Fragment {
                                 && response.body() != null
                                 && response.body().getData() != null) {
 
+                            // Crear recetas from dto model
                             List<Receta> nuevas = new ArrayList<>();
-
                             for (RecipeResponseDto dto : response.body().getData()) {
                                 nuevas.add(new Receta(dto));
                             }
@@ -202,14 +202,4 @@ public class InicioFragment extends Fragment {
                     }
                 });
     }
-
-    // Obtener token de sesión
-    private String getSessionToken() {
-        if (getContext() == null) return null;
-
-        return getContext()
-                .getSharedPreferences("session", Context.MODE_PRIVATE)
-                .getString("sessionToken", null);
-    }
-
 }

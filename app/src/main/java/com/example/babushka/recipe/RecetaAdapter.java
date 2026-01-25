@@ -1,4 +1,4 @@
-package com.example.babushka.Inicio;
+package com.example.babushka.recipe;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.babushka.R;
 import com.example.babushka.network.ClientResponse;
-import com.example.babushka.recipe.Receta;
 import com.example.babushka.network.RetrofitClient;
 
 import java.util.List;
@@ -24,7 +23,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder> {
-
     private List<Receta> listaReceta;
     private OnRecetaClickListener listener;
 
@@ -52,7 +50,7 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
         return new ViewHolder(view);
     }
 
-    // Asignar valor a variables que luego se visualizarán
+    // Asignar valores a variables que luego se visualizarán
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Receta receta = listaReceta.get(position);
@@ -62,7 +60,9 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
         holder.dificult.setText("" + receta.difficulty);
         holder.tiempo.setText("" + receta.time);
 
+        // "" + ... convierte a String (con int da error)
 
+        // Descargar imagen
         RetrofitClient.getApi()
                 .getRecipeImage(receta.id)
                 .enqueue(new Callback<ResponseBody>() {
@@ -92,8 +92,8 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
             miniFavorite(holder.estrella, receta);
         });
 
-        //Cuando se hace click en una mini receta,
-        // avisamos al Fragment y le pasamos la receta clicada
+        // Cuando se hace click en una mini receta,
+        // Avisamos al Fragment y le pasamos la receta clicada
         holder.itemView.setOnClickListener(v -> {
             listener.onRecetaClick(receta);
         });
@@ -114,9 +114,8 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
         }
     }
 
-    // Marcar / desmarcar favorito
+    // Peticion para marcar/desmarcar favorito
     private void miniFavorite(ImageView estrella, Receta receta) {
-
         RetrofitClient.getApi()
                 .postFavoriteRecipes(receta.id, !receta.isFavorite)
                 .enqueue(new Callback<ClientResponse>() {
@@ -149,8 +148,6 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
             imagen = view.findViewById(R.id.vwImagen);
             estrella = view.findViewById(R.id.Estrella);
             tiempo = view.findViewById(R.id.tvTiempo);
-
         }
-
     }
 }

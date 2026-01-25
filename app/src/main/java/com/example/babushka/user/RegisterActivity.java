@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.babushka.R;
 import com.example.babushka.network.RetrofitClient;
-import com.example.babushka.network.UserDto;
+import com.example.babushka.network.dto.UserDto;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
