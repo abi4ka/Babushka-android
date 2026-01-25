@@ -24,7 +24,8 @@ public interface RecipeApi {
     Call<ClientResponse<List<RecipeResponseDto>>> getRecipes(
             @Query("page") int page,
             @Query("size") int size,
-            @Query("search") String search);
+            @Query("search") String search,
+            @Query("categoryId") Integer categoryId);
 
     /**
      * Peticion imagen de la receta

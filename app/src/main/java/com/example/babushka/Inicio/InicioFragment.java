@@ -41,6 +41,8 @@ public class InicioFragment extends Fragment {
     private List<Receta> recetas = new ArrayList<>();
     private int currentPage = 0;
     private boolean isLoading = false;
+    private Integer categoryId = null;
+
 
     public InicioFragment() {
         super(R.layout.fragment_inicio);
@@ -169,7 +171,7 @@ public class InicioFragment extends Fragment {
         isLoading = true;
 
         RetrofitClient.getApi()
-                .getRecipes(currentPage, 6, search)
+                .getRecipes(currentPage, 6, search, categoryId)
                 .enqueue(new Callback<ClientResponse<List<RecipeResponseDto>>>() {
                     @Override
                     public void onResponse(
