@@ -110,10 +110,10 @@ public class RecipeListFragment extends Fragment {
 
         if (type == RecipeListType.MY_RECIPES) {
             call = RetrofitClient.getApi()
-                    .getMyRecipes(userId, page, PAGE_SIZE, userId);
+                    .getMyRecipes(page, PAGE_SIZE);
         } else {
             call = RetrofitClient.getApi()
-                    .getFavoriteRecipes(userId, page, PAGE_SIZE, userId);
+                    .getFavoriteRecipes(page, PAGE_SIZE);
         }
 
         call.enqueue(new Callback<>() {

@@ -106,7 +106,7 @@ public class DetalleFragment extends Fragment {
     private void favorite(ImageView estrella){
 
         RetrofitClient.getApi()
-                .postFavoriteRecipes(receta.id, 3L, !receta.isFavorite)
+                .postFavoriteRecipes(receta.id, !receta.isFavorite)
                 .enqueue(new Callback<ClientResponse>() {
                     @Override
                     public void onResponse(Call<ClientResponse> call, Response<ClientResponse> response) {

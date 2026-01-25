@@ -118,7 +118,7 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
     private void miniFavorite(ImageView estrella, Receta receta) {
 
         RetrofitClient.getApi()
-                .postFavoriteRecipes(receta.id, 3L, !receta.isFavorite)
+                .postFavoriteRecipes(receta.id, !receta.isFavorite)
                 .enqueue(new Callback<ClientResponse>() {
                     @Override
                     public void onResponse(Call<ClientResponse> call,

@@ -48,7 +48,7 @@ public class PerfilFragment extends Fragment {
         long userId = 3L;
 
         RetrofitClient.getApi()
-                .getUserInfo(userId)
+                .getUserInfo()
                 .enqueue(new Callback<ClientResponse<UserInfoDto>>() {
                     @Override
                     public void onResponse(Call<ClientResponse<UserInfoDto>> call,

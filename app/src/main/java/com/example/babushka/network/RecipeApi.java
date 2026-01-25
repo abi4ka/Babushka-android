@@ -15,35 +15,28 @@ public interface RecipeApi {
     Call<ClientResponse<List<RecipeResponseDto>>> getRecipes(
             @Query("page") int page,
             @Query("size") int size,
-            @Query("search") String search,
-            @Query("userIdFav") long userIdFav);
+            @Query("search") String search);
 
     @GET("/recipes/{id}/image")
     Call<ResponseBody> getRecipeImage(
             @Path("id") long id);
 
-    @GET("/recipes/user/{userId}")
+    @GET("/users/me/recipes")
     Call<ClientResponse<List<RecipeResponseDto>>> getMyRecipes(
-            @Path("userId") long userId,
             @Query("page") int page,
-            @Query("size") int size,
-            @Query("userIdFav") long userIdFav);
+            @Query("size") int size);
 
-    @GET("/recipes/favorite/user/{userId}")
+    @GET("/users/me/favorites")
     Call<ClientResponse<List<RecipeResponseDto>>> getFavoriteRecipes(
-            @Path("userId") long userId,
             @Query("page") int page,
-            @Query("size") int size,
-            @Query("userIdFav") long userIdFav);
+            @Query("size") int size);
 
-    @GET("/users/{userId}/info")
-    Call<ClientResponse<UserInfoDto>> getUserInfo(
-            @Path("userId") long userId);
+    @GET("/users/me/info")
+    Call<ClientResponse<UserInfoDto>> getUserInfo();
 
     @POST("/recipes/{id}/favorite")
     Call<ClientResponse> postFavoriteRecipes(
             @Path("id") long recipeId,
-            @Query("userId") long userId,
             @Query("favorite") boolean favorite);
 
     /*Este metodo hace una petición HTTP POST a la ruta /sessions del backend de Django,

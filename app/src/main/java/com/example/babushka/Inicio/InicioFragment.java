@@ -167,10 +167,9 @@ public class InicioFragment extends Fragment {
     // Simulación de carga de recetas (scroll infinito)
     private void loadNextPage() {
         isLoading = true;
-        System.out.print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH" + getSessionToken());
 
         RetrofitClient.getApi()
-                .getRecipes(currentPage, PAGE_SIZE, search, 3L)
+                .getRecipes(currentPage, PAGE_SIZE, search)
                 .enqueue(new Callback<ClientResponse<List<RecipeResponseDto>>>() {
                     @Override
                     public void onResponse(
