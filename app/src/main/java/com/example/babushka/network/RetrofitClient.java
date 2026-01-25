@@ -1,5 +1,7 @@
 package com.example.babushka.network;
 
+import android.content.Context;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -31,6 +33,8 @@ public class RetrofitClient {
             OkHttpClient client = new OkHttpClient.Builder()
                     //Le añadimos el interceptor de logging que creamos arriba
                     .addInterceptor(logging)
+                    //Modifica
+                    .addInterceptor(new AuthInterceptor())
                     //contruimos el cliente final que sera empleado por Retrofit
                     .build();
 
