@@ -5,43 +5,18 @@ import java.util.List;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RecipeApi {
-    @GET("/recipes")
-    Call<ClientResponse<List<RecipeResponseDto>>> getRecipes(
+
+    @GET("/recipe/get-page")
+    Call<List<RecipeResponseDto>> getRecipes(
             @Query("page") int page,
             @Query("size") int size,
-            @Query("search") String search,
-            @Query("userIdFav") long userIdFav);
+            @Query("search") String search
+    );
 
-    @GET("/recipes/{id}/image")
-    Call<ResponseBody> getRecipeImage(
-            @Path("id") long id);
-
-    @GET("/recipes/user/{userId}")
-    Call<ClientResponse<List<RecipeResponseDto>>> getMyRecipes(
-            @Path("userId") long userId,
-            @Query("page") int page,
-            @Query("size") int size,
-            @Query("userIdFav") long userIdFav);
-
-    @GET("/recipes/favorite/user/{userId}")
-    Call<ClientResponse<List<RecipeResponseDto>>> getFavoriteRecipes(
-            @Path("userId") long userId,
-            @Query("page") int page,
-            @Query("size") int size,
-            @Query("userIdFav") long userIdFav);
-
-    @GET("/users/{userId}/info")
-    Call<ClientResponse<UserInfoDto>> getUserInfo(
-            @Path("userId") long userId);
-
-    @POST("/recipes/{id}/favorite")
-    Call<ClientResponse> postFavoriteRecipes(
-            @Path("id") long recipeId,
-            @Query("userId") long userId,
-            @Query("favorite") boolean favorite);
+    @GET("/recipe/{id}/get-image")
+    Call<ResponseBody> getRecipeImage(@Path("id") long id);
 }
