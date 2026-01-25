@@ -59,8 +59,8 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
 
         holder.nombre.setText(receta.title);
         holder.descrip.setText(receta.description);
-        holder.dificult.setText(receta.difficulty);
-        holder.tiempo.setText(receta.time);
+        holder.dificult.setText("" + receta.difficulty);
+        holder.tiempo.setText("" + receta.time);
 
 
         RetrofitClient.getApi()
