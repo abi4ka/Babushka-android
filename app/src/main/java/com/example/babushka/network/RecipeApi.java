@@ -1,5 +1,7 @@
 package com.example.babushka.network;
 
+import com.example.babushka.categorias.CategoryImageDto;
+
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -50,6 +52,7 @@ public interface RecipeApi {
     @GET("/categories")
     Call<List<com.example.babushka.categorias.CategoryDto>> getCategories();
 
-
+    @GET("/categories/{id}/image")
+    Call<ResponseBody> getCategoryImage(@Path("id") int id);
 
 }
