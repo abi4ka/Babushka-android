@@ -47,5 +47,9 @@ public interface RecipeApi {
     @POST("/users")
     Call<ResponseBody> register(@Body UserDto user);
 
+    @GET("/categories")
+    Call<List<com.example.babushka.categorias.CategoryDto>> getCategories();
+
+
 
 }

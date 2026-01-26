@@ -1,20 +1,29 @@
 package com.example.babushka.categorias;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.babushka.Inicio.InicioFragment;
-import com.example.babushka.MainActivity;
 import com.example.babushka.R;
+import com.example.babushka.network.RecipeApi;
+import com.example.babushka.network.RetrofitClient;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CategoriasFragment extends Fragment {
+
     private OnCategoriaSelected listener;
+    RecyclerView recycler;
 
     public CategoriasFragment() {
         super(R.layout.fragment_categorias);
@@ -28,66 +37,31 @@ public class CategoriasFragment extends Fragment {
         }
     }
 
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //REFERENCIAS A LAS CATEGORIAS
-        View categoriaHealth = view.findViewById(R.id.categoriaHealth);
-        View categoriaEntrantes = view.findViewById(R.id.categoriaEntrantes);
-        View categoriaCarnes = view.findViewById(R.id.categoriaCarnes);
+        recycler = view.findViewById(R.id.recyclerCategories);
+        recycler.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        View categoriaPasta = view.findViewById(R.id.categoriaPasta);
-        View categoriaMar = view.findViewById(R.id.categoriaMar);
-        View categoriaEnsaladas = view.findViewById(R.id.categoriaEnsaladas);
+        loadCategories();
+    }
 
-        View categoriaPostres = view.findViewById(R.id.categoriaPostres);
-        View categoriaVegetariano = view.findViewById(R.id.categoriaVegetariano);
-        View categoriaVegano = view.findViewById(R.id.categoriaVegano);
+    void loadCategories() {
+        RecipeApi api = RetrofitClient.getApi();
 
-        View categoriaSinGluten = view.findViewById(R.id.categoriaSinGluten);
+        api.getCategories().enqueue(new Callback<List<CategoryDto>>() {
+            @Override
+            public void onResponse(Call<List<CategoryDto>> call, Response<List<CategoryDto>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    recycler.setAdapter(new CategoryAdapter(response.body(), listener));
+                }
+            }
 
-
-        // Al hacer click, abrir la pantalla de la categoria:
-        categoriaHealth.setOnClickListener(v -> {
-            listener.onCategoriaSelected("health",R.color.cat_health);
-        });
-
-        categoriaEntrantes.setOnClickListener(v -> {
-            listener.onCategoriaSelected("entrantes",R.color.cat_entrantes);
-        });
-
-        categoriaCarnes.setOnClickListener(v -> {
-            listener.onCategoriaSelected("carnes",R.color.cat_carnes);
-        });
-
-        categoriaPasta.setOnClickListener(v -> {
-            listener.onCategoriaSelected("pasta",R.color.cat_pasta);
-        });
-
-        categoriaMar.setOnClickListener(v -> {
-            listener.onCategoriaSelected("mar", R.color.cat_mar);
-        });
-
-        categoriaEnsaladas.setOnClickListener(v -> {
-            listener.onCategoriaSelected("ensaladas", R.color.cat_ensaladas);
-        });
-
-        categoriaPostres.setOnClickListener(v -> {
-            listener.onCategoriaSelected("postres", R.color.cat_postres);
-        });
-
-        categoriaVegetariano.setOnClickListener(v -> {
-            listener.onCategoriaSelected("vegetariano", R.color.cat_vegetariano);
-        });
-
-        categoriaVegano.setOnClickListener(v -> {
-            listener.onCategoriaSelected("vegano", R.color.cat_vegano);
-        });
-
-        categoriaSinGluten.setOnClickListener(v -> {
-            listener.onCategoriaSelected("sin_gluten", R.color.cat_sin_gluten);
+            @Override
+            public void onFailure(Call<List<CategoryDto>> call, Throwable t) {
+                t.printStackTrace();
+            }
         });
     }
 }
