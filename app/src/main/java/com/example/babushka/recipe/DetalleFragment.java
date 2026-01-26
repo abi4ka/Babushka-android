@@ -47,6 +47,7 @@ public class DetalleFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         TextView nombre = view.findViewById(R.id.txNombre);
+        TextView tiempo = view.findViewById(R.id.tvTiempo);
         TextView dificultad = view.findViewById(R.id.tvDificultad);
         TextView descripcion = view.findViewById(R.id.txDescripcion);
         TextView ingredientes = view.findViewById(R.id.txIngredientes);
@@ -54,9 +55,11 @@ public class DetalleFragment extends Fragment {
         ImageView imagen = view.findViewById(R.id.vwImagen);
         ImageView estrella = view.findViewById(R.id.Estrella);
 
+
         // Mostramos los datos
         nombre.setText(receta.title);
-        dificultad.setText("Dificultad " + receta.difficulty);
+        tiempo.setText("" + receta.time);
+        dificultad.setText("" + receta.difficulty);
         descripcion.setText(receta.description);
         ingredientes.setText(ingredientesBetterLook(receta.ingredients));
         preparacion.setText(receta.preparation);
