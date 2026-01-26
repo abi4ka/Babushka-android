@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--TÍTULO DE LA RECETA-->
+        <EditText
+            android:id="@+id/etNombre"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+
+            android:hint="Nombre Receta..."
+            android:textColor="@color/text_primary"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- ESPACIO VACÍO -->
+        <View
+            android:id="@+id/space"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+
+            app:layout_constraintTop_toBottomOf="@id/etNombre"
+            tools:ignore="MissingConstraints" />
+
+        <!-- FACTOR TIEMPO PREPARACIÓN -->
+        <ImageView
+            android:id="@+id/ivTiempo"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="4dp"
+
+            android:src="@android:drawable/ic_lock_idle_alarm"
+            app:layout_constraintStart_toStartOf="@id/etNombre"
+            app:layout_constraintTop_toBottomOf="@id/etNombre" />
+
+        <EditText
+            android:id="@+id/etTiempo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:hint="Tiempo"
+            android:textColor="@color/text_secondary"
+
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/ivTiempo"
+            app:layout_constraintStart_toEndOf="@id/ivTiempo"
+            app:layout_constraintTop_toTopOf="@id/ivTiempo" />
+
+        <!-- FACTOR DIFICULTAD PREPARACIÓN -->
+        <ImageView
+            android:id="@+id/ivDificultad"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="10dp"
+
+            android:src="@android:drawable/ic_menu_sort_by_size"
+            app:layout_constraintStart_toEndOf="@id/etTiempo"
+            app:layout_constraintTop_toTopOf="@id/ivTiempo" />
+
+        <EditText
+            android:id="@+id/etDificultad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:hint="Dificultad"
+            android:textColor="@color/text_secondary"
+
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@id/ivDificultad"
+            app:layout_constraintTop_toTopOf="@id/etTiempo" />
+
+        <!-- IMAGEN RECETA -->
+        <ImageView
+            android:id="@+id/vwImagen"
+            android:layout_width="0dp"
+            android:layout_height="250dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/empty_image_background"
+
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/space" />
+
+        <!-- DESCRIPCIÓN -->
+        <TextView
+            android:id="@+id/tvDescripcion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:text="Descripción:"
+
+            android:textColor="@color/text_primary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/vwImagen" />
+        <EditText
+            android:id="@+id/etDescripcion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="16dp"
+
+            android:hint="Breve descripción de la receta..."
+            android:textColor="@color/text_secondary"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDescripcion" />
+
+        <!-- INGREDIENTES RECETA-->
+        <TextView
+            android:id="@+id/tvIngredientes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:text="Ingredientes:"
+
+            android:textColor="@color/text_primary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etDescripcion" />
+        <EditText
+            android:id="@+id/etIngredientes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            android:hint="Lista ingredientes..."
+            android:textColor="@color/text_secondary"
+            android:textSize="18sp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvIngredientes"/>
+
+
+        <!-- PREPARACIÓN  -->
+        <TextView
+            android:id="@+id/tvPreparacion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:text="Preparación:"
+            android:textColor="@color/text_primary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etIngredientes" />
+        <EditText
+            android:id="@+id/etPreparacion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Texto preparación..."
+            android:textColor="@color/text_secondary"
+            android:textSize="18sp"
+
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvPreparacion" />
+
+        <View
+            android:id="@+id/end_page_space"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            app:layout_constraintTop_toBottomOf="@id/etPreparacion"
+            tools:ignore="MissingConstraints" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
