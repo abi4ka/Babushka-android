@@ -10,10 +10,10 @@ import androidx.fragment.app.Fragment;
 
 import com.example.babushka.R;
 
-public class CrearReceta extends Fragment {
+public class CrearRecetaFragment extends Fragment {
     private Receta receta;
 
-    public CrearReceta() {
+    public CrearRecetaFragment() {
         super(R.layout.crear_receta);
     }
 
