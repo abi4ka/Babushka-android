@@ -115,6 +115,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/vwImagen" />
+
         <EditText
             android:id="@+id/etDescripcion"
             android:layout_width="0dp"
@@ -146,6 +147,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/etDescripcion" />
+
         <EditText
             android:id="@+id/etIngredientes"
             android:layout_width="0dp"
@@ -159,7 +161,7 @@
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvIngredientes"/>
+            app:layout_constraintTop_toBottomOf="@id/tvIngredientes" />
 
 
         <!-- PREPARACIÓN  -->
@@ -178,28 +180,58 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/etIngredientes" />
+
         <EditText
             android:id="@+id/etPreparacion"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Texto preparación..."
-            android:textColor="@color/text_secondary"
-            android:textSize="18sp"
-
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
+
             android:layout_marginBottom="24dp"
+            android:hint="Texto preparación..."
+            android:textColor="@color/text_secondary"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvPreparacion" />
+
+        <!--Mensaje DE ERROR-->
+        <TextView
+            android:id="@+id/mensajeError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="MENSAJE DE ERROR"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="15dp"
+            android:visibility="gone"
+
+
+            app:layout_constraintEnd_toEndOf="@id/etPreparacion"
+            app:layout_constraintStart_toStartOf="@id/etPreparacion"
+            app:layout_constraintTop_toBottomOf="@id/etPreparacion"
+            tools:ignore="MissingConstraints" />
+
+        <!--BOTÓN DE CREAR-->
+        <Button
+            android:id="@+id/botonCrear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="CREAR"
+
+            app:layout_constraintEnd_toEndOf="@id/etPreparacion"
+            app:layout_constraintStart_toStartOf="@id/etPreparacion"
+            app:layout_constraintTop_toBottomOf="@id/mensajeError" />
 
         <View
             android:id="@+id/end_page_space"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            app:layout_constraintTop_toBottomOf="@id/etPreparacion"
+            app:layout_constraintTop_toBottomOf="@id/botonCrear"
             tools:ignore="MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
