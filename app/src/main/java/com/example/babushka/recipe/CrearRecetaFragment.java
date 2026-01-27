@@ -109,7 +109,17 @@ public class CrearRecetaFragment extends Fragment {
                                         && response.body() != null) {
 
                                     // Receta creada correctamente
-                                    mensajeError.setVisibility(View.GONE);
+                                    mensajeError.setText("Receta creada");
+                                    mensajeError.setVisibility(View.VISIBLE);
+
+                                    // Borrar contenido una vez creada
+                                    nombre.setText("");
+                                    descripcion.setText("");
+                                    ingretientes.setText("");
+                                    preparacion.setText("");
+                                    tiempo.setText("");
+                                    dificultad.setText("");
+
 
                                 } else {
                                     // Error del servidor
