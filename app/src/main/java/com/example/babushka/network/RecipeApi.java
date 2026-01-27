@@ -34,6 +34,14 @@ public interface RecipeApi {
     Call<ResponseBody> getRecipeImage(
             @Path("id") long id);
 
+    /*
+     * Petición para publicar receta nueva
+     * */
+    @POST("/recipes")
+    Call<ClientResponse<RecipeResponseDto>> createRecipe(
+            @Body RecipeResponseDto receta
+    );
+
     /**
      * Peticion sacar todos recetas creados por usuario
      */
@@ -85,4 +93,6 @@ public interface RecipeApi {
      */
     @POST("/users")
     Call<ResponseBody> register(@Body UserDto user);
+
+
 }
