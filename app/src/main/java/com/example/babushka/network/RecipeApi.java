@@ -25,7 +25,7 @@ public interface RecipeApi {
             @Query("page") int page,
             @Query("size") int size,
             @Query("search") String search,
-            @Query("categoryId") Integer categoryId);
+            @Query("categoryId") Long categoryId);
 
     /**
      * Peticion imagen de la receta
@@ -102,6 +102,6 @@ public interface RecipeApi {
     // Petición GET al endpoint "/categories/{id}/image"
     // Recibe el id de una categoría y devuelve su imagen
     @GET("/categories/{id}/image")
-    Call<ResponseBody> getCategoryImage(@Path("id") int id);
+    Call<ResponseBody> getCategoryImage(@Path("id") Long id);
 
 }

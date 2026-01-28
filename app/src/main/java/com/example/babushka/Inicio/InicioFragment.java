@@ -41,17 +41,18 @@ public class InicioFragment extends Fragment {
     private List<Receta> recetas = new ArrayList<>();
     private int currentPage = 0;
     private boolean isLoading = false;
-    private Integer categoryId = null;
+    private Long categoryId = null;
 
 
     public InicioFragment() {
         super(R.layout.fragment_inicio);
     }
 
-    public static InicioFragment newInstance(String categoria) {
+    public static InicioFragment newInstance(String categoria, Long categoriaId) {
         InicioFragment fragment = new InicioFragment();
         Bundle args = new Bundle();
         args.putString("categoria", categoria);
+        args.putSerializable("categoriaId", categoriaId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -62,6 +63,7 @@ public class InicioFragment extends Fragment {
 
         Bundle args = requireArguments();
         String category = args.getString("categoria");
+        categoryId = (Long) getArguments().getSerializable("categoriaId");
 
         TextView tituloCategoria = view.findViewById(R.id.tvCategoria);
 
@@ -169,7 +171,6 @@ public class InicioFragment extends Fragment {
 
     private void loadNextPage() {
         isLoading = true;
-
         RetrofitClient.getApi()
                 .getRecipes(currentPage, 6, search, categoryId)
                 .enqueue(new Callback<ClientResponse<List<RecipeResponseDto>>>() {

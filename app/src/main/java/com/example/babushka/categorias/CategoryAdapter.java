@@ -92,7 +92,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
         // Detecta cuando el usuario pulsa una categoría
         holder.itemView.setOnClickListener(v -> {
-            listener.onCategoriaSelected(c.name, android.R.color.black);
+            listener.onCategoriaSelected(c.name, c.id);
         });
     }
 

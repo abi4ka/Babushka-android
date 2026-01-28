@@ -36,12 +36,12 @@ public class MainActivity extends AppCompatActivity implements OnCategoriaSelect
         toolbar.setNavigationOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
 
         if (savedInstanceState == null) {
-            replaceFragment(InicioFragment.newInstance( null));
+            replaceFragment(InicioFragment.newInstance( null, null));
         }
 
         navigationView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
-            if (id == R.id.menu_inicio) replaceFragment(InicioFragment.newInstance( null));
+            if (id == R.id.menu_inicio) replaceFragment(InicioFragment.newInstance( null, null));
             else if (id == R.id.menu_categorias) replaceFragment(new CategoriasFragment());
             else if (id == R.id.menu_perfil) replaceFragment(new PerfilFragment());
             else if (id == R.id.menu_crear_receta) replaceFragment(new CrearRecetaFragment());
@@ -59,8 +59,8 @@ public class MainActivity extends AppCompatActivity implements OnCategoriaSelect
     }
 
     @Override
-    public void onCategoriaSelected(String categoria) {
-        replaceFragment(InicioFragment.newInstance(categoria));
+    public void onCategoriaSelected(String categoria, Long categoryId) {
+        replaceFragment(InicioFragment.newInstance(categoria, categoryId));
     }
 
     @Override

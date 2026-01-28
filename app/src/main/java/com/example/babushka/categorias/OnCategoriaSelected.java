@@ -1,5 +1,5 @@
 package com.example.babushka.categorias;
 
 public interface OnCategoriaSelected {
-    void onCategoriaSelected(String categoria);
+    void onCategoriaSelected(String categoria, Long categoryId);
 }
