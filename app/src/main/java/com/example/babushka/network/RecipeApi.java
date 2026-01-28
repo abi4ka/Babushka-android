@@ -1,5 +1,6 @@
 package com.example.babushka.network;
 
+import com.example.babushka.network.dto.CategoryDto;
 import com.example.babushka.network.dto.LoginResponseDto;
 import com.example.babushka.network.dto.RecipeResponseDto;
 import com.example.babushka.network.dto.UserDto;
@@ -97,7 +98,7 @@ public interface RecipeApi {
     // Petición GET al endpoint "/categories"
     // Devuelve una lista de categorías
     @GET("/categories")
-    Call<List<com.example.babushka.categorias.CategoryDto>> getCategories();
+    Call<List<CategoryDto>> getCategories();
 
     // Petición GET al endpoint "/categories/{id}/image"
     // Recibe el id de una categoría y devuelve su imagen

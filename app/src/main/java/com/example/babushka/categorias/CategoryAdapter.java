@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.babushka.R;
 import com.example.babushka.network.RecipeApi;
 import com.example.babushka.network.RetrofitClient;
+import com.example.babushka.network.dto.CategoryDto;
 
 import java.util.List;
 
