@@ -7,84 +7,74 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.babushka.R;
+import com.example.babushka.network.RecipeApi;
+import com.example.babushka.network.RetrofitClient;
 
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+// Fragment que muestra la lista de categorías en pantalla
 public class CategoriasFragment extends Fragment {
+
+    // Listener para comunicar al fragment con la actividad principal
     private OnCategoriaSelected listener;
+    RecyclerView recycler;
 
     public CategoriasFragment() {
         super(R.layout.fragment_categorias);
     }
 
+    // Se ejecuta cuando el fragment se asocia a la actividad
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+
+        // Comprueba que la actividad implemente la interfaz de comunicación
         if (context instanceof OnCategoriaSelected) {
             listener = (OnCategoriaSelected) context;
         }
     }
 
-
+    // Se ejecuta cuando la vista del fragment ya ha sido creada
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //REFERENCIAS A LAS CATEGORIAS
-        View categoriaHealth = view.findViewById(R.id.categoriaHealth);
-        View categoriaEntrantes = view.findViewById(R.id.categoriaEntrantes);
-        View categoriaCarnes = view.findViewById(R.id.categoriaCarnes);
+        recycler = view.findViewById(R.id.recyclerCategories);
+        recycler.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        View categoriaPasta = view.findViewById(R.id.categoriaPasta);
-        View categoriaMar = view.findViewById(R.id.categoriaMar);
-        View categoriaEnsaladas = view.findViewById(R.id.categoriaEnsaladas);
+        loadCategories();
+    }
 
-        View categoriaPostres = view.findViewById(R.id.categoriaPostres);
-        View categoriaVegetariano = view.findViewById(R.id.categoriaVegetariano);
-        View categoriaVegano = view.findViewById(R.id.categoriaVegano);
+    // Metodo que obtiene las categorias desde el API REST
+    void loadCategories() {
+        // Obtiene la instancia de la API usando Retrofit
+        RecipeApi api = RetrofitClient.getApi();
 
-        View categoriaSinGluten = view.findViewById(R.id.categoriaSinGluten);
+        // Realiza la petición asíncrona al servidor
+        api.getCategories().enqueue(new Callback<List<CategoryDto>>() {
+            // Realiza la petición asíncrona al servidor
+            @Override
+            public void onResponse(Call<List<CategoryDto>> call, Response<List<CategoryDto>> response) {
+                // Comprueba que la respuesta es correcta y tiene datos
+                if (response.isSuccessful() && response.body() != null) {
+                    // Asigna el adaptador al RecyclerView con los datos recibidos
+                    recycler.setAdapter(new CategoryAdapter(response.body(), listener));
+                }
+            }
 
-
-        // Al hacer click, abrir la pantalla de la categoria:
-        categoriaHealth.setOnClickListener(v -> {
-            listener.onCategoriaSelected("health");
-        });
-
-        categoriaEntrantes.setOnClickListener(v -> {
-            listener.onCategoriaSelected("entrantes");
-        });
-
-        categoriaCarnes.setOnClickListener(v -> {
-            listener.onCategoriaSelected("carnes");
-        });
-
-        categoriaPasta.setOnClickListener(v -> {
-            listener.onCategoriaSelected("pasta");
-        });
-
-        categoriaMar.setOnClickListener(v -> {
-            listener.onCategoriaSelected("mar");
-        });
-
-        categoriaEnsaladas.setOnClickListener(v -> {
-            listener.onCategoriaSelected("ensaladas");
-        });
-
-        categoriaPostres.setOnClickListener(v -> {
-            listener.onCategoriaSelected("postres");
-        });
-
-        categoriaVegetariano.setOnClickListener(v -> {
-            listener.onCategoriaSelected("vegetariano");
-        });
-
-        categoriaVegano.setOnClickListener(v -> {
-            listener.onCategoriaSelected("vegano");
-        });
-
-        categoriaSinGluten.setOnClickListener(v -> {
-            listener.onCategoriaSelected("sin_gluten");
+            // Si ocurre un error de red o de servidor
+            @Override
+            public void onFailure(Call<List<CategoryDto>> call, Throwable t) {
+                t.printStackTrace();
+            }
         });
     }
 }
