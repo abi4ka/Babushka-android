@@ -51,6 +51,7 @@ public class InicioFragment extends Fragment {
     public static InicioFragment newInstance(String categoria, Long categoriaId) {
         InicioFragment fragment = new InicioFragment();
         Bundle args = new Bundle();
+        // Guardar información
         args.putString("categoria", categoria);
         args.putSerializable("categoriaId", categoriaId);
         fragment.setArguments(args);
@@ -62,6 +63,7 @@ public class InicioFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Bundle args = requireArguments();
+        // Sacamos información
         String category = args.getString("categoria");
         categoryId = (Long) getArguments().getSerializable("categoriaId");
 
@@ -78,7 +80,6 @@ public class InicioFragment extends Fragment {
         barraBuscador.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
                 search = s.toString();
 
                 // Cancelamos cualquier búsqueda pendiente
