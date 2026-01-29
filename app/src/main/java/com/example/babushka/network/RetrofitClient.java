@@ -17,23 +17,40 @@ public class RetrofitClient {
 
     private static Retrofit retrofit;
     public static RecipeApi getApi() {
+        // Comprueba si Retrofit ya fue creado.
+        // Si no fue creado, se inicializa y sino se reutiliza.
         if (retrofit == null) {
-            HttpLoggingInterceptor logging = new HttpLoggingInterceptor(); //Debug
-            logging.setLevel(HttpLoggingInterceptor.Level.BODY); //Debug
+            //Debug
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
+            // OkHTTPClient es el objeto que configuramos para poder hacer las solicitudes.
+            // Creamos un OkHttpClient
             OkHttpClient client = new OkHttpClient.Builder()
-                    .addInterceptor(logging) //Debug
-                    .addInterceptor(new AuthInterceptor()) //Enviar token del usuario
+                    // Debug
+                    .addInterceptor(logging)
+
+                    // Enviar token del usuario
+                    .addInterceptor(new AuthInterceptor())
+
+                    // Contruimos el cliente final que sera empleado por Retrofit
                     .build();
 
-
+            //Creamos la instancia de Retrofit
             retrofit = new Retrofit.Builder()
+                    // Define la URL base de la API
                     .baseUrl(BASE_URL)
+
+                    // Asigna el cliente HTTP que definimos con logging
                     .client(client)
-                    .addConverterFactory(GsonConverterFactory.create()) //permite convertir automaticamente JSON a objetos
+
+                    // Permite convertir automaticamente JSON a objetos
+                    .addConverterFactory(GsonConverterFactory.create())
+
+                    // Contruimos el cliente final que sera empleado por Retrofit
                     .build();
         }
-        //Retrofit crea una implementación de la interfaz RecipeApi
+        // Retrofit crea una implementación de la interfaz RecipeApi
         return retrofit.create(RecipeApi.class);
     }
 }

@@ -14,7 +14,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.babushka.R;
-import com.example.babushka.network.ClientResponse;
 import com.example.babushka.network.RetrofitClient;
 import com.example.babushka.network.dto.UserInfoDto;
 
@@ -47,12 +46,12 @@ public class PerfilFragment extends Fragment {
         // Peticion para sacar datos sobre usuario
         RetrofitClient.getApi()
                 .getUserInfo()
-                .enqueue(new Callback<ClientResponse<UserInfoDto>>() {
+                .enqueue(new Callback<UserInfoDto>() {
                     @Override
-                    public void onResponse(Call<ClientResponse<UserInfoDto>> call,
-                                           Response<ClientResponse<UserInfoDto>> response) {
+                    public void onResponse(Call<UserInfoDto> call,
+                                           Response<UserInfoDto> response) {
                         if (response.isSuccessful() && response.body() != null) {
-                            UserInfoDto user = response.body().getData();
+                            UserInfoDto user = response.body();
                             tvUsername.setText(user.username);
                             tvCreatedCount.setText(String.valueOf(user.countCreatedRecipe));
                             tvFavoriteCount.setText(String.valueOf(user.countFavoriteRecipe));
@@ -60,7 +59,7 @@ public class PerfilFragment extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<ClientResponse<UserInfoDto>> call, Throwable t) {
+                    public void onFailure(Call<UserInfoDto> call, Throwable t) {
                         t.printStackTrace();
                     }
                 });

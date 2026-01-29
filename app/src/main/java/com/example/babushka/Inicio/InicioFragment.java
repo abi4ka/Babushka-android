@@ -20,7 +20,6 @@ import com.example.babushka.R;
 import com.example.babushka.recipe.Receta;
 import com.example.babushka.recipe.RecetaAdapter;
 import com.example.babushka.recipe.RecipeNavigation;
-import com.example.babushka.network.ClientResponse;
 import com.example.babushka.network.dto.RecipeResponseDto;
 import com.example.babushka.network.RetrofitClient;
 
@@ -174,19 +173,18 @@ public class InicioFragment extends Fragment {
         isLoading = true;
         RetrofitClient.getApi()
                 .getRecipes(currentPage, 6, search, categoryId)
-                .enqueue(new Callback<ClientResponse<List<RecipeResponseDto>>>() {
+                .enqueue(new Callback<List<RecipeResponseDto>>() {
                     @Override
                     public void onResponse(
-                            Call<ClientResponse<List<RecipeResponseDto>>> call,
-                            Response<ClientResponse<List<RecipeResponseDto>>> response) {
+                            Call<List<RecipeResponseDto>> call,
+                            Response<List<RecipeResponseDto>> response) {
 
                         if (response.isSuccessful()
-                                && response.body() != null
-                                && response.body().getData() != null) {
+                                && response.body() != null) {
 
                             // Crear recetas from dto model
                             List<Receta> nuevas = new ArrayList<>();
-                            for (RecipeResponseDto dto : response.body().getData()) {
+                            for (RecipeResponseDto dto : response.body()) {
                                 nuevas.add(new Receta(dto));
                             }
 
@@ -199,7 +197,7 @@ public class InicioFragment extends Fragment {
 
                     @Override
                     public void onFailure(
-                            Call<ClientResponse<List<RecipeResponseDto>>> call,
+                            Call<List<RecipeResponseDto>> call,
                             Throwable t) {
                         t.printStackTrace();
                         isLoading = false;

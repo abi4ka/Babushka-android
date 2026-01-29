@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.babushka.R;
-import com.example.babushka.network.ClientResponse;
 import com.example.babushka.network.RetrofitClient;
 
 import java.util.List;
@@ -118,17 +117,17 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
     private void miniFavorite(ImageView estrella, Receta receta) {
         RetrofitClient.getApi()
                 .postFavoriteRecipes(receta.id, !receta.isFavorite)
-                .enqueue(new Callback<ClientResponse>() {
+                .enqueue(new Callback<Void>() {
                     @Override
-                    public void onResponse(Call<ClientResponse> call,
-                                           Response<ClientResponse> response) {
+                    public void onResponse(Call<Void> call,
+                                           Response<Void> response) {
                         // Solo cambiamos el estado si el servidor responde bien
                         receta.isFavorite = !receta.isFavorite;
                         updateStar(estrella, receta);
                     }
 
                     @Override
-                    public void onFailure(Call<ClientResponse> call, Throwable t) {
+                    public void onFailure(Call<Void> call, Throwable t) {
                         t.printStackTrace();
                     }
                 });

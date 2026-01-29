@@ -22,7 +22,7 @@ public interface RecipeApi {
      * Peticion sacar todas recetas
      */
     @GET("/recipes")
-    Call<ClientResponse<List<RecipeResponseDto>>> getRecipes(
+    Call<List<RecipeResponseDto>> getRecipes(
             @Query("page") int page,
             @Query("size") int size,
             @Query("search") String search,
@@ -39,7 +39,7 @@ public interface RecipeApi {
      * Petición para publicar receta nueva
      * */
     @POST("/recipes")
-    Call<ClientResponse<RecipeResponseDto>> createRecipe(
+    Call<RecipeResponseDto> createRecipe(
             @Body RecipeResponseDto receta
     );
 
@@ -47,7 +47,7 @@ public interface RecipeApi {
      * Peticion sacar todos recetas creados por usuario
      */
     @GET("/users/me/recipes")
-    Call<ClientResponse<List<RecipeResponseDto>>> getMyRecipes(
+    Call<List<RecipeResponseDto>> getMyRecipes(
             @Query("page") int page,
             @Query("size") int size);
 
@@ -55,7 +55,7 @@ public interface RecipeApi {
      * Peticion sacar todos recetas favoritas del usuario
      */
     @GET("/users/me/favorites")
-    Call<ClientResponse<List<RecipeResponseDto>>> getFavoriteRecipes(
+    Call<List<RecipeResponseDto>> getFavoriteRecipes(
             @Query("page") int page,
             @Query("size") int size);
 
@@ -63,13 +63,13 @@ public interface RecipeApi {
      * Peticion para sacar datos sobre usuario
      */
     @GET("/users/me/info")
-    Call<ClientResponse<UserInfoDto>> getUserInfo();
+    Call<UserInfoDto> getUserInfo();
 
     /**
      * Peticion para marcar/desmarcar favorito
      */
     @POST("/recipes/{id}/favorite")
-    Call<ClientResponse> postFavoriteRecipes(
+    Call<Void> postFavoriteRecipes(
             @Path("id") long recipeId,
             @Query("favorite") boolean favorite);
 

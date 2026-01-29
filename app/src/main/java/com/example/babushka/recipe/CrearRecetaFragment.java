@@ -11,9 +11,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.babushka.R;
-import com.example.babushka.network.ClientResponse;
 import com.example.babushka.network.RetrofitClient;
 import com.example.babushka.network.dto.RecipeResponseDto;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -98,12 +99,12 @@ public class CrearRecetaFragment extends Fragment {
 
                 RetrofitClient.getApi()
                         .createRecipe(receta)
-                        .enqueue(new Callback<ClientResponse<RecipeResponseDto>>() {
+                        .enqueue(new Callback<RecipeResponseDto>() {
 
                             @Override
                             public void onResponse(
-                                    Call<ClientResponse<RecipeResponseDto>> call,
-                                    Response<ClientResponse<RecipeResponseDto>> response) {
+                                    Call<RecipeResponseDto> call,
+                                    Response<RecipeResponseDto> response) {
 
                                 if (response.isSuccessful()
                                         && response.body() != null) {
@@ -130,7 +131,7 @@ public class CrearRecetaFragment extends Fragment {
 
                             @Override
                             public void onFailure(
-                                    Call<ClientResponse<RecipeResponseDto>> call,
+                                    Call<RecipeResponseDto> call,
                                     Throwable t) {
 
                                 t.printStackTrace();

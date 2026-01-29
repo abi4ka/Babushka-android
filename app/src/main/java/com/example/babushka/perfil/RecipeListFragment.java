@@ -14,7 +14,6 @@ import com.example.babushka.recipe.RecipeNavigation;
 import com.example.babushka.recipe.Receta;
 import com.example.babushka.recipe.RecetaAdapter;
 import com.example.babushka.R;
-import com.example.babushka.network.ClientResponse;
 import com.example.babushka.network.dto.RecipeResponseDto;
 import com.example.babushka.network.RetrofitClient;
 
@@ -108,7 +107,7 @@ public class RecipeListFragment extends Fragment {
     private void loadNextPage() {
         isLoading = true;
 
-        Call<ClientResponse<List<RecipeResponseDto>>> call;
+        Call<List<RecipeResponseDto>> call;
 
         if (type == RecipeListType.MY_RECIPES) {
             call = RetrofitClient.getApi()
@@ -120,16 +119,15 @@ public class RecipeListFragment extends Fragment {
 
         call.enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<ClientResponse<List<RecipeResponseDto>>> call,
-                                   Response<ClientResponse<List<RecipeResponseDto>>> response) {
+            public void onResponse(Call<List<RecipeResponseDto>> call,
+                                   Response<List<RecipeResponseDto>> response) {
 
                 if (response.isSuccessful()
-                        && response.body() != null
-                        && response.body().getData() != null) {
+                        && response.body() != null) {
 
                     // Crear recetas from dto model
                     List<Receta> nuevas = new ArrayList<>();
-                    for (RecipeResponseDto dto : response.body().getData()) {
+                    for (RecipeResponseDto dto : response.body()) {
                         nuevas.add(new Receta(dto));
                     }
 
@@ -140,7 +138,7 @@ public class RecipeListFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<ClientResponse<List<RecipeResponseDto>>> call, Throwable t) {
+            public void onFailure(Call<List<RecipeResponseDto>> call, Throwable t) {
                 isLoading = false;
             }
         });

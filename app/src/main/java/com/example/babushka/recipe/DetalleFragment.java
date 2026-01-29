@@ -13,7 +13,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.babushka.R;
-import com.example.babushka.network.ClientResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -107,15 +106,18 @@ public class DetalleFragment extends Fragment {
 
         RetrofitClient.getApi()
                 .postFavoriteRecipes(receta.id, !receta.isFavorite)
-                .enqueue(new Callback<ClientResponse>() {
+                .enqueue(new Callback<Void>() {
                     @Override
-                    public void onResponse(Call<ClientResponse> call, Response<ClientResponse> response) {
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        // Solo cambiamos el estado si el servidor responde bien
+                        receta.isFavorite = !receta.isFavorite;
                         updateStar(estrella);
 
                     }
 
                     @Override
-                    public void onFailure(Call<ClientResponse> call, Throwable t) {
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        t.printStackTrace();
                     }
                 });
     }
