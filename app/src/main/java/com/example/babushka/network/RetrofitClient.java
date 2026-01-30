@@ -12,7 +12,7 @@ public class RetrofitClient {
     que no se pueda conectar correctamente al back y salga error de conexión.
     En Android Studio, la manera de representar la máquina anfitriona es usando la dirección 10.0.2.2.
     */
-    private static final String BASE_URL = "http://10.0.2.2:25565/";
+    private static final String BASE_URL = "http://10.0.2.2:8000/";
     //private static final String BASE_URL = "http://82.26.150.189:25569/"; //Spring
 
     private static Retrofit retrofit;
