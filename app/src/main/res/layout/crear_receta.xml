@@ -220,10 +220,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
 
-            android:text="MENSAJE DE ERROR"
+            android:text=""
             android:textColor="@android:color/holo_red_dark"
             android:textSize="15dp"
-            android:visibility="gone"
 
             app:layout_constraintEnd_toEndOf="@id/etPreparacion"
             app:layout_constraintStart_toStartOf="@id/etPreparacion"
@@ -243,7 +242,6 @@
             app:layout_constraintStart_toStartOf="@id/etPreparacion"
             app:layout_constraintTop_toBottomOf="@id/mensajeError" />
 
-        <!-- ESPACIO VACÍO -->
         <View
             android:id="@+id/end_page_space"
             android:layout_width="0dp"
@@ -253,4 +251,5 @@
             tools:ignore="MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </ScrollView>
