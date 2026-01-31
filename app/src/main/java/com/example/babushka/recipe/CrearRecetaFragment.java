@@ -49,40 +49,31 @@ public class CrearRecetaFragment extends Fragment {
             // Comprobaciones de info sacada de EditText
             if (nombre.getText().toString().length() < 1) {
                 mensajeError.setText("Nombre de receta está vacío.");
-                mensajeError.setVisibility(View.VISIBLE);
 
             } else if (tiempo.getText().toString().length() < 1){
                 mensajeError.setText("Tiempo está vacío.");
-                mensajeError.setVisibility(View.VISIBLE);
 
             } else if (verifyNumber(tiempo.getText().toString())) {
                 mensajeError.setText("Tiempo debe ser número.");
-                mensajeError.setVisibility(View.VISIBLE);
 
             }else if(dificultad.getText().toString().length() < 1){
                 mensajeError.setText("Dificultad está vacío.");
-                mensajeError.setVisibility(View.VISIBLE);
 
             } else if (verifyNumber(dificultad.getText().toString())) {
                 mensajeError.setText("Dificultad debe ser número.");
-                mensajeError.setVisibility(View.VISIBLE);
 
             }  else if (Integer.parseInt(dificultad.getText().toString()) < 1 ||
                         Integer.parseInt(dificultad.getText().toString()) > 5) {
                 mensajeError.setText("Dificultad debe ser de 1 a 5.");
-                mensajeError.setVisibility(View.VISIBLE);
 
             }else if (descripcion.getText().toString().length() < 1) {
                 mensajeError.setText("Descripción está vacía.");
-                mensajeError.setVisibility(View.VISIBLE);
 
             }else if (ingretientes.getText().toString().length() < 1) {
                 mensajeError.setText("No hay ingredientes.");
-                mensajeError.setVisibility(View.VISIBLE);
 
             } else if (preparacion.getText().toString().length() < 1) {
                 mensajeError.setText("No hay preparación.");
-                mensajeError.setVisibility(View.VISIBLE);
 
             } else{
                 RecipeResponseDto receta = new RecipeResponseDto(
@@ -108,7 +99,6 @@ public class CrearRecetaFragment extends Fragment {
 
                                     // Receta creada correctamente
                                     mensajeError.setText("Receta creada");
-                                    mensajeError.setVisibility(View.VISIBLE);
 
                                     // Borrar contenido una vez creada
                                     nombre.setText("");
@@ -122,7 +112,6 @@ public class CrearRecetaFragment extends Fragment {
                                 } else {
                                     // Error del servidor
                                     mensajeError.setText("Error al crear la receta");
-                                    mensajeError.setVisibility(View.VISIBLE);
                                 }
                             }
 
@@ -133,7 +122,6 @@ public class CrearRecetaFragment extends Fragment {
 
                                 t.printStackTrace();
                                 mensajeError.setText("Error de conexión");
-                                mensajeError.setVisibility(View.VISIBLE);
                             }
                         });
 
