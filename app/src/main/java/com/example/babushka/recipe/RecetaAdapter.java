@@ -41,7 +41,7 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
         return listaReceta.size();
     }
 
-    // Crear mini Receta
+    // Crear miniReceta
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -135,6 +135,7 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
 
 
     // Asignar visualización de información
+    // (enlazar con campos del xml miniRecetas, luego cambiamos info de cada campo)
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView nombre, descrip, dificult, tiempo;
         ImageView imagen, estrella;

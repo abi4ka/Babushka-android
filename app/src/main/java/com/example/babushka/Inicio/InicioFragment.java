@@ -113,10 +113,7 @@ public class InicioFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvRecetas.setLayoutManager(layoutManager);
 
-        /*
-         * Creamos el adapter y definimos
-         * qué pasa cuando se hace click en una receta
-         */
+        // Creamos el adapter y definimos
         adapter = new RecetaAdapter(recetas, receta -> abrirDetalleReceta(receta));
 
         rvRecetas.setAdapter(adapter);

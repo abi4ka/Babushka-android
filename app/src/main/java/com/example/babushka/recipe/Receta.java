@@ -18,6 +18,7 @@ public class Receta implements Serializable {
     public Boolean isFavorite;
     public Bitmap bitmapImage;
 
+    // Para recibir información
     public Receta(Long id,
                   String title,
                   String description,
@@ -36,6 +37,7 @@ public class Receta implements Serializable {
         this.isFavorite = isFavorite;
     }
 
+    // Para crear receta
     public Receta(RecipeResponseDto dto){
         this.id = dto.id;
         this.title = dto.title;
