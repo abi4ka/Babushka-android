@@ -110,13 +110,13 @@ public class LoginActivity extends AppCompatActivity {
                 .apply();
     }
 
-    //Metodo para ir a la pantalla de inicio
+    //Método para ir a la pantalla de inicio
     private void irAInicio() {
         startActivity(new Intent(this, MainActivity.class));
         finish(); // Para que no vuelva atrás al login
     }
 
-    //Metodo para ir a la pantalla de registro
+    //Método para ir a la pantalla de registro
     private void irARegistro() {
         startActivity(new Intent(this, RegisterActivity.class));
     }
