@@ -22,10 +22,11 @@
             android:layout_marginBottom="16dp"
 
             android:hint="Nombre receta..."
+            android:maxLength="50"
             android:textColor="@color/text_primary"
             android:textSize="30sp"
-            android:maxLength="50"
             android:textStyle="bold"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -56,11 +57,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
-            android:hint="Tiempo"
-            android:textColor="@color/text_secondary"
-            android:maxLength="3"
 
+            android:hint="Tiempo"
+            android:maxLength="3"
+            android:textColor="@color/text_secondary"
             android:textSize="18sp"
+
             app:layout_constraintBottom_toBottomOf="@id/ivTiempo"
             app:layout_constraintStart_toEndOf="@id/ivTiempo"
             app:layout_constraintTop_toTopOf="@id/ivTiempo" />
@@ -81,11 +83,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
-            android:hint="Dificultad"
-            android:textColor="@color/text_secondary"
-            android:maxLength="1"
 
+            android:hint="Dificultad"
+            android:maxLength="1"
+            android:textColor="@color/text_secondary"
             android:textSize="18sp"
+
             app:layout_constraintStart_toEndOf="@id/ivDificultad"
             app:layout_constraintTop_toTopOf="@id/etTiempo" />
 
@@ -95,9 +98,10 @@
             android:layout_width="0dp"
             android:layout_height="250dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/empty_image_background"
 
+            android:background="@drawable/empty_image_background"
             android:scaleType="centerCrop"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/space" />
@@ -110,11 +114,12 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:text="Descripción:"
 
+            android:text="Descripción:"
             android:textColor="@color/text_primary"
             android:textSize="18sp"
             android:textStyle="bold"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/vwImagen" />
@@ -126,11 +131,12 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="6dp"
             android:layout_marginEnd="16dp"
-            android:maxLength="100"
 
             android:hint="Breve descripción de la receta..."
+            android:maxLength="100"
             android:textColor="@color/text_secondary"
             android:textSize="18sp"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvDescripcion" />
@@ -143,11 +149,12 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:text="Ingredientes:"
 
+            android:text="Ingredientes:"
             android:textColor="@color/text_primary"
             android:textSize="18sp"
             android:textStyle="bold"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/etDescripcion" />
@@ -159,10 +166,11 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
+
             android:hint="Lista ingredientes..."
+            android:maxLength="1000"
             android:textColor="@color/text_secondary"
             android:textSize="18sp"
-            android:maxLength="1000"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -177,6 +185,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
+
             android:text="Preparación:"
             android:textColor="@color/text_primary"
             android:textSize="18sp"
@@ -193,12 +202,13 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:maxLength="1000"
-
             android:layout_marginBottom="24dp"
+
             android:hint="Texto preparación..."
+            android:maxLength="1000"
             android:textColor="@color/text_secondary"
             android:textSize="18sp"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvPreparacion" />
@@ -209,6 +219,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+
             android:text="MENSAJE DE ERROR"
             android:textColor="@android:color/holo_red_dark"
             android:textSize="15dp"
@@ -217,7 +228,7 @@
             app:layout_constraintEnd_toEndOf="@id/etPreparacion"
             app:layout_constraintStart_toStartOf="@id/etPreparacion"
             app:layout_constraintTop_toBottomOf="@id/etPreparacion"
-            tools:ignore="MissingConstraints"/>
+            tools:ignore="MissingConstraints" />
 
         <!--BOTÓN DE CREAR-->
         <Button
@@ -225,12 +236,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
+
             android:text="CREAR"
 
             app:layout_constraintEnd_toEndOf="@id/etPreparacion"
             app:layout_constraintStart_toStartOf="@id/etPreparacion"
             app:layout_constraintTop_toBottomOf="@id/mensajeError" />
 
+        <!-- ESPACIO VACÍO -->
         <View
             android:id="@+id/end_page_space"
             android:layout_width="0dp"

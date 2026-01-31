@@ -6,16 +6,17 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="BABUSHKA"
-            app:navigationIcon="@drawable/ic_menu" />
+
+            app:navigationIcon="@drawable/ic_menu"
+            app:title="BABUSHKA" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/main_fragment_container"
