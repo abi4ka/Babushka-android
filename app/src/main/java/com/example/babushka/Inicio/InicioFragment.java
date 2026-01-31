@@ -168,6 +168,8 @@ public class InicioFragment extends Fragment {
 
     private void loadNextPage() {
         isLoading = true;
+
+        // Enviar petición
         RetrofitClient.getApi()
                 .getRecipes(currentPage, 6, search, categoryId)
                 .enqueue(new Callback<List<RecipeResponseDto>>() {

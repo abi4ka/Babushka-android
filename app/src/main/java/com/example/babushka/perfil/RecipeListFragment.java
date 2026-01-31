@@ -109,6 +109,7 @@ public class RecipeListFragment extends Fragment {
 
         Call<List<RecipeResponseDto>> call;
 
+        // 2 posibles peticiones
         if (type == RecipeListType.MY_RECIPES) {
             call = RetrofitClient.getApi()
                     .getMyRecipes(page, 6);
@@ -117,6 +118,7 @@ public class RecipeListFragment extends Fragment {
                     .getFavoriteRecipes(page, 6);
         }
 
+        // Enviar petición
         call.enqueue(new Callback<>() {
             @Override
             public void onResponse(Call<List<RecipeResponseDto>> call,
