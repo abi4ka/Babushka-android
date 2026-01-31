@@ -27,8 +27,12 @@ public class DetalleFragment extends Fragment {
     }
 
     public static DetalleFragment newInstance(Receta receta) {
+        // Recibimos receta
+        // Creamos nuevo fragment y Bundle para receta
         DetalleFragment fragment = new DetalleFragment();
         Bundle args = new Bundle();
+
+        // Guardamos receta en args
         args.putSerializable("receta", receta);
         fragment.setArguments(args);
         return fragment;
@@ -74,7 +78,6 @@ public class DetalleFragment extends Fragment {
         // Click en estrella (añadir/quitar de favoritos)
         estrella.setOnClickListener(v -> {
             favorite(estrella);
-            receta.isFavorite = !receta.isFavorite;
         });
     }
 
@@ -109,10 +112,9 @@ public class DetalleFragment extends Fragment {
                 .enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
-                        // Solo cambiamos el estado si el servidor responde bien
+                        // Desmarcar de favorito si el servidor responde bien
                         receta.isFavorite = !receta.isFavorite;
                         updateStar(estrella);
-
                     }
 
                     @Override
