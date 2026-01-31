@@ -82,7 +82,6 @@ public interface RecipeApi {
      * - @Body indica que Retrofit tomará ese objeto y lo convertirá a JSON automáticamente.
      * - UserDto es el Dto que hemos creado para el usuario.
      */
-
     @POST("/sessions")
     Call<LoginResponseDto> login(@Body UserDto user);
 
