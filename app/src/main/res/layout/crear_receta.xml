@@ -11,9 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- Nombre Receta -->
-        <TextView
-            android:id="@+id/txNombre"
+        <!--TÍTULO DE LA RECETA-->
+        <EditText
+            android:id="@+id/etNombre"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -21,7 +21,8 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
 
-            android:text="Nombre Receta"
+            android:hint="Nombre receta..."
+            android:maxLength="50"
             android:textColor="@color/text_primary"
             android:textSize="30sp"
             android:textStyle="bold"
@@ -30,7 +31,68 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Imagen Receta -->
+        <!-- ESPACIO VACÍO -->
+        <View
+            android:id="@+id/space"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+
+            app:layout_constraintTop_toBottomOf="@id/etNombre"
+            tools:ignore="MissingConstraints" />
+
+        <!-- FACTOR TIEMPO PREPARACIÓN -->
+        <ImageView
+            android:id="@+id/ivTiempo"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="4dp"
+
+            android:src="@android:drawable/ic_lock_idle_alarm"
+            app:layout_constraintStart_toStartOf="@id/etNombre"
+            app:layout_constraintTop_toBottomOf="@id/etNombre" />
+
+        <EditText
+            android:id="@+id/etTiempo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+
+            android:hint="Tiempo"
+            android:maxLength="3"
+            android:textColor="@color/text_secondary"
+            android:textSize="18sp"
+
+            app:layout_constraintBottom_toBottomOf="@id/ivTiempo"
+            app:layout_constraintStart_toEndOf="@id/ivTiempo"
+            app:layout_constraintTop_toTopOf="@id/ivTiempo" />
+
+        <!-- FACTOR DIFICULTAD PREPARACIÓN -->
+        <ImageView
+            android:id="@+id/ivDificultad"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="10dp"
+
+            android:src="@android:drawable/ic_menu_sort_by_size"
+            app:layout_constraintStart_toEndOf="@id/etTiempo"
+            app:layout_constraintTop_toTopOf="@id/ivTiempo" />
+
+        <EditText
+            android:id="@+id/etDificultad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+
+            android:hint="Dificultad"
+            android:maxLength="1"
+            android:textColor="@color/text_secondary"
+            android:textSize="18sp"
+
+            app:layout_constraintStart_toEndOf="@id/ivDificultad"
+            app:layout_constraintTop_toTopOf="@id/etTiempo" />
+
+        <!-- IMAGEN RECETA -->
         <ImageView
             android:id="@+id/vwImagen"
             android:layout_width="0dp"
@@ -44,95 +106,44 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/space" />
 
-        <View
-            android:id="@+id/space"
-            android:layout_width="0dp"
-            android:layout_height="20dp"
-            android:layout_weight="1"
-
-            app:layout_constraintTop_toBottomOf="@id/txNombre"
-            tools:ignore="MissingConstraints" />
-
-        <!-- ESTRELLA DE FAVORITOS -->
-        <ImageView
-            android:id="@+id/Estrella"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="5dp"
-
-            android:src="@android:drawable/btn_star_big_off"
-            app:layout_constraintBottom_toBottomOf="@id/tvDificultad"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <!-- FACTOR TIEMPO PREPARACIÓN -->
-        <ImageView
-            android:id="@+id/ivTiempo"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="4dp"
-
-            android:src="@android:drawable/ic_lock_idle_alarm"
-            app:layout_constraintStart_toStartOf="@id/txNombre"
-            app:layout_constraintTop_toBottomOf="@id/txNombre" />
-
+        <!-- DESCRIPCIÓN -->
         <TextView
-            android:id="@+id/tvTiempo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-
-            android:text="Tiempo"
-            android:textColor="@color/text_secondary"
-            android:textSize="14sp"
-
-            app:layout_constraintStart_toEndOf="@id/ivTiempo"
-            app:layout_constraintTop_toTopOf="@id/ivTiempo" />
-
-        <!-- FACTOR DIFICULTAD PREPARACIÓN -->
-        <ImageView
-            android:id="@+id/ivDificultad"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="8dp"
-
-            android:src="@android:drawable/ic_menu_sort_by_size"
-            app:layout_constraintStart_toEndOf="@id/tvTiempo"
-            app:layout_constraintTop_toTopOf="@id/tvTiempo" />
-
-        <TextView
-            android:id="@+id/tvDificultad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-
-            android:text="Dificultad"
-            android:textColor="@color/text_secondary"
-            android:textSize="14sp"
-
-            app:layout_constraintStart_toEndOf="@id/ivDificultad"
-            app:layout_constraintTop_toTopOf="@id/ivDificultad" />
-
-        <!-- Descripción -->
-        <TextView
-            android:id="@+id/txDescripcion"
+            android:id="@+id/tvDescripcion"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
 
-            android:text="Breve descripción de la receta"
-            android:textColor="@color/text_secondary"
+            android:text="Descripción:"
+            android:textColor="@color/text_primary"
             android:textSize="18sp"
+            android:textStyle="bold"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/vwImagen" />
 
-        <!-- Ingredientes título -->
+        <EditText
+            android:id="@+id/etDescripcion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="16dp"
+
+            android:hint="Breve descripción de la receta..."
+            android:maxLength="100"
+            android:textColor="@color/text_secondary"
+            android:textSize="18sp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDescripcion" />
+
+        <!-- INGREDIENTES RECETA-->
         <TextView
-            android:id="@+id/Ingredientes"
+            android:id="@+id/tvIngredientes"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -146,28 +157,29 @@
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txDescripcion" />
+            app:layout_constraintTop_toBottomOf="@id/etDescripcion" />
 
-        <!-- Ingredientes texto -->
-        <TextView
-            android:id="@+id/txIngredientes"
+        <EditText
+            android:id="@+id/etIngredientes"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
 
-            android:text="lista ingredientes"
+            android:hint="Lista ingredientes..."
+            android:maxLength="1000"
             android:textColor="@color/text_secondary"
             android:textSize="18sp"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Ingredientes" />
+            app:layout_constraintTop_toBottomOf="@id/tvIngredientes" />
 
-        <!-- Preparación título -->
+
+        <!-- PREPARACIÓN  -->
         <TextView
-            android:id="@+id/Preparacion"
+            android:id="@+id/tvPreparacion"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -181,32 +193,61 @@
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txIngredientes" />
+            app:layout_constraintTop_toBottomOf="@id/etIngredientes" />
 
-        <!-- Preparación texto -->
-        <TextView
-            android:id="@+id/txPreparacion"
+        <EditText
+            android:id="@+id/etPreparacion"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-
             android:layout_marginBottom="24dp"
-            android:text="lista preparación"
+
+            android:hint="Texto preparación..."
+            android:maxLength="1000"
             android:textColor="@color/text_secondary"
             android:textSize="18sp"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Preparacion" />
+            app:layout_constraintTop_toBottomOf="@id/tvPreparacion" />
+
+        <!--Mensaje DE ERROR-->
+        <TextView
+            android:id="@+id/mensajeError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+
+            android:text=""
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="15dp"
+
+            app:layout_constraintEnd_toEndOf="@id/etPreparacion"
+            app:layout_constraintStart_toStartOf="@id/etPreparacion"
+            app:layout_constraintTop_toBottomOf="@id/etPreparacion"
+            tools:ignore="MissingConstraints" />
+
+        <!--BOTÓN DE CREAR-->
+        <Button
+            android:id="@+id/botonCrear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+
+            android:text="CREAR"
+
+            app:layout_constraintEnd_toEndOf="@id/etPreparacion"
+            app:layout_constraintStart_toStartOf="@id/etPreparacion"
+            app:layout_constraintTop_toBottomOf="@id/mensajeError" />
 
         <View
             android:id="@+id/end_page_space"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            app:layout_constraintTop_toBottomOf="@id/txPreparacion"
+            app:layout_constraintTop_toBottomOf="@id/botonCrear"
             tools:ignore="MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

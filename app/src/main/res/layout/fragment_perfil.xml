@@ -1,5 +1,137 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D8BFD8" />
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <!-- Username -->
+    <TextView
+        android:id="@+id/tvUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="5dp"
+
+        android:text="Username"
+        android:textColor="@color/text_primary"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <!-- Stats -->
+    <LinearLayout
+        android:id="@+id/statsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <!-- Created -->
+        <!--
+        android:focusable="true"
+        Es necesario para que el elemento responda correctamente a clics
+
+        android:gravity="center"
+        Para que los elementos se alineen en el centro horizontal
+        -->
+        <LinearLayout
+            android:id="@+id/createdContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/tvCreatedCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="0"
+                android:textColor="@color/text_primary"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvCreatedLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Created"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp" />
+
+            <View
+                android:id="@+id/indicatorCreated"
+                android:layout_width="40dp"
+                android:layout_height="3dp"
+                android:background="@color/bg_header" />
+
+        </LinearLayout>
+
+        <!-- Favorite -->
+        <!--
+        android:focusable="true"
+        Es necesario para que el elemento responda correctamente a clics
+        -->
+        <LinearLayout
+            android:id="@+id/favoriteContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/tvFavoriteCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="0"
+                android:textColor="@color/text_primary"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvFavoriteLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Favorite"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp" />
+
+            <View
+                android:id="@+id/indicatorFavorite"
+                android:layout_width="40dp"
+                android:layout_height="3dp"
+                android:background="#00000000" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <!--
+    ViewPager2 se utiliza para mostrar diferentes fragmentos
+    dentro de un mismo contenedor, permitiendo al usuario navegar
+    entre ellos mediante gestos de deslizamiento (swipe).
+    -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+</LinearLayout>

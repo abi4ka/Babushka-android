@@ -7,17 +7,18 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
-import com.example.babushka.Inicio.DetalleFragment;
 import com.example.babushka.Inicio.InicioFragment;
-import com.example.babushka.Inicio.InicioNavigation;
-import com.example.babushka.Inicio.Receta;
 import com.example.babushka.categorias.CategoriasFragment;
 import com.example.babushka.categorias.OnCategoriaSelected;
-import com.example.babushka.user.PerfilFragment;
+import com.example.babushka.perfil.PerfilFragment;
+import com.example.babushka.recipe.CrearRecetaFragment;
+import com.example.babushka.recipe.DetalleFragment;
+import com.example.babushka.recipe.Receta;
+import com.example.babushka.recipe.RecipeNavigation;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity implements OnCategoriaSelected, InicioNavigation {
+public class MainActivity extends AppCompatActivity implements OnCategoriaSelected, RecipeNavigation {
 
     private DrawerLayout drawerLayout;
 
@@ -35,14 +36,15 @@ public class MainActivity extends AppCompatActivity implements OnCategoriaSelect
         toolbar.setNavigationOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
 
         if (savedInstanceState == null) {
-            replaceFragment(InicioFragment.newInstance( null, R.color.white));
+            replaceFragment(InicioFragment.newInstance( null, null));
         }
 
         navigationView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
-            if (id == R.id.menu_inicio) replaceFragment(InicioFragment.newInstance( null, R.color.white));
+            if (id == R.id.menu_inicio) replaceFragment(InicioFragment.newInstance( null, null));
             else if (id == R.id.menu_categorias) replaceFragment(new CategoriasFragment());
             else if (id == R.id.menu_perfil) replaceFragment(new PerfilFragment());
+            else if (id == R.id.menu_crear_receta) replaceFragment(new CrearRecetaFragment());
             drawerLayout.closeDrawer(GravityCompat.START);
             return true;
         });
@@ -57,8 +59,8 @@ public class MainActivity extends AppCompatActivity implements OnCategoriaSelect
     }
 
     @Override
-    public void onCategoriaSelected(String categoria, int colorRes) {
-        replaceFragment(InicioFragment.newInstance(categoria, colorRes));
+    public void onCategoriaSelected(String categoria, Long categoryId) {
+        replaceFragment(InicioFragment.newInstance(categoria, categoryId));
     }
 
     @Override

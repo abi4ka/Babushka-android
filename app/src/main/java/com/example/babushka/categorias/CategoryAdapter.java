@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.babushka.R;
 import com.example.babushka.network.RecipeApi;
 import com.example.babushka.network.RetrofitClient;
+import com.example.babushka.network.dto.CategoryDto;
 
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_layout, parent, false);
+                .inflate(R.layout.item_layout_categoria, parent, false);
         return new ViewHolder(v);
     }
 
@@ -92,7 +93,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
         // Detecta cuando el usuario pulsa una categoría
         holder.itemView.setOnClickListener(v -> {
-            listener.onCategoriaSelected(c.name, android.R.color.black);
+            listener.onCategoriaSelected(c.name, c.id);
         });
     }
 
