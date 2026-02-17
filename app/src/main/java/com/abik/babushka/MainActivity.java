@@ -18,6 +18,10 @@ import com.abik.babushka.recipe.RecipeNavigation;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 
+/**
+ * MainActivity handles the app's main navigation via drawer and fragment replacement.
+ * Implements category selection and recipe navigation.
+ */
 public class MainActivity extends AppCompatActivity implements OnCategorySelected, RecipeNavigation {
 
     private DrawerLayout drawerLayout;
@@ -33,36 +37,46 @@ public class MainActivity extends AppCompatActivity implements OnCategorySelecte
 
         setSupportActionBar(toolbar);
 
+        // Open navigation drawer when toolbar menu button is clicked
         toolbar.setNavigationOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
 
+        // Load HomeFragment on first launch
         if (savedInstanceState == null) {
-            replaceFragment(HomeFragment.newInstance( null, null));
+            replaceFragment(HomeFragment.newInstance(null, null));
         }
 
+        // Handle navigation drawer item clicks
         navigationView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
-            if (id == R.id.menu_inicio) replaceFragment(HomeFragment.newInstance( null, null));
+            if (id == R.id.menu_inicio) replaceFragment(HomeFragment.newInstance(null, null));
             else if (id == R.id.menu_categorias) replaceFragment(new CategoryFragment());
             else if (id == R.id.menu_perfil) replaceFragment(new ProfileFragment());
             else if (id == R.id.menu_crear_receta) replaceFragment(new CreateRecipeFragment());
+
             drawerLayout.closeDrawer(GravityCompat.START);
             return true;
         });
     }
 
+    /**
+     * Replace the main fragment container with the given fragment.
+     * Adds the transaction to the back stack to allow navigation back.
+     */
     public void replaceFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_fragment_container, fragment)
-                .addToBackStack(null) //Para salir de la receta grande sin cerrar aplicación
+                .addToBackStack(null) // Allow returning from detail fragments without closing the app
                 .commit();
     }
 
+    // Callback for category selection from CategoryFragment
     @Override
     public void onCategoriaSelected(String categoria, Long categoryId) {
         replaceFragment(HomeFragment.newInstance(categoria, categoryId));
     }
 
+    // Callback to open recipe detail fragment
     @Override
     public void abrirDetalle(Recipe receta) {
         replaceFragment(RecipeDetailFragment.newInstance(receta));

@@ -13,8 +13,14 @@ public class RecipeResponseDto {
     public Boolean isFavorite;
     public Bitmap imageBase64;
 
-    // Base para crear receta nueva
-    public RecipeResponseDto( String title, String description, String ingredients, String preparation, int time, int difficulty, Bitmap imageBase64) {
+    // Base for creating a new recipe
+    public RecipeResponseDto( String title,
+                              String description,
+                              String ingredients,
+                              String preparation,
+                              int time,
+                              int difficulty,
+                              Bitmap imageBase64) {
         this.description = description;
         this.title = title;
         this.ingredients = ingredients;

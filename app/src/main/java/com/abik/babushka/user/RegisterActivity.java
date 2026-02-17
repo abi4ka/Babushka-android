@@ -17,80 +17,80 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Activity for user registration.
+ */
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText etUsuario;
-    private EditText etClave;
-    private Button btnRegistrarse;
+    private EditText etUsername;
+    private EditText etPassword;
+    private Button btnRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.register_activity); // tu XML
+        setContentView(R.layout.register_activity);
 
-        // Conectamos con botones del xml
-        etUsuario = findViewById(R.id.etUsuario);
-        etClave = findViewById(R.id.etClave);
-        btnRegistrarse = findViewById(R.id.btnRegistrarse);
+        // Bind views
+        etUsername = findViewById(R.id.etUsuario);
+        etPassword = findViewById(R.id.etClave);
+        btnRegister = findViewById(R.id.btnRegistrarse);
 
-        // Acción del botón
-        btnRegistrarse.setOnClickListener(v -> registrarUsuario());
+        // Register button click
+        btnRegister.setOnClickListener(v -> registerUser());
     }
 
-    private void registrarUsuario() {
+    /**
+     * Handle user registration.
+     */
+    private void registerUser() {
+        String username = etUsername.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
 
-        //Recuperamos lo que puso el usuario en los editText de username y contraseña, lo convertimos a STring (toString)
-        //y eliminamos los espacios en blanco del final (trim)
-        String usuario = etUsuario.getText().toString().trim();
-        String clave = etClave.getText().toString().trim();
-
-        //Si el usuario no rellena el campo de username y/o contraseña, va a mostrar un mensaje de error.
-        if (usuario.isEmpty() || clave.isEmpty()) {
-            Toast.makeText(this, "Rellena todos los campos", Toast.LENGTH_SHORT).show();
+        // Validate fields
+        if (username.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        //Controlamos que la contraseña no sea demasiado larga ni demasiado corta
-        if (clave.length() < 6 || clave.length() > 20){
-            Toast.makeText(this, "La contraseña tiene que estar entre 6 y 20 caracteres", Toast.LENGTH_SHORT).show();
+        if (password.length() < 6 || password.length() > 20) {
+            Toast.makeText(this, "Password must be between 6 and 20 characters", Toast.LENGTH_SHORT).show();
             return;
         }
-        // Llamamos al singleton de Retrofit que está definido en la clase RetrofitClient
+
+        // Send registration request
         RetrofitClient.getApi()
-                //Llamamos al metodo registrar y le pasamos el username y la contraseña que escribió nuestro usuario en el front
-                .register(new UserDto(usuario, clave))
-                //Enqueue hace que la petición sea asíncrona, es decir, se ejecuta en segundo plano sin bloquear nada
+                .register(new UserDto(username, password))
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
-                    //Respuesta del servidor:
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        //Si el código de respuesta el 201, es que el usuario se ha creado sin problemas y volvemos a la pantalla
-                        //de login para poder entrar con el usuario recién creado
                         if (response.code() == 201) {
-                            Toast.makeText(RegisterActivity.this, "Registro completado", Toast.LENGTH_SHORT).show();
-                            volverALogin();
-                            //Si hay algún error, se vacían los campos de username y contraseña y se manda un mensaje de error
+                            // Registration successful
+                            Toast.makeText(RegisterActivity.this, "Registration completed", Toast.LENGTH_SHORT).show();
+                            goToLogin();
                         } else {
-                            etUsuario.setText("");
-                            etClave.setText("");
-                            Toast.makeText(RegisterActivity.this, "Error: usuario ya existente o inválido", Toast.LENGTH_SHORT).show();
+                            // Error: user already exists or invalid input
+                            etUsername.setText("");
+                            etPassword.setText("");
+                            Toast.makeText(RegisterActivity.this, "Error: username already exists or invalid", Toast.LENGTH_SHORT).show();
                         }
                     }
-                    //Si ocurre algún error de conexión, se ejecuta onFailure. Ponemos en blanco los campos de username y contraseña y mandamos
-                    //un mensaje de error
+
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         t.printStackTrace();
-                        etUsuario.setText("");
-                        etClave.setText("");
-                        Toast.makeText(RegisterActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
+                        etUsername.setText("");
+                        etPassword.setText("");
+                        Toast.makeText(RegisterActivity.this, "Connection error", Toast.LENGTH_SHORT).show();
                     }
                 });
-
     }
 
-    private void volverALogin() { //Usamos esta función para volver al Login desde una Activity (Register)
+    /**
+     * Navigate back to login activity.
+     */
+    private void goToLogin() {
         startActivity(new Intent(this, LoginActivity.class));
-        finish(); // cerramos esta pantalla
+        finish(); // Close this activity
     }
 }

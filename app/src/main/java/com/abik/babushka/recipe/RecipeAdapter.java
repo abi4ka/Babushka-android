@@ -21,27 +21,31 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * RecyclerView Adapter for displaying recipes in a list.
+ */
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> {
-    private List<Recipe> listaReceta;
-    private OnRecetaClickListener listener;
+    private List<Recipe> recipeList;
+    private OnRecipeClickListener listener;
 
-    // Interfaz para comunicar el click al Fragment (el Adapter NO abre fragments, solo avisa)
-    public interface OnRecetaClickListener {
-        void onRecetaClick(Recipe receta);
+    /**
+     * Interface for handling clicks on a recipe item.
+     * The adapter itself does not handle navigation.
+     */
+    public interface OnRecipeClickListener {
+        void onRecipeClick(Recipe recipe);
     }
 
-    public RecipeAdapter(List<Recipe> listaReceta, OnRecetaClickListener listener) {
-        this.listaReceta = listaReceta;
+    public RecipeAdapter(List<Recipe> recipeList, OnRecipeClickListener listener) {
+        this.recipeList = recipeList;
         this.listener = listener;
     }
 
-    // Contar total de Recetas
     @Override
     public int getItemCount() {
-        return listaReceta.size();
+        return recipeList.size();
     }
 
-    // Crear miniReceta
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -49,31 +53,26 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         return new ViewHolder(view);
     }
 
-    // Asignar valores a variables que luego se visualizarán
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Recipe receta = listaReceta.get(position);
+        Recipe recipe = recipeList.get(position);
 
-        holder.nombre.setText(receta.title);
-        holder.descrip.setText(receta.description);
-        holder.dificult.setText("" + receta.difficulty);
-        holder.tiempo.setText("" + receta.time);
+        // Bind recipe data to UI
+        holder.name.setText(recipe.title);
+        holder.description.setText(recipe.description);
+        holder.difficulty.setText(String.valueOf(recipe.difficulty));
+        holder.time.setText(String.valueOf(recipe.time));
 
-        // "" + ... convierte a String (con int da error)
-
-        // Descargar imagen
+        // Download recipe image
         RetrofitClient.getApi()
-                .getRecipeImage(receta.id)
+                .getRecipeImage(recipe.id)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
-                    public void onResponse(Call<ResponseBody> call,
-                                           Response<ResponseBody> response) {
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.isSuccessful() && response.body() != null) {
-                            Bitmap bitmap = BitmapFactory.decodeStream(
-                                    response.body().byteStream()
-                            );
-                            receta.bitmapImage = bitmap;
-                            holder.imagen.setImageBitmap(bitmap);
+                            Bitmap bitmap = BitmapFactory.decodeStream(response.body().byteStream());
+                            recipe.bitmapImage = bitmap;
+                            holder.image.setImageBitmap(bitmap);
                         }
                     }
 
@@ -83,47 +82,47 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                     }
                 });
 
-        //  Inicio de estrella según isFavorite
-        updateStar(holder.estrella, receta);
+        // Set initial favorite star state
+        updateStar(holder.star, recipe);
 
-        // Click en la estrella (añadir/quitar de favoritos)
-        holder.estrella.setOnClickListener(v -> {
-            miniFavorite(holder.estrella, receta);
-        });
+        // Toggle favorite status on star click
+        holder.star.setOnClickListener(v -> toggleFavorite(holder.star, recipe));
 
-        // Cuando se hace click en una mini receta,
-        // Avisamos al Fragment y le pasamos la receta clicada
-        holder.itemView.setOnClickListener(v -> {
-            listener.onRecetaClick(receta);
-        });
+        // Notify listener when recipe item is clicked
+        holder.itemView.setOnClickListener(v -> listener.onRecipeClick(recipe));
     }
 
-    public void addRecetas(List<Recipe> nuevas) {
-        int start = listaReceta.size();
-        listaReceta.addAll(nuevas);
-        notifyItemRangeInserted(start, nuevas.size());
+    /**
+     * Add new recipes to the list and update the adapter.
+     */
+    public void addRecipes(List<Recipe> newRecipes) {
+        int start = recipeList.size();
+        recipeList.addAll(newRecipes);
+        notifyItemRangeInserted(start, newRecipes.size());
     }
 
-    // Actualiza el icono de la estrella según si es favorita o no
-    private void updateStar(ImageView estrella, Recipe receta) {
-        if (receta.isFavorite) {
-            estrella.setImageResource(android.R.drawable.btn_star_big_on);
+    /**
+     * Update star icon according to favorite status.
+     */
+    private void updateStar(ImageView star, Recipe recipe) {
+        if (recipe.isFavorite) {
+            star.setImageResource(android.R.drawable.btn_star_big_on);
         } else {
-            estrella.setImageResource(android.R.drawable.btn_star_big_off);
+            star.setImageResource(android.R.drawable.btn_star_big_off);
         }
     }
 
-    // Peticion para marcar/desmarcar favorito
-    private void miniFavorite(ImageView estrella, Recipe receta) {
+    /**
+     * Send request to toggle favorite status on backend and update UI.
+     */
+    private void toggleFavorite(ImageView star, Recipe recipe) {
         RetrofitClient.getApi()
-                .postFavoriteRecipes(receta.id, !receta.isFavorite)
+                .postFavoriteRecipes(recipe.id, !recipe.isFavorite)
                 .enqueue(new Callback<Void>() {
                     @Override
-                    public void onResponse(Call<Void> call,
-                                           Response<Void> response) {
-                        // Solo cambiamos el estado si el servidor responde bien
-                        receta.isFavorite = !receta.isFavorite;
-                        updateStar(estrella, receta);
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        recipe.isFavorite = !recipe.isFavorite;
+                        updateStar(star, recipe);
                     }
 
                     @Override
@@ -133,21 +132,22 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                 });
     }
 
-
-    // Asignar visualización de información
-    // (enlazar con campos del xml miniRecetas, luego cambiamos info de cada campo)
+    /**
+     * ViewHolder class for mini recipe layout.
+     * Holds references to all UI elements in a single item.
+     */
     class ViewHolder extends RecyclerView.ViewHolder {
-        TextView nombre, descrip, dificult, tiempo;
-        ImageView imagen, estrella;
+        TextView name, description, difficulty, time;
+        ImageView image, star;
 
         ViewHolder(View view) {
             super(view);
-            nombre = view.findViewById(R.id.txNombre);
-            descrip = view.findViewById(R.id.txDescripcion);
-            dificult = view.findViewById(R.id.tvDificultad);
-            imagen = view.findViewById(R.id.vwImagen);
-            estrella = view.findViewById(R.id.Estrella);
-            tiempo = view.findViewById(R.id.tvTiempo);
+            name = view.findViewById(R.id.txNombre);
+            description = view.findViewById(R.id.txDescripcion);
+            difficulty = view.findViewById(R.id.tvDificultad);
+            image = view.findViewById(R.id.vwImagen);
+            star = view.findViewById(R.id.Estrella);
+            time = view.findViewById(R.id.tvTiempo);
         }
     }
 }

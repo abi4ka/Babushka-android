@@ -21,29 +21,34 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-// Fragment que muestra la lista de categorías en pantalla
+/**
+ * Fragment responsible for displaying the list of recipe categories.
+ */
 public class CategoryFragment extends Fragment {
 
-    // Listener para comunicar al fragment con la actividad principal
     private OnCategorySelected listener;
-    RecyclerView recycler;
+    private RecyclerView recycler;
 
     public CategoryFragment() {
         super(R.layout.category_fragment);
     }
 
-    // Se ejecuta cuando el fragment se asocia a la actividad
+    /**
+     * Called when the fragment is attached to its host activity.
+     * Ensures the activity implements the OnCategorySelected interface.
+     */
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        // Comprueba que la actividad implemente la interfaz de comunicación
         if (context instanceof OnCategorySelected) {
             listener = (OnCategorySelected) context;
         }
     }
 
-    // Se ejecuta cuando la vista del fragment ya ha sido creada
+    /**
+     * Initializes the RecyclerView and triggers category loading.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -54,24 +59,21 @@ public class CategoryFragment extends Fragment {
         loadCategories();
     }
 
-    // Metodo que obtiene las categorias desde el API REST
-    void loadCategories() {
-        // Obtiene la instancia de la API usando Retrofit
+    /**
+     * Fetches categories from the REST API and updates the RecyclerView.
+     */
+    private void loadCategories() {
         RecipeApi api = RetrofitClient.getApi();
 
-        // Realiza la petición asíncrona al servidor
         api.getCategories().enqueue(new Callback<List<CategoryDto>>() {
-            // Realiza la petición asíncrona al servidor
+
             @Override
             public void onResponse(Call<List<CategoryDto>> call, Response<List<CategoryDto>> response) {
-                // Comprueba que la respuesta es correcta y tiene datos
                 if (response.isSuccessful() && response.body() != null) {
-                    // Asigna el adaptador al RecyclerView con los datos recibidos
                     recycler.setAdapter(new CategoryAdapter(response.body(), listener));
                 }
             }
 
-            // Si ocurre un error de red o de servidor
             @Override
             public void onFailure(Call<List<CategoryDto>> call, Throwable t) {
                 t.printStackTrace();

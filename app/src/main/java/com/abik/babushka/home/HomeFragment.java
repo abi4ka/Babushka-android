@@ -23,7 +23,6 @@ import com.abik.babushka.recipe.RecipeNavigation;
 import com.abik.babushka.network.dto.RecipeResponseDto;
 import com.abik.babushka.network.RetrofitClient;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,40 +30,52 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Fragment responsible for displaying paginated recipes,
+ * with optional category filtering and search functionality.
+ */
 public class HomeFragment extends Fragment {
+
     private String search;
-    private Handler searchHandler = new Handler(Looper.getMainLooper());
+    private final Handler searchHandler = new Handler(Looper.getMainLooper());
     private Runnable searchRunnable;
-    private static final long SEARCH_DELAY = 500; // milisegundos
+    private static final long SEARCH_DELAY = 500;
+
     private RecipeAdapter adapter;
-    private List<Recipe> recetas = new ArrayList<>();
+    private final List<Recipe> recetas = new ArrayList<>();
+
     private int currentPage = 0;
     private boolean isLoading = false;
     private Long categoryId = null;
 
+    private RecipeNavigation navigation;
 
     public HomeFragment() {
         super(R.layout.home_fragment);
     }
 
+    /**
+     * Creates a new fragment instance with optional category filtering.
+     */
     public static HomeFragment newInstance(String categoria, Long categoriaId) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
-        // Guardar información
         args.putString("categoria", categoria);
         args.putSerializable("categoriaId", categoriaId);
         fragment.setArguments(args);
         return fragment;
     }
 
+    /**
+     * Initializes UI components, search logic, and pagination behavior.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         Bundle args = requireArguments();
-        // Sacamos información
         String category = args.getString("categoria");
-        categoryId = (Long) getArguments().getSerializable("categoriaId");
+        categoryId = (Long) args.getSerializable("categoriaId");
 
         TextView tituloCategoria = view.findViewById(R.id.tvCategoria);
 
@@ -73,7 +84,16 @@ public class HomeFragment extends Fragment {
             tituloCategoria.setText(category.toUpperCase());
         }
 
-        //Barra buscador
+        setupSearch(view);
+        setupRecycler(view);
+
+        loadNextPage();
+    }
+
+    /**
+     * Configures the search bar with debounce behavior.
+     */
+    private void setupSearch(View view) {
         EditText barraBuscador = view.findViewById(R.id.etBuscar);
 
         barraBuscador.addTextChangedListener(new TextWatcher() {
@@ -81,12 +101,10 @@ public class HomeFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 search = s.toString();
 
-                // Cancelamos cualquier búsqueda pendiente
                 if (searchRunnable != null) {
                     searchHandler.removeCallbacks(searchRunnable);
                 }
 
-                // Creamos una nueva búsqueda con delay
                 searchRunnable = () -> {
                     currentPage = 0;
                     recetas.clear();
@@ -94,7 +112,6 @@ public class HomeFragment extends Fragment {
                     loadNextPage();
                 };
 
-                // Ejecutamos tras X ms desde la última tecla
                 searchHandler.postDelayed(searchRunnable, SEARCH_DELAY);
             }
 
@@ -106,35 +123,31 @@ public class HomeFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
         });
+    }
 
+    /**
+     * Configures RecyclerView, adapter, and infinite scroll listener.
+     */
+    private void setupRecycler(View view) {
         RecyclerView rvRecetas = view.findViewById(R.id.rvRecetas);
 
-        // Vertical Layout
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvRecetas.setLayoutManager(layoutManager);
 
-        // Creamos el adapter y definimos
-        adapter = new RecipeAdapter(recetas, receta -> abrirDetalleReceta(receta));
-
+        adapter = new RecipeAdapter(recetas, this::abrirDetalleReceta);
         rvRecetas.setAdapter(adapter);
 
-        // Peticion para recibir primeros elementos
-        loadNextPage();
-
-        // Scroll que "pide" más elementos una vez se llegue al final
         rvRecetas.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
 
-                if (dy <= 0)
-                    return; //Comprobamos en que elemento estamos (si estamos en el último no se hace nada más)
+                if (dy <= 0) return;
 
-                //Creación de variables para controlar...
-                int visibleItemCount = layoutManager.getChildCount();                //... nº items en pantalla
-                int totalItemCount = layoutManager.getItemCount();                   //... nº total items
-                int firstVisibleItem = layoutManager.findFirstVisibleItemPosition(); //...posición del  primer item visible en el Scroll
+                int visibleItemCount = layoutManager.getChildCount();
+                int totalItemCount = layoutManager.getItemCount();
+                int firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
 
-                // Si cumple condiciones de variables se crea otro elemento que se mostrará en el Scroll
+                // Trigger next page when reaching near the end of the list
                 if (!isLoading && (visibleItemCount + firstVisibleItem) >= totalItemCount - 2) {
                     loadNextPage();
                 }
@@ -142,8 +155,9 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private RecipeNavigation navigation;
-
+    /**
+     * Ensures the hosting activity implements RecipeNavigation.
+     */
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -162,32 +176,37 @@ public class HomeFragment extends Fragment {
         navigation = null;
     }
 
+    /**
+     * Opens the selected recipe detail screen.
+     */
     private void abrirDetalleReceta(Recipe receta) {
         navigation.abrirDetalle(receta);
     }
 
+    /**
+     * Loads the next page of recipes from the API.
+     * Applies search and category filters if provided.
+     */
     private void loadNextPage() {
         isLoading = true;
 
-        // Enviar petición
         RetrofitClient.getApi()
                 .getRecipes(currentPage, 6, search, categoryId)
                 .enqueue(new Callback<List<RecipeResponseDto>>() {
+
                     @Override
                     public void onResponse(
                             Call<List<RecipeResponseDto>> call,
                             Response<List<RecipeResponseDto>> response) {
 
-                        if (response.isSuccessful()
-                                && response.body() != null) {
+                        if (response.isSuccessful() && response.body() != null) {
 
-                            // Crear recetas from dto model
                             List<Recipe> nuevas = new ArrayList<>();
                             for (RecipeResponseDto dto : response.body()) {
                                 nuevas.add(new Recipe(dto));
                             }
 
-                            adapter.addRecetas(nuevas);
+                            adapter.addRecipes(nuevas);
                             currentPage++;
                         }
 

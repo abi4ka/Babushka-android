@@ -21,7 +21,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Fragment that displays user profile information,
+ * including created and favorite recipes.
+ */
 public class ProfileFragment extends Fragment {
+
     private TextView tvUsername, tvCreatedCount, tvFavoriteCount;
     private View indicatorCreated, indicatorFavorite;
 
@@ -31,7 +36,7 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        // Inicialización de vistas
+
         tvUsername = view.findViewById(R.id.tvUsername);
         tvCreatedCount = view.findViewById(R.id.tvCreatedCount);
         tvFavoriteCount = view.findViewById(R.id.tvFavoriteCount);
@@ -43,7 +48,7 @@ public class ProfileFragment extends Fragment {
         LinearLayout favoriteContainer = view.findViewById(R.id.favoriteContainer);
         ViewPager2 pager = view.findViewById(R.id.viewPager);
 
-        // Petición al backend para obtener información del usuario
+        // Load user profile information from backend
         RetrofitClient.getApi()
                 .getUserInfo()
                 .enqueue(new Callback<UserInfoDto>() {
@@ -53,7 +58,6 @@ public class ProfileFragment extends Fragment {
                         if (response.isSuccessful() && response.body() != null) {
                             UserInfoDto user = response.body();
 
-                            // Mostramos los datos del usuario en la UI
                             tvUsername.setText(user.username);
                             tvCreatedCount.setText(String.valueOf(user.countCreatedRecipe));
                             tvFavoriteCount.setText(String.valueOf(user.countFavoriteRecipe));
@@ -66,39 +70,31 @@ public class ProfileFragment extends Fragment {
                     }
                 });
 
-        // Click para mostrar recetas creadas
-        createdContainer.setOnClickListener(v -> {
-            pager.setCurrentItem(0, true);
-        });
+        // Switch pages when tapping on section headers
+        createdContainer.setOnClickListener(v -> pager.setCurrentItem(0, true));
+        favoriteContainer.setOnClickListener(v -> pager.setCurrentItem(1, true));
 
-        // Click para mostrar recetas favoritas
-        favoriteContainer.setOnClickListener(v -> {
-            pager.setCurrentItem(1, true);
-        });
-
-        // Adapter del ViewPager con dos fragmentos
+        // Configure ViewPager with two pages: created recipes and favorites
         pager.setAdapter(new FragmentStateAdapter(this) {
             @NonNull
             @Override
             public Fragment createFragment(int position) {
-                if (position == 0)
-                    return RecipeListFragment.newInstance(RecipeListType.MY_RECIPES);
-                else
-                    return RecipeListFragment.newInstance(RecipeListType.FAVORITES);
+                return position == 0
+                        ? RecipeListFragment.newInstance(RecipeListType.MY_RECIPES)
+                        : RecipeListFragment.newInstance(RecipeListType.FAVORITES);
             }
 
             @Override
             public int getItemCount() {
-                // Número de páginas
                 return 2;
             }
         });
 
-        // Listener para cambiar el indicador según la página seleccionada
+        // Update visual indicator when page changes
         pager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
-                // Colores
+
                 int active = ContextCompat.getColor(requireContext(), R.color.text_secondary);
                 int inactive = Color.TRANSPARENT;
 

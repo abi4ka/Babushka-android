@@ -5,52 +5,45 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * Singleton factory for creating and configuring the Retrofit instance.
+ */
 public class RetrofitClient {
 
-    /* Cambiamos BASE_URL de 127.0.0.1 a 10.0.2.2 porque en este caso, 127.0.0.1 NO representa nuestro ordenador
-    donde está alojado y corriendo el server, sino que representa el propio emulador de Android Studio, lo que provoca
-    que no se pueda conectar correctamente al back y salga error de conexión.
-    En Android Studio, la manera de representar la máquina anfitriona es usando la dirección 10.0.2.2.
-    */
+    /**
+     * Base URL for the backend API.
+     * 10.0.2.2 is used to access the host machine from the Android emulator.
+     */
     private static final String BASE_URL = "http://10.0.2.2:8000/";
-    //private static final String BASE_URL = "http://82.26.150.189:25569/"; //Spring
 
     private static Retrofit retrofit;
+
+    /**
+     * Returns a configured implementation of the RecipeApi interface.
+     * Initializes Retrofit only once (lazy singleton).
+     */
     public static RecipeApi getApi() {
-        // Comprueba si Retrofit ya fue creado.
-        // Si no fue creado, se inicializa y sino se reutiliza.
+
         if (retrofit == null) {
-            //Debug
+
+            // HTTP logging interceptor for debugging network requests
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
             logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-            // OkHTTPClient es el objeto que configuramos para poder hacer las solicitudes.
-            // Creamos un OkHttpClient
+            // Configure OkHttp client with logging and authentication interceptor
             OkHttpClient client = new OkHttpClient.Builder()
-                    // Debug
                     .addInterceptor(logging)
-
-                    // Enviar token del usuario
                     .addInterceptor(new AuthInterceptor())
-
-                    // Contruimos el cliente final que sera empleado por Retrofit
                     .build();
 
-            //Creamos la instancia de Retrofit
+            // Build Retrofit instance with JSON converter
             retrofit = new Retrofit.Builder()
-                    // Define la URL base de la API
                     .baseUrl(BASE_URL)
-
-                    // Asigna el cliente HTTP que definimos con logging
                     .client(client)
-
-                    // Permite convertir automaticamente JSON a objetos
                     .addConverterFactory(GsonConverterFactory.create())
-
-                    // Contruimos el cliente final que sera empleado por Retrofit
                     .build();
         }
-        // Retrofit crea una implementación de la interfaz RecipeApi
+
         return retrofit.create(RecipeApi.class);
     }
 }

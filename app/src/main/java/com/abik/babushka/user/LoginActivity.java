@@ -18,91 +18,92 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Activity for user login.
+ */
 public class LoginActivity extends AppCompatActivity {
 
-    // Declaramos los EditText y los botones
-    private EditText etUsuario;
-    private EditText etClave;
-    private Button btnEntrar;
-    private Button btnRegistrarse;
+    private EditText etUsername;
+    private EditText etPassword;
+    private Button btnLogin;
+    private Button btnRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Comprobar si ya hay token guardado
+        // Check if a session token is already saved
         String token = getSharedPreferences("session", MODE_PRIVATE)
                 .getString("sessionToken", null);
         if (token != null) {
-            irAInicio();
+            goToMain();
             return;
         }
 
         setContentView(R.layout.login_activity);
 
-        // Enlazamos vistas
-        etUsuario = findViewById(R.id.etUsuario);
-        etClave = findViewById(R.id.etClave);
-        btnEntrar = findViewById(R.id.btnEntrar);
-        btnRegistrarse = findViewById(R.id.btnRegistrarse);
+        // Bind views
+        etUsername = findViewById(R.id.etUsuario);
+        etPassword = findViewById(R.id.etClave);
+        btnLogin = findViewById(R.id.btnEntrar);
+        btnRegister = findViewById(R.id.btnRegistrarse);
 
-        // Botón Entrar
-        btnEntrar.setOnClickListener(v -> login());
+        // Login button click
+        btnLogin.setOnClickListener(v -> login());
 
-        // Botón Registrarse
-        btnRegistrarse.setOnClickListener(v -> irARegistro());
+        // Register button click
+        btnRegister.setOnClickListener(v -> goToRegister());
     }
 
+    /**
+     * Handle login action.
+     */
     private void login() {
+        String username = etUsername.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
 
-        //Recuperamos lo que puso el usuario en los editText de username y contraseña, lo convertimos a STring (toString)
-        //y eliminamos los espacios en blanco del final (trim)
-        String usuario = etUsuario.getText().toString().trim();
-        String clave = etClave.getText().toString().trim();
-
-        //Si el usuario no introduce el username y/o la contraseña, salta error
-        if (usuario.isEmpty() || clave.isEmpty()) {
-            Toast.makeText(this, "Rellena usuario y contraseña", Toast.LENGTH_SHORT).show();
+        if (username.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Please enter username and password", Toast.LENGTH_SHORT).show();
             return;
         }
 
+        // Send login request
         RetrofitClient.getApi()
-                .login(new UserDto(usuario, clave))
+                .login(new UserDto(username, password))
                 .enqueue(new Callback<LoginResponseDto>() {
                     @Override
                     public void onResponse(Call<LoginResponseDto> call, Response<LoginResponseDto> response) {
 
-                        if (response.isSuccessful()) {
+                        if (response.isSuccessful() && response.body() != null) {
                             saveSessionToken(response.body().sessionToken);
-                            irAInicio();
+                            goToMain();
                             return;
                         }
 
-                        //En el backend de Django, asignamos el error 403 a si el usuario estaba inactivo
                         if (response.code() == 403) {
-                            Toast.makeText(LoginActivity.this, "Tu cuenta está desactivada.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, "Your account is deactivated.", Toast.LENGTH_LONG).show();
                             return;
                         }
 
-                        // Si el error es 401 es que hubo algún problema con el usuario/contraseña, tal y como definimos en el back
                         if (response.code() == 401) {
-                            Toast.makeText(LoginActivity.this, "Usuario o contraseña incorrectos", Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, "Incorrect username or password", Toast.LENGTH_LONG).show();
                             return;
                         }
-                        //Cualquier otro error no catcheado
-                        Toast.makeText(LoginActivity.this, "Error inesperado", Toast.LENGTH_LONG).show();
+
+                        Toast.makeText(LoginActivity.this, "Unexpected error", Toast.LENGTH_LONG).show();
                     }
 
-                    //Si no ha sido capaz de conectarse al servidor:
                     @Override
                     public void onFailure(Call<LoginResponseDto> call, Throwable t) {
                         t.printStackTrace();
-                        Toast.makeText(LoginActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Connection error", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
-    // Guardar token de sesión
+    /**
+     * Save session token in SharedPreferences.
+     */
     private void saveSessionToken(String token) {
         getSharedPreferences("session", MODE_PRIVATE)
                 .edit()
@@ -110,14 +111,18 @@ public class LoginActivity extends AppCompatActivity {
                 .apply();
     }
 
-    //Método para ir a la pantalla de inicio
-    private void irAInicio() {
+    /**
+     * Navigate to main activity.
+     */
+    private void goToMain() {
         startActivity(new Intent(this, MainActivity.class));
-        finish(); // Para que no vuelva atrás al login
+        finish(); // Prevent returning to login
     }
 
-    //Método para ir a la pantalla de registro
-    private void irARegistro() {
+    /**
+     * Navigate to register activity.
+     */
+    private void goToRegister() {
         startActivity(new Intent(this, RegisterActivity.class));
     }
 }

@@ -11,56 +11,42 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * Interceptor de autenticación.
- * Este interceptor se encarga de añadir automáticamente el token de sesión
- * a todos los requests HTTP que se envían desde la aplicación.
+ * Authentication interceptor that automatically attaches
+ * the stored session token to outgoing HTTP requests.
  */
 public class AuthInterceptor implements Interceptor {
 
     /**
-     * Obtiene el token de sesión guardado en SharedPreferences.
-     * El token se utiliza para autenticar al usuario en el backend.
+     * Retrieves the session token stored in SharedPreferences.
      *
-     * @return token de sesión o null si no existe
+     * @return the session token, or null if not available
      */
     private String getSessionToken() {
-        // Obtenemos el contexto global de la aplicación
         Context context = MyApplication.getAppContext();
-
-        // Si el contexto no está disponible, devolvemos null
         if (context == null) return null;
 
-        // Accedemos a SharedPreferences con el nombre "session"
-        // y obtenemos el valor asociado a la clave "sessionToken"
         return context
                 .getSharedPreferences("session", Context.MODE_PRIVATE)
                 .getString("sessionToken", null);
     }
 
     /**
-     * Metodo intercept que se ejecuta antes de enviar cada request HTTP.
-     * Aquí se añade el token en el header Authorization si existe.
+     * Intercepts outgoing requests and adds the Authorization header
+     * using the Bearer token if a session token exists.
      */
     @Override
     public Response intercept(Chain chain) throws IOException {
-        // Request original que se va a enviar
         Request originalRequest = chain.request();
-
-        // Obtenemos el token de sesión
         String token = getSessionToken();
 
-        // Si no hay token, enviamos el request sin modificar
         if (token == null) {
             return chain.proceed(originalRequest);
         }
 
-        // Creamos un nuevo request añadiendo el header Authorization
-        // con el token en formato Bearer
         Request newRequest = originalRequest.newBuilder()
                 .addHeader("Authorization", "Bearer " + token)
                 .build();
 
-        // Enviamos el request modificado
         return chain.proceed(newRequest);
     }
 }

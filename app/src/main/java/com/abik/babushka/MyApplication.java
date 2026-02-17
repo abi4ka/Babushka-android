@@ -4,32 +4,28 @@ import android.app.Application;
 import android.content.Context;
 
 /**
- * Clase Application personalizada.
- * Se utiliza para almacenar y proporcionar el contexto global
- * de la aplicación, accesible desde cualquier clase.
+ * Custom Application class.
+ * Stores and provides a global application context accessible from any class.
  */
 public class MyApplication extends Application {
 
-    // Contexto de la aplicación guardado de forma estática
+    // Static reference to the application context
     private static Context appContext;
 
     /**
-     * Metodo que se ejecuta cuando la aplicación se inicia.
-     * Aquí se obtiene y se guarda el contexto de la aplicación.
+     * Called when the application is created.
+     * Saves the application context for global access.
      */
     @Override
     public void onCreate() {
         super.onCreate();
-
-        // Obtenemos el contexto de la aplicación
         appContext = getApplicationContext();
     }
 
     /**
-     * Devuelve el contexto global de la aplicación.
-     * Permite acceder al context desde cualquier clase.
+     * Returns the global application context.
      *
-     * @return Context de la aplicación
+     * @return Application context
      */
     public static Context getAppContext() {
         return appContext;

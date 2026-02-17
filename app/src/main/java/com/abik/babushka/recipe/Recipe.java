@@ -6,7 +6,7 @@ import android.graphics.Bitmap;
 import com.abik.babushka.network.dto.RecipeResponseDto;
 
 import java.io.Serializable;
-// Implementamos Serializable para poder enviar objetos Receta entre fragments usando Bundle
+
 public class Recipe implements Serializable {
     public Long id;
     public String title;
@@ -18,7 +18,7 @@ public class Recipe implements Serializable {
     public Boolean isFavorite;
     public Bitmap bitmapImage;
 
-    // Para recibir información
+    // to receive recipe from backend
     public Recipe(Long id,
                   String title,
                   String description,
@@ -37,8 +37,8 @@ public class Recipe implements Serializable {
         this.isFavorite = isFavorite;
     }
 
-    // Para crear receta
-    public Recipe(RecipeResponseDto dto){
+    // to create a new recipe
+    public Recipe(RecipeResponseDto dto) {
         this.id = dto.id;
         this.title = dto.title;
         this.description = dto.description;

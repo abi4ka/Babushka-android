@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-// Importaciones del proyecto
 import com.abik.babushka.R;
 import com.abik.babushka.network.RecipeApi;
 import com.abik.babushka.network.RetrofitClient;
@@ -18,25 +17,24 @@ import com.abik.babushka.network.dto.CategoryDto;
 
 import java.util.List;
 
-// Importaciones para manejar llamadas HTTP con Retrofit
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-// Adaptador para el RecyclerView que muestra las categorías
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
 
-    List<CategoryDto> list;
-    OnCategorySelected listener;
+    private final List<CategoryDto> list;
+    private final OnCategorySelected listener;
 
-    // Constructor del adaptador
     public CategoryAdapter(List<CategoryDto> list, OnCategorySelected listener) {
         this.list = list;
         this.listener = listener;
     }
 
-    // ViewHolder: contiene las vistas de cada item del RecyclerView
+    /**
+     * ViewHolder representing a single category item.
+     */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView img;
         TextView txt;
@@ -48,7 +46,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         }
     }
 
-    // Crea cada fila (item) del RecyclerView
+    /**
+     * Inflates the layout for each RecyclerView item.
+     */
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
@@ -56,48 +56,41 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         return new ViewHolder(v);
     }
 
-    // Asigna los datos a cada fila del RecyclerView
+    /**
+     * Binds category data to the ViewHolder.
+     * Loads the category image from the server and handles item click events.
+     */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        // Obtiene la categoría actual
-        CategoryDto c = list.get(position);
+        CategoryDto category = list.get(position);
 
-        // Muestra el nombre de la categoría
-        holder.txt.setText(c.name);
-
-        holder.img.setImageDrawable(null);
+        holder.txt.setText(category.name);
+        holder.img.setImageDrawable(null); // Prevents incorrect image reuse
 
         RecipeApi api = RetrofitClient.getApi();
 
-        // Llama al servidor para descargar la imagen de la categoría
-        api.getCategoryImage(c.id).enqueue(new Callback<ResponseBody>() {
+        api.getCategoryImage(category.id).enqueue(new Callback<ResponseBody>() {
 
-            // Si la respuesta es correcta
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful() && response.body() != null) {
-
-                    // Convierte la imagen descargada en un Bitmap y la asigna al ImageView
-                    Bitmap bmp = BitmapFactory.decodeStream(response.body().byteStream());
-                    holder.img.setImageBitmap(bmp);
+                    Bitmap bitmap = BitmapFactory.decodeStream(response.body().byteStream());
+                    holder.img.setImageBitmap(bitmap);
                 }
             }
 
-            //Si hay un error en la conexión
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 t.printStackTrace();
             }
         });
 
-        // Detecta cuando el usuario pulsa una categoría
-        holder.itemView.setOnClickListener(v -> {
-            listener.onCategoriaSelected(c.name, c.id);
-        });
+        holder.itemView.setOnClickListener(v ->
+                listener.onCategoriaSelected(category.name, category.id)
+        );
     }
 
-    // Devuelve cuántos elementos hay en la lista
     @Override
     public int getItemCount() {
         return list.size();
