@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.babushka"
+    namespace = "com.abik.babushka"
     compileSdk = 36
 
     defaultConfig {
