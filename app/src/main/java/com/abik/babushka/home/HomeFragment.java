@@ -134,7 +134,7 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvRecetas.setLayoutManager(layoutManager);
 
-        adapter = new RecipeAdapter(recetas, this::abrirDetalleReceta);
+        adapter = new RecipeAdapter(recetas, this::openRecipeDetails);
         rvRecetas.setAdapter(adapter);
 
         rvRecetas.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -179,7 +179,7 @@ public class HomeFragment extends Fragment {
     /**
      * Opens the selected recipe detail screen.
      */
-    private void abrirDetalleReceta(Recipe receta) {
+    private void openRecipeDetails(Recipe receta) {
         navigation.abrirDetalle(receta);
     }
 

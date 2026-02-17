@@ -12,7 +12,7 @@ import com.abik.babushka.category.CategoryFragment;
 import com.abik.babushka.category.OnCategorySelected;
 import com.abik.babushka.profile.ProfileFragment;
 import com.abik.babushka.recipe.CreateRecipeFragment;
-import com.abik.babushka.recipe.RecipeDetailFragment;
+import com.abik.babushka.recipe.RecipeDetailsFragment;
 import com.abik.babushka.recipe.Recipe;
 import com.abik.babushka.recipe.RecipeNavigation;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -79,6 +79,6 @@ public class MainActivity extends AppCompatActivity implements OnCategorySelecte
     // Callback to open recipe detail fragment
     @Override
     public void abrirDetalle(Recipe receta) {
-        replaceFragment(RecipeDetailFragment.newInstance(receta));
+        replaceFragment(RecipeDetailsFragment.newInstance(receta));
     }
 }

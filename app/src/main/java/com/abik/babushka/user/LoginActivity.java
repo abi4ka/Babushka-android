@@ -23,10 +23,10 @@ import retrofit2.Response;
  */
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText etUsername;
-    private EditText etPassword;
-    private Button btnLogin;
-    private Button btnRegister;
+    private EditText usernameInput;
+    private EditText passwordInput;
+    private Button loginButton;
+    private Button registerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,24 +43,24 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login_activity);
 
         // Bind views
-        etUsername = findViewById(R.id.etUsuario);
-        etPassword = findViewById(R.id.etClave);
-        btnLogin = findViewById(R.id.btnEntrar);
-        btnRegister = findViewById(R.id.btnRegistrarse);
+        usernameInput = findViewById(R.id.etUsuario);
+        passwordInput = findViewById(R.id.etClave);
+        loginButton = findViewById(R.id.btnEntrar);
+        registerButton = findViewById(R.id.btnRegistrarse);
 
         // Login button click
-        btnLogin.setOnClickListener(v -> login());
+        loginButton.setOnClickListener(v -> login());
 
         // Register button click
-        btnRegister.setOnClickListener(v -> goToRegister());
+        registerButton.setOnClickListener(v -> goToRegister());
     }
 
     /**
      * Handle login action.
      */
     private void login() {
-        String username = etUsername.getText().toString().trim();
-        String password = etPassword.getText().toString().trim();
+        String username = this.usernameInput.getText().toString().trim();
+        String password = this.passwordInput.getText().toString().trim();
 
         if (username.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Please enter username and password", Toast.LENGTH_SHORT).show();

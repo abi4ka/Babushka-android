@@ -33,76 +33,76 @@ public class CreateRecipeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // Input fields
-        EditText nombre = view.findViewById(R.id.etNombre);
-        EditText tiempo = view.findViewById(R.id.etTiempo);
-        EditText dificultad = view.findViewById(R.id.etDificultad);
-        EditText descripcion = view.findViewById(R.id.etDescripcion);
-        EditText ingredientes = view.findViewById(R.id.etIngredientes);
-        EditText preparacion = view.findViewById(R.id.etPreparacion);
+        EditText titleInput = view.findViewById(R.id.etNombre);
+        EditText timeInput = view.findViewById(R.id.etTiempo);
+        EditText difficultyInput = view.findViewById(R.id.etDificultad);
+        EditText descriptionInput = view.findViewById(R.id.etDescripcion);
+        EditText ingredientsListInput = view.findViewById(R.id.etIngredientes);
+        EditText preparationStepsInput = view.findViewById(R.id.etPreparacion);
 
-        TextView mensajeError = view.findViewById(R.id.mensajeError);
-        Button botonCrear = view.findViewById(R.id.botonCrear);
+        TextView errorMessage = view.findViewById(R.id.mensajeError);
+        Button createRecipeButton = view.findViewById(R.id.botonCrear);
 
         // Handle create button click
-        botonCrear.setOnClickListener(v -> {
+        createRecipeButton.setOnClickListener(v -> {
             // Validate input
-            if (nombre.getText().toString().isEmpty()) {
-                mensajeError.setText("Recipe name is empty.");
-            } else if (tiempo.getText().toString().isEmpty()) {
-                mensajeError.setText("Time is empty.");
-            } else if (verifyNumber(tiempo.getText().toString())) {
-                mensajeError.setText("Time must be a number.");
-            } else if (dificultad.getText().toString().isEmpty()) {
-                mensajeError.setText("Difficulty is empty.");
-            } else if (verifyNumber(dificultad.getText().toString())) {
-                mensajeError.setText("Difficulty must be a number.");
-            } else if (Integer.parseInt(dificultad.getText().toString()) < 1 ||
-                    Integer.parseInt(dificultad.getText().toString()) > 5) {
-                mensajeError.setText("Difficulty must be between 1 and 5.");
-            } else if (descripcion.getText().toString().isEmpty()) {
-                mensajeError.setText("Description is empty.");
-            } else if (ingredientes.getText().toString().isEmpty()) {
-                mensajeError.setText("Ingredients are empty.");
-            } else if (preparacion.getText().toString().isEmpty()) {
-                mensajeError.setText("Preparation is empty.");
+            if (titleInput.getText().toString().isEmpty()) {
+                errorMessage.setText("Recipe name is empty.");
+            } else if (timeInput.getText().toString().isEmpty()) {
+                errorMessage.setText("Time is empty.");
+            } else if (verifyNumber(timeInput.getText().toString())) {
+                errorMessage.setText("Time must be a number.");
+            } else if (difficultyInput.getText().toString().isEmpty()) {
+                errorMessage.setText("Difficulty is empty.");
+            } else if (verifyNumber(difficultyInput.getText().toString())) {
+                errorMessage.setText("Difficulty must be a number.");
+            } else if (Integer.parseInt(difficultyInput.getText().toString()) < 1 ||
+                    Integer.parseInt(difficultyInput.getText().toString()) > 5) {
+                errorMessage.setText("Difficulty must be between 1 and 5.");
+            } else if (descriptionInput.getText().toString().isEmpty()) {
+                errorMessage.setText("Description is empty.");
+            } else if (ingredientsListInput.getText().toString().isEmpty()) {
+                errorMessage.setText("Ingredients are empty.");
+            } else if (preparationStepsInput.getText().toString().isEmpty()) {
+                errorMessage.setText("Preparation is empty.");
             } else {
                 // Create DTO from input
-                RecipeResponseDto receta = new RecipeResponseDto(
-                        nombre.getText().toString(),
-                        descripcion.getText().toString(),
-                        ingredientes.getText().toString(),
-                        preparacion.getText().toString(),
-                        Integer.parseInt(tiempo.getText().toString()),
-                        Integer.parseInt(dificultad.getText().toString()),
+                RecipeResponseDto recipe = new RecipeResponseDto(
+                        titleInput.getText().toString(),
+                        descriptionInput.getText().toString(),
+                        ingredientsListInput.getText().toString(),
+                        preparationStepsInput.getText().toString(),
+                        Integer.parseInt(timeInput.getText().toString()),
+                        Integer.parseInt(difficultyInput.getText().toString()),
                         null
                 );
 
                 // Send recipe to backend
                 RetrofitClient.getApi()
-                        .createRecipe(receta)
+                        .createRecipe(recipe)
                         .enqueue(new Callback<RecipeResponseDto>() {
                             @Override
                             public void onResponse(Call<RecipeResponseDto> call,
                                                    Response<RecipeResponseDto> response) {
                                 if (response.isSuccessful() && response.body() != null) {
-                                    mensajeError.setText("Recipe created successfully.");
+                                    errorMessage.setText("Recipe created successfully.");
 
                                     // Clear input fields
-                                    nombre.setText("");
-                                    descripcion.setText("");
-                                    ingredientes.setText("");
-                                    preparacion.setText("");
-                                    tiempo.setText("");
-                                    dificultad.setText("");
+                                    titleInput.setText("");
+                                    descriptionInput.setText("");
+                                    ingredientsListInput.setText("");
+                                    preparationStepsInput.setText("");
+                                    timeInput.setText("");
+                                    difficultyInput.setText("");
                                 } else {
-                                    mensajeError.setText("Server error while creating recipe.");
+                                    errorMessage.setText("Server error while creating recipe.");
                                 }
                             }
 
                             @Override
                             public void onFailure(Call<RecipeResponseDto> call, Throwable t) {
                                 t.printStackTrace();
-                                mensajeError.setText("Connection error.");
+                                errorMessage.setText("Connection error.");
                             }
                         });
             }

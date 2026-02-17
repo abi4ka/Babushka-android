@@ -22,9 +22,9 @@ import retrofit2.Response;
  */
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText etUsername;
-    private EditText etPassword;
-    private Button btnRegister;
+    private EditText usernameInput;
+    private EditText passwordInput;
+    private Button registerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,20 +32,20 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.register_activity);
 
         // Bind views
-        etUsername = findViewById(R.id.etUsuario);
-        etPassword = findViewById(R.id.etClave);
-        btnRegister = findViewById(R.id.btnRegistrarse);
+        usernameInput = findViewById(R.id.etUsuario);
+        passwordInput = findViewById(R.id.etClave);
+        registerButton = findViewById(R.id.btnRegistrarse);
 
         // Register button click
-        btnRegister.setOnClickListener(v -> registerUser());
+        registerButton.setOnClickListener(v -> registerUser());
     }
 
     /**
      * Handle user registration.
      */
     private void registerUser() {
-        String username = etUsername.getText().toString().trim();
-        String password = etPassword.getText().toString().trim();
+        String username = usernameInput.getText().toString().trim();
+        String password = passwordInput.getText().toString().trim();
 
         // Validate fields
         if (username.isEmpty() || password.isEmpty()) {
@@ -70,8 +70,8 @@ public class RegisterActivity extends AppCompatActivity {
                             goToLogin();
                         } else {
                             // Error: user already exists or invalid input
-                            etUsername.setText("");
-                            etPassword.setText("");
+                            usernameInput.setText("");
+                            passwordInput.setText("");
                             Toast.makeText(RegisterActivity.this, "Error: username already exists or invalid", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -79,8 +79,8 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         t.printStackTrace();
-                        etUsername.setText("");
-                        etPassword.setText("");
+                        usernameInput.setText("");
+                        passwordInput.setText("");
                         Toast.makeText(RegisterActivity.this, "Connection error", Toast.LENGTH_SHORT).show();
                     }
                 });

@@ -19,19 +19,19 @@ import retrofit2.Response;
 /**
  * Fragment to display detailed information about a single recipe.
  */
-public class RecipeDetailFragment extends Fragment {
+public class RecipeDetailsFragment extends Fragment {
 
     private Recipe recipe;
 
-    public RecipeDetailFragment() {
+    public RecipeDetailsFragment() {
         super(R.layout.recipe);
     }
 
     /**
      * Create a new instance of the fragment with a given recipe.
      */
-    public static RecipeDetailFragment newInstance(Recipe recipe) {
-        RecipeDetailFragment fragment = new RecipeDetailFragment();
+    public static RecipeDetailsFragment newInstance(Recipe recipe) {
+        RecipeDetailsFragment fragment = new RecipeDetailsFragment();
         Bundle args = new Bundle();
         args.putSerializable("receta", recipe);
         fragment.setArguments(args);
@@ -49,22 +49,22 @@ public class RecipeDetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        TextView name = view.findViewById(R.id.txNombre);
+        TextView title = view.findViewById(R.id.txNombre);
         TextView time = view.findViewById(R.id.tvTiempo);
         TextView difficulty = view.findViewById(R.id.tvDificultad);
         TextView description = view.findViewById(R.id.txDescripcion);
-        TextView ingredients = view.findViewById(R.id.txIngredientes);
-        TextView preparation = view.findViewById(R.id.txPreparacion);
+        TextView ingredientsList = view.findViewById(R.id.txIngredientes);
+        TextView preparationSteps = view.findViewById(R.id.txPreparacion);
         ImageView image = view.findViewById(R.id.vwImagen);
         ImageView star = view.findViewById(R.id.Estrella);
 
         // Bind recipe data to UI elements
-        name.setText(recipe.title);
+        title.setText(recipe.title);
         time.setText(String.valueOf(recipe.time));
         difficulty.setText(String.valueOf(recipe.difficulty));
         description.setText(recipe.description);
-        ingredients.setText(formatIngredients(recipe.ingredients));
-        preparation.setText(recipe.preparation);
+        ingredientsList.setText(formatIngredients(recipe.ingredientsList));
+        preparationSteps.setText(recipe.preparationSteps);
 
         // Display image if available
         Bitmap bitmap = recipe.bitmapImage;

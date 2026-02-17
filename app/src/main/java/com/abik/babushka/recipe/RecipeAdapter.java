@@ -58,7 +58,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         Recipe recipe = recipeList.get(position);
 
         // Bind recipe data to UI
-        holder.name.setText(recipe.title);
+        holder.title.setText(recipe.title);
         holder.description.setText(recipe.description);
         holder.difficulty.setText(String.valueOf(recipe.difficulty));
         holder.time.setText(String.valueOf(recipe.time));
@@ -137,12 +137,12 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
      * Holds references to all UI elements in a single item.
      */
     class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name, description, difficulty, time;
+        TextView title, description, difficulty, time;
         ImageView image, star;
 
         ViewHolder(View view) {
             super(view);
-            name = view.findViewById(R.id.txNombre);
+            title = view.findViewById(R.id.txNombre);
             description = view.findViewById(R.id.txDescripcion);
             difficulty = view.findViewById(R.id.tvDificultad);
             image = view.findViewById(R.id.vwImagen);
