@@ -1,4 +1,4 @@
-package com.abik.babushka.Inicio;
+package com.abik.babushka.home;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -17,8 +17,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.abik.babushka.R;
-import com.abik.babushka.recipe.Receta;
-import com.abik.babushka.recipe.RecetaAdapter;
+import com.abik.babushka.recipe.Recipe;
+import com.abik.babushka.recipe.RecipeAdapter;
 import com.abik.babushka.recipe.RecipeNavigation;
 import com.abik.babushka.network.dto.RecipeResponseDto;
 import com.abik.babushka.network.RetrofitClient;
@@ -31,24 +31,24 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class InicioFragment extends Fragment {
+public class HomeFragment extends Fragment {
     private String search;
     private Handler searchHandler = new Handler(Looper.getMainLooper());
     private Runnable searchRunnable;
     private static final long SEARCH_DELAY = 500; // milisegundos
-    private RecetaAdapter adapter;
-    private List<Receta> recetas = new ArrayList<>();
+    private RecipeAdapter adapter;
+    private List<Recipe> recetas = new ArrayList<>();
     private int currentPage = 0;
     private boolean isLoading = false;
     private Long categoryId = null;
 
 
-    public InicioFragment() {
-        super(R.layout.fragment_inicio);
+    public HomeFragment() {
+        super(R.layout.home_fragment);
     }
 
-    public static InicioFragment newInstance(String categoria, Long categoriaId) {
-        InicioFragment fragment = new InicioFragment();
+    public static HomeFragment newInstance(String categoria, Long categoriaId) {
+        HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
         // Guardar información
         args.putString("categoria", categoria);
@@ -114,7 +114,7 @@ public class InicioFragment extends Fragment {
         rvRecetas.setLayoutManager(layoutManager);
 
         // Creamos el adapter y definimos
-        adapter = new RecetaAdapter(recetas, receta -> abrirDetalleReceta(receta));
+        adapter = new RecipeAdapter(recetas, receta -> abrirDetalleReceta(receta));
 
         rvRecetas.setAdapter(adapter);
 
@@ -162,7 +162,7 @@ public class InicioFragment extends Fragment {
         navigation = null;
     }
 
-    private void abrirDetalleReceta(Receta receta) {
+    private void abrirDetalleReceta(Recipe receta) {
         navigation.abrirDetalle(receta);
     }
 
@@ -182,9 +182,9 @@ public class InicioFragment extends Fragment {
                                 && response.body() != null) {
 
                             // Crear recetas from dto model
-                            List<Receta> nuevas = new ArrayList<>();
+                            List<Recipe> nuevas = new ArrayList<>();
                             for (RecipeResponseDto dto : response.body()) {
-                                nuevas.add(new Receta(dto));
+                                nuevas.add(new Recipe(dto));
                             }
 
                             adapter.addRecetas(nuevas);

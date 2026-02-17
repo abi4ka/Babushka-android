@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/gato_cocinando"
+        android:src="@drawable/coocking_cat"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,7 +41,7 @@
                 android:layout_height="240dp"
                 android:alpha="0.6"
                 android:scaleType="centerCrop"
-                android:src="@drawable/gato_cocinando" />
+                android:src="@drawable/coocking_cat" />
 
             <!-- Contenido -->
             <LinearLayout

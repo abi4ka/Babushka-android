@@ -21,16 +21,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder> {
-    private List<Receta> listaReceta;
+public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> {
+    private List<Recipe> listaReceta;
     private OnRecetaClickListener listener;
 
     // Interfaz para comunicar el click al Fragment (el Adapter NO abre fragments, solo avisa)
     public interface OnRecetaClickListener {
-        void onRecetaClick(Receta receta);
+        void onRecetaClick(Recipe receta);
     }
 
-    public RecetaAdapter(List<Receta> listaReceta, OnRecetaClickListener listener) {
+    public RecipeAdapter(List<Recipe> listaReceta, OnRecetaClickListener listener) {
         this.listaReceta = listaReceta;
         this.listener = listener;
     }
@@ -45,14 +45,14 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.mini_receta, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.mini_recipe, parent, false);
         return new ViewHolder(view);
     }
 
     // Asignar valores a variables que luego se visualizarán
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Receta receta = listaReceta.get(position);
+        Recipe receta = listaReceta.get(position);
 
         holder.nombre.setText(receta.title);
         holder.descrip.setText(receta.description);
@@ -98,14 +98,14 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
         });
     }
 
-    public void addRecetas(List<Receta> nuevas) {
+    public void addRecetas(List<Recipe> nuevas) {
         int start = listaReceta.size();
         listaReceta.addAll(nuevas);
         notifyItemRangeInserted(start, nuevas.size());
     }
 
     // Actualiza el icono de la estrella según si es favorita o no
-    private void updateStar(ImageView estrella, Receta receta) {
+    private void updateStar(ImageView estrella, Recipe receta) {
         if (receta.isFavorite) {
             estrella.setImageResource(android.R.drawable.btn_star_big_on);
         } else {
@@ -114,7 +114,7 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
     }
 
     // Peticion para marcar/desmarcar favorito
-    private void miniFavorite(ImageView estrella, Receta receta) {
+    private void miniFavorite(ImageView estrella, Recipe receta) {
         RetrofitClient.getApi()
                 .postFavoriteRecipes(receta.id, !receta.isFavorite)
                 .enqueue(new Callback<Void>() {

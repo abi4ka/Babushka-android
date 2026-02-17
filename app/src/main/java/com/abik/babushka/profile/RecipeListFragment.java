@@ -1,4 +1,4 @@
-package com.abik.babushka.perfil;
+package com.abik.babushka.profile;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.abik.babushka.recipe.RecipeNavigation;
-import com.abik.babushka.recipe.Receta;
-import com.abik.babushka.recipe.RecetaAdapter;
+import com.abik.babushka.recipe.Recipe;
+import com.abik.babushka.recipe.RecipeAdapter;
 import com.abik.babushka.R;
 import com.abik.babushka.network.dto.RecipeResponseDto;
 import com.abik.babushka.network.RetrofitClient;
@@ -26,8 +26,8 @@ import retrofit2.Response;
 
 public class RecipeListFragment extends Fragment {
     private RecipeListType type;
-    private RecetaAdapter adapter;
-    private List<Receta> recetas = new ArrayList<>();
+    private RecipeAdapter adapter;
+    private List<Recipe> recetas = new ArrayList<>();
     private int page = 0;
     private boolean isLoading = false;
 
@@ -40,7 +40,7 @@ public class RecipeListFragment extends Fragment {
     }
 
     public RecipeListFragment() {
-        super(R.layout.fragment_recipe_list);
+        super(R.layout.recipe_list_fragment);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class RecipeListFragment extends Fragment {
          * Creamos el adapter y definimos
          * qué pasa cuando se hace click en una receta
          */
-        adapter = new RecetaAdapter(recetas, receta -> {
+        adapter = new RecipeAdapter(recetas, receta -> {
             abrirDetalleReceta(receta);
         });
 
@@ -100,7 +100,7 @@ public class RecipeListFragment extends Fragment {
         }
     }
 
-    private void abrirDetalleReceta(Receta receta) {
+    private void abrirDetalleReceta(Recipe receta) {
         navigation.abrirDetalle(receta);
     }
 
@@ -128,9 +128,9 @@ public class RecipeListFragment extends Fragment {
                         && response.body() != null) {
 
                     // Crear recetas from dto model
-                    List<Receta> nuevas = new ArrayList<>();
+                    List<Recipe> nuevas = new ArrayList<>();
                     for (RecipeResponseDto dto : response.body()) {
-                        nuevas.add(new Receta(dto));
+                        nuevas.add(new Recipe(dto));
                     }
 
                     adapter.addRecetas(nuevas);

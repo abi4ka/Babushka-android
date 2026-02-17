@@ -26,7 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register); // tu XML
+        setContentView(R.layout.register_activity); // tu XML
 
         // Conectamos con botones del xml
         etUsuario = findViewById(R.id.etUsuario);

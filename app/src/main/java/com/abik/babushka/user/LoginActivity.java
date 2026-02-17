@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.login_activity);
 
         // Enlazamos vistas
         etUsuario = findViewById(R.id.etUsuario);

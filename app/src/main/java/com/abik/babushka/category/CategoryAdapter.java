@@ -1,4 +1,4 @@
-package com.abik.babushka.categorias;
+package com.abik.babushka.category;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -28,10 +28,10 @@ import retrofit2.Response;
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
 
     List<CategoryDto> list;
-    OnCategoriaSelected listener;
+    OnCategorySelected listener;
 
     // Constructor del adaptador
-    public CategoryAdapter(List<CategoryDto> list, OnCategoriaSelected listener) {
+    public CategoryAdapter(List<CategoryDto> list, OnCategorySelected listener) {
         this.list = list;
         this.listener = listener;
     }
@@ -52,7 +52,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_layout_categoria, parent, false);
+                .inflate(R.layout.item_layout_category, parent, false);
         return new ViewHolder(v);
     }
 

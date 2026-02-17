@@ -18,10 +18,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CrearRecetaFragment extends Fragment {
+public class CreateRecipeFragment extends Fragment {
 
-    public CrearRecetaFragment() {
-        super(R.layout.crear_receta);
+    public CreateRecipeFragment() {
+        super(R.layout.create_recipe_fragment);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.abik.babushka.categorias;
+package com.abik.babushka.category;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -22,14 +22,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 // Fragment que muestra la lista de categorías en pantalla
-public class CategoriasFragment extends Fragment {
+public class CategoryFragment extends Fragment {
 
     // Listener para comunicar al fragment con la actividad principal
-    private OnCategoriaSelected listener;
+    private OnCategorySelected listener;
     RecyclerView recycler;
 
-    public CategoriasFragment() {
-        super(R.layout.fragment_categorias);
+    public CategoryFragment() {
+        super(R.layout.category_fragment);
     }
 
     // Se ejecuta cuando el fragment se asocia a la actividad
@@ -38,8 +38,8 @@ public class CategoriasFragment extends Fragment {
         super.onAttach(context);
 
         // Comprueba que la actividad implemente la interfaz de comunicación
-        if (context instanceof OnCategoriaSelected) {
-            listener = (OnCategoriaSelected) context;
+        if (context instanceof OnCategorySelected) {
+            listener = (OnCategorySelected) context;
         }
     }
 

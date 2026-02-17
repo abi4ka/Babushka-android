@@ -1,4 +1,4 @@
-package com.abik.babushka.perfil;
+package com.abik.babushka.profile;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,12 +21,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PerfilFragment extends Fragment {
+public class ProfileFragment extends Fragment {
     private TextView tvUsername, tvCreatedCount, tvFavoriteCount;
     private View indicatorCreated, indicatorFavorite;
 
-    public PerfilFragment() {
-        super(R.layout.fragment_perfil);
+    public ProfileFragment() {
+        super(R.layout.profile_fragment);
     }
 
     @Override

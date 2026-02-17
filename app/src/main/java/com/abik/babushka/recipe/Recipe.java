@@ -7,7 +7,7 @@ import com.abik.babushka.network.dto.RecipeResponseDto;
 
 import java.io.Serializable;
 // Implementamos Serializable para poder enviar objetos Receta entre fragments usando Bundle
-public class Receta implements Serializable {
+public class Recipe implements Serializable {
     public Long id;
     public String title;
     public String description;
@@ -19,7 +19,7 @@ public class Receta implements Serializable {
     public Bitmap bitmapImage;
 
     // Para recibir información
-    public Receta(Long id,
+    public Recipe(Long id,
                   String title,
                   String description,
                   String ingredients,
@@ -38,7 +38,7 @@ public class Receta implements Serializable {
     }
 
     // Para crear receta
-    public Receta(RecipeResponseDto dto){
+    public Recipe(RecipeResponseDto dto){
         this.id = dto.id;
         this.title = dto.title;
         this.description = dto.description;

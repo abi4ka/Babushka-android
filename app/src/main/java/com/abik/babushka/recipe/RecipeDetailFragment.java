@@ -18,18 +18,18 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetalleFragment extends Fragment {
+public class RecipeDetailFragment extends Fragment {
 
-    private Receta receta;
+    private Recipe receta;
 
-    public DetalleFragment() {
-        super(R.layout.receta);
+    public RecipeDetailFragment() {
+        super(R.layout.recipe);
     }
 
-    public static DetalleFragment newInstance(Receta receta) {
+    public static RecipeDetailFragment newInstance(Recipe receta) {
         // Recibimos receta
         // Creamos nuevo fragment y Bundle para receta
-        DetalleFragment fragment = new DetalleFragment();
+        RecipeDetailFragment fragment = new RecipeDetailFragment();
         Bundle args = new Bundle();
 
         // Guardamos receta en args
@@ -42,7 +42,7 @@ public class DetalleFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Recuperamos la receta enviada desde InicioFragment
-        receta = (Receta) requireArguments().getSerializable("receta");
+        receta = (Recipe) requireArguments().getSerializable("receta");
     }
 
     @Override
