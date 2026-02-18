@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,30 +9,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- Barra Buscador -->
         <EditText
-            android:id="@+id/etBuscar"
+            android:id="@+id/etSearch"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
 
             android:drawableStart="@android:drawable/ic_menu_search"
-            android:hint="¿Qué quieres hacer hoy?"
+            android:hint="What do you want to cook today?"
             android:textColor="@color/text_primary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Título categoría -->
-        <!--
-        android:visibility="gone"
-        Indica que el elemento no es visible al iniciar la pantalla
-        y además no ocupa espacio en el layout.
-        se puede mostrarlo más adelante solo cuando sea necesario.
-        -->
         <TextView
-            android:id="@+id/tvCategoria"
+            android:id="@+id/tvCategoryTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="25dp"
@@ -42,11 +33,10 @@
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etBuscar" />
+            app:layout_constraintTop_toBottomOf="@id/etSearch" />
 
-        <!-- RecyclerView  Recetas -->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvRecetas"
+            android:id="@+id/rvRecipes"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="5dp"
@@ -54,7 +44,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvCategoria" />
+            app:layout_constraintTop_toBottomOf="@id/tvCategoryTitle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

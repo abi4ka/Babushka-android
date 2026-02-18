@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/menu_inicio"
-        android:title="Inicio" />
+        android:id="@+id/menu_home"
+        android:title="Home" />
 
     <item
-        android:id="@+id/menu_categorias"
-        android:title="Categorías" />
+        android:id="@+id/menu_categories"
+        android:title="Categories" />
 
     <item
-        android:id="@+id/menu_perfil"
-        android:title="Perfil" />
+        android:id="@+id/menu_profile"
+        android:title="Profile" />
 
     <item
-        android:id="@+id/menu_crear_receta"
-        android:title="Crear nueva receta" />
+        android:id="@+id/menu_create_recipe"
+        android:title="Create new recipe" />
 </menu>

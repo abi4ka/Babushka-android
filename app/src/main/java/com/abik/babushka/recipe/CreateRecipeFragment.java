@@ -25,7 +25,7 @@ import retrofit2.Response;
 public class CreateRecipeFragment extends Fragment {
 
     public CreateRecipeFragment() {
-        super(R.layout.create_recipe_fragment);
+        super(R.layout.recipe_create_fragment);
     }
 
     @Override

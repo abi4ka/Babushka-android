@@ -32,9 +32,9 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.register_activity);
 
         // Bind views
-        usernameInput = findViewById(R.id.etUsuario);
-        passwordInput = findViewById(R.id.etClave);
-        registerButton = findViewById(R.id.btnRegistrarse);
+        usernameInput = findViewById(R.id.usernameRegister);
+        passwordInput = findViewById(R.id.passwordRegister);
+        registerButton = findViewById(R.id.buttonRegisterRegister);
 
         // Register button click
         registerButton.setOnClickListener(v -> registerUser());

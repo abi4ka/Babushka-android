@@ -63,7 +63,7 @@ public class RecipeListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         type = RecipeListType.valueOf(getArguments().getString("type"));
 
-        RecyclerView rvRecetas = view.findViewById(R.id.rvRecetas);
+        RecyclerView rvRecetas = view.findViewById(R.id.rvRecipes);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvRecetas.setLayoutManager(layoutManager);
 
@@ -92,7 +92,7 @@ public class RecipeListFragment extends Fragment {
     }
 
     private void abrirDetalleReceta(Recipe receta) {
-        navigation.abrirDetalle(receta);
+        navigation.openRecipeDetails(receta);
     }
 
     /**

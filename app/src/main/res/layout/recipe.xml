@@ -11,9 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- Nombre Receta -->
         <TextView
-            android:id="@+id/txNombre"
+            android:id="@+id/titleRecipe"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -21,7 +20,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
 
-            android:text="Nombre Receta"
+            android:text="Recipe name"
             android:textColor="@color/text_primary"
             android:textSize="30sp"
             android:textStyle="bold"
@@ -30,9 +29,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Imagen Receta -->
         <ImageView
-            android:id="@+id/vwImagen"
+            android:id="@+id/imageRecipe"
             android:layout_width="0dp"
             android:layout_height="250dp"
             android:layout_marginTop="16dp"
@@ -42,150 +40,142 @@
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/space" />
+            app:layout_constraintTop_toBottomOf="@id/topSpaceRecipe" />
 
         <View
-            android:id="@+id/space"
+            android:id="@+id/topSpaceRecipe"
             android:layout_width="0dp"
             android:layout_height="20dp"
             android:layout_weight="1"
 
-            app:layout_constraintTop_toBottomOf="@id/txNombre"
+            app:layout_constraintTop_toBottomOf="@id/titleRecipe"
             tools:ignore="MissingConstraints" />
 
-        <!-- ESTRELLA DE FAVORITOS -->
         <ImageView
-            android:id="@+id/Estrella"
+            android:id="@+id/starRecipe"
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="5dp"
 
             android:src="@android:drawable/btn_star_big_off"
-            app:layout_constraintBottom_toBottomOf="@id/tvDificultad"
+            app:layout_constraintBottom_toBottomOf="@id/difficultyRecipe"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- FACTOR TIEMPO PREPARACIÓN -->
         <ImageView
-            android:id="@+id/ivTiempo"
+            android:id="@+id/logoTimeRecipe"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginTop="4dp"
 
             android:src="@android:drawable/ic_lock_idle_alarm"
-            app:layout_constraintStart_toStartOf="@id/txNombre"
-            app:layout_constraintTop_toBottomOf="@id/txNombre" />
+            app:layout_constraintStart_toStartOf="@id/titleRecipe"
+            app:layout_constraintTop_toBottomOf="@id/titleRecipe" />
 
         <TextView
-            android:id="@+id/tvTiempo"
+            android:id="@+id/timeRecipe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
 
-            android:text="Tiempo"
+            android:text="Time"
             android:textColor="@color/text_secondary"
             android:textSize="14sp"
 
-            app:layout_constraintStart_toEndOf="@id/ivTiempo"
-            app:layout_constraintTop_toTopOf="@id/ivTiempo" />
+            app:layout_constraintStart_toEndOf="@id/logoTimeRecipe"
+            app:layout_constraintTop_toTopOf="@id/logoTimeRecipe" />
 
-        <!-- FACTOR DIFICULTAD PREPARACIÓN -->
         <ImageView
-            android:id="@+id/ivDificultad"
+            android:id="@+id/logoDifficultyRecipe"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginStart="8dp"
 
             android:src="@android:drawable/ic_menu_sort_by_size"
-            app:layout_constraintStart_toEndOf="@id/tvTiempo"
-            app:layout_constraintTop_toTopOf="@id/tvTiempo" />
+            app:layout_constraintStart_toEndOf="@id/timeRecipe"
+            app:layout_constraintTop_toTopOf="@id/timeRecipe" />
 
         <TextView
-            android:id="@+id/tvDificultad"
+            android:id="@+id/difficultyRecipe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
 
-            android:text="Dificultad"
+            android:text="Difficulty"
             android:textColor="@color/text_secondary"
             android:textSize="14sp"
 
-            app:layout_constraintStart_toEndOf="@id/ivDificultad"
-            app:layout_constraintTop_toTopOf="@id/ivDificultad" />
+            app:layout_constraintStart_toEndOf="@id/logoDifficultyRecipe"
+            app:layout_constraintTop_toTopOf="@id/logoDifficultyRecipe" />
 
-        <!-- Descripción -->
         <TextView
-            android:id="@+id/txDescripcion"
+            android:id="@+id/descriptionRecipe"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
 
-            android:text="Breve descripción de la receta"
+            android:text="Recipe description"
             android:textColor="@color/text_secondary"
             android:textSize="18sp"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/vwImagen" />
+            app:layout_constraintTop_toBottomOf="@id/imageRecipe" />
 
-        <!-- Ingredientes título -->
         <TextView
-            android:id="@+id/Ingredientes"
+            android:id="@+id/titleIngredientsRecipe"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
 
-            android:text="Ingredientes:"
+            android:text="Ingredients:"
             android:textColor="@color/text_primary"
             android:textSize="18sp"
             android:textStyle="bold"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txDescripcion" />
+            app:layout_constraintTop_toBottomOf="@id/descriptionRecipe" />
 
-        <!-- Ingredientes texto -->
         <TextView
-            android:id="@+id/txIngredientes"
+            android:id="@+id/ingredientsListRecipe"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
 
-            android:text="lista ingredientes"
+            android:text="▶ recipe ingredients\n▶ recipe ingredients\n▶ recipe ingredients\n▶ recipe ingredients\n▶ recipe ingredients"
             android:textColor="@color/text_secondary"
             android:textSize="18sp"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Ingredientes" />
+            app:layout_constraintTop_toBottomOf="@id/titleIngredientsRecipe" />
 
-        <!-- Preparación título -->
         <TextView
-            android:id="@+id/Preparacion"
+            android:id="@+id/preparationStepsRecipe"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
 
-            android:text="Preparación:"
+            android:text="Preparation steps:"
             android:textColor="@color/text_primary"
             android:textSize="18sp"
             android:textStyle="bold"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txIngredientes" />
+            app:layout_constraintTop_toBottomOf="@id/ingredientsListRecipe" />
 
-        <!-- Preparación texto -->
         <TextView
-            android:id="@+id/txPreparacion"
+            android:id="@+id/preparationStepsListRecipe"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -193,20 +183,20 @@
             android:layout_marginEnd="16dp"
 
             android:layout_marginBottom="24dp"
-            android:text="lista preparación"
+            android:text="Recipe preparation steps"
             android:textColor="@color/text_secondary"
             android:textSize="18sp"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Preparacion" />
+            app:layout_constraintTop_toBottomOf="@id/preparationStepsRecipe" />
 
         <View
-            android:id="@+id/end_page_space"
+            android:id="@+id/endSpaceRecipe"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            app:layout_constraintTop_toBottomOf="@id/txPreparacion"
+            app:layout_constraintTop_toBottomOf="@id/preparationStepsListRecipe"
             tools:ignore="MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

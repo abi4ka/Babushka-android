@@ -1,14 +1,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="2dp"
     android:background="@color/bg_card">
 
-    <!-- Imagen Receta -->
     <ImageView
-        android:id="@+id/vwImagen"
+        android:id="@+id/imageMiniRecipe"
         android:layout_width="180dp"
         android:layout_height="150dp"
         android:background="@drawable/empty_image_background"
@@ -16,16 +14,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Título -->
-    <!--
-    maxLines="2"
-    Si el txNombre es larga, salta de línea máximo 2 líneas
-
-    ellipsize="end"
-    Cuando se hay más texto del q puede salir en pantalla, en vez de cortarse usa "..." al final
-    -->
     <TextView
-        android:id="@+id/txNombre"
+        android:id="@+id/titleMiniRecipe"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -34,73 +24,63 @@
 
         android:ellipsize="end"
         android:maxLines="2"
-        android:text="Nombre Receta"
+        android:text="Name"
 
         android:textColor="@color/text_primary"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/vwImagen"
-        app:layout_constraintTop_toTopOf="@id/vwImagen" />
+        app:layout_constraintStart_toEndOf="@id/imageMiniRecipe"
+        app:layout_constraintTop_toTopOf="@id/imageMiniRecipe" />
 
-    <!-- FACTOR TIEMPO PREPARACIÓN -->
     <ImageView
-        android:id="@+id/ivTiempo"
+        android:id="@+id/logoTimeMiniRecipe"
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:layout_marginTop="4dp"
 
         android:src="@android:drawable/ic_lock_idle_alarm"
-        app:layout_constraintStart_toStartOf="@id/txNombre"
-        app:layout_constraintTop_toBottomOf="@id/txNombre" />
+        app:layout_constraintStart_toStartOf="@id/titleMiniRecipe"
+        app:layout_constraintTop_toBottomOf="@id/titleMiniRecipe" />
 
     <TextView
-        android:id="@+id/tvTiempo"
+        android:id="@+id/timeMiniRecipe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
 
-        android:text="Tiempo"
+        android:text="Time"
         android:textColor="@color/text_secondary"
         android:textSize="12sp"
 
-        app:layout_constraintStart_toEndOf="@id/ivTiempo"
-        app:layout_constraintTop_toTopOf="@id/ivTiempo" />
+        app:layout_constraintStart_toEndOf="@id/logoTimeMiniRecipe"
+        app:layout_constraintTop_toTopOf="@id/logoTimeMiniRecipe" />
 
-    <!-- FACTOR DIFICULTAD PREPARACIÓN -->
     <ImageView
-        android:id="@+id/ivDificultad"
+        android:id="@+id/logoDifficultyMiniRecipe"
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:layout_marginStart="8dp"
         android:src="@android:drawable/ic_menu_sort_by_size"
 
-        app:layout_constraintStart_toEndOf="@id/tvTiempo"
-        app:layout_constraintTop_toTopOf="@id/tvTiempo" />
+        app:layout_constraintStart_toEndOf="@id/timeMiniRecipe"
+        app:layout_constraintTop_toTopOf="@id/timeMiniRecipe" />
 
     <TextView
-        android:id="@+id/tvDificultad"
+        android:id="@+id/difficultyMiniRecipe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
 
-        android:text="Dificultad"
+        android:text="Dificullty"
         android:textColor="@color/text_secondary"
         android:textSize="12sp"
 
-        app:layout_constraintStart_toEndOf="@id/ivDificultad"
-        app:layout_constraintTop_toTopOf="@id/ivDificultad" />
+        app:layout_constraintStart_toEndOf="@id/logoDifficultyMiniRecipe"
+        app:layout_constraintTop_toTopOf="@id/logoDifficultyMiniRecipe" />
 
-    <!-- Descripción -->
-    <!--
-    maxLines="4"
-    Si el txNombre es larga, salta de línea máximo 2 líneas
-
-    ellipsize="end"
-    Cuando se hay más texto del q puede salir en pantalla, en vez de cortarse usa "..." al final
-    -->
     <TextView
-        android:id="@+id/txDescripcion"
+        android:id="@+id/descriptionMiniRecipe"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -109,17 +89,17 @@
 
         android:ellipsize="end"
         android:maxLines="4"
-        android:text="Breve descripción de la receta"
+        android:text="Recipe description"
         android:textColor="@color/text_hint"
         android:textSize="14sp"
 
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/vwImagen"
-        app:layout_constraintTop_toBottomOf="@id/tvDificultad" />
+        app:layout_constraintStart_toEndOf="@id/imageMiniRecipe"
+        app:layout_constraintTop_toBottomOf="@id/difficultyMiniRecipe" />
 
-    <!-- ESTRELLA DE FAVORITOS-->
+
     <ImageView
-        android:id="@+id/Estrella"
+        android:id="@+id/starMiniRecipe"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginEnd="8dp"

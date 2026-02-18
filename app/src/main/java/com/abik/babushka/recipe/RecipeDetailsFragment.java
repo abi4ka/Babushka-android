@@ -33,7 +33,7 @@ public class RecipeDetailsFragment extends Fragment {
     public static RecipeDetailsFragment newInstance(Recipe recipe) {
         RecipeDetailsFragment fragment = new RecipeDetailsFragment();
         Bundle args = new Bundle();
-        args.putSerializable("receta", recipe);
+        args.putSerializable("recipe", recipe);
         fragment.setArguments(args);
         return fragment;
     }
@@ -42,21 +42,21 @@ public class RecipeDetailsFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Retrieve the recipe passed from previous fragment
-        recipe = (Recipe) requireArguments().getSerializable("receta");
+        recipe = (Recipe) requireArguments().getSerializable("recipe");
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        TextView title = view.findViewById(R.id.txNombre);
-        TextView time = view.findViewById(R.id.tvTiempo);
-        TextView difficulty = view.findViewById(R.id.tvDificultad);
-        TextView description = view.findViewById(R.id.txDescripcion);
-        TextView ingredientsList = view.findViewById(R.id.txIngredientes);
-        TextView preparationSteps = view.findViewById(R.id.txPreparacion);
-        ImageView image = view.findViewById(R.id.vwImagen);
-        ImageView star = view.findViewById(R.id.Estrella);
+        TextView title = view.findViewById(R.id.titleRecipe);
+        TextView time = view.findViewById(R.id.timeRecipe);
+        TextView difficulty = view.findViewById(R.id.difficultyRecipe);
+        TextView description = view.findViewById(R.id.descriptionRecipe);
+        TextView ingredientsList = view.findViewById(R.id.ingredientsListRecipe);
+        TextView preparationSteps = view.findViewById(R.id.preparationStepsListRecipe);
+        ImageView image = view.findViewById(R.id.imageRecipe);
+        ImageView star = view.findViewById(R.id.starRecipe);
 
         // Bind recipe data to UI elements
         title.setText(recipe.title);

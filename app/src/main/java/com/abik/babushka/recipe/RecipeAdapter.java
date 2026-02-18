@@ -49,7 +49,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.mini_recipe, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_mini, parent, false);
         return new ViewHolder(view);
     }
 
@@ -142,12 +142,12 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
         ViewHolder(View view) {
             super(view);
-            title = view.findViewById(R.id.txNombre);
-            description = view.findViewById(R.id.txDescripcion);
-            difficulty = view.findViewById(R.id.tvDificultad);
-            image = view.findViewById(R.id.vwImagen);
-            star = view.findViewById(R.id.Estrella);
-            time = view.findViewById(R.id.tvTiempo);
+            title = view.findViewById(R.id.titleMiniRecipe);
+            description = view.findViewById(R.id.descriptionMiniRecipe);
+            difficulty = view.findViewById(R.id.difficultyMiniRecipe);
+            image = view.findViewById(R.id.imageMiniRecipe);
+            star = view.findViewById(R.id.starMiniRecipe);
+            time = view.findViewById(R.id.timeMiniRecipe);
         }
     }
 }

@@ -37,16 +37,16 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        tvUsername = view.findViewById(R.id.tvUsername);
-        tvCreatedCount = view.findViewById(R.id.tvCreatedCount);
-        tvFavoriteCount = view.findViewById(R.id.tvFavoriteCount);
+        tvUsername = view.findViewById(R.id.usernameProfile);
+        tvCreatedCount = view.findViewById(R.id.createdCountProfile);
+        tvFavoriteCount = view.findViewById(R.id.favoriteCountProfile);
 
-        indicatorCreated = view.findViewById(R.id.indicatorCreated);
-        indicatorFavorite = view.findViewById(R.id.indicatorFavorite);
+        indicatorCreated = view.findViewById(R.id.indicatorCreatedProfile);
+        indicatorFavorite = view.findViewById(R.id.indicatorFavoriteProfile);
 
-        LinearLayout createdContainer = view.findViewById(R.id.createdContainer);
-        LinearLayout favoriteContainer = view.findViewById(R.id.favoriteContainer);
-        ViewPager2 pager = view.findViewById(R.id.viewPager);
+        LinearLayout createdContainer = view.findViewById(R.id.createdContainerProfile);
+        LinearLayout favoriteContainer = view.findViewById(R.id.favoriteContainerProfile);
+        ViewPager2 pager = view.findViewById(R.id.viewPagerProfile);
 
         // Load user profile information from backend
         RetrofitClient.getApi()

@@ -77,7 +77,7 @@ public class HomeFragment extends Fragment {
         String category = args.getString("categoria");
         categoryId = (Long) args.getSerializable("categoriaId");
 
-        TextView tituloCategoria = view.findViewById(R.id.tvCategoria);
+        TextView tituloCategoria = view.findViewById(R.id.tvCategoryTitle);
 
         if (category != null) {
             tituloCategoria.setVisibility(View.VISIBLE);
@@ -94,7 +94,7 @@ public class HomeFragment extends Fragment {
      * Configures the search bar with debounce behavior.
      */
     private void setupSearch(View view) {
-        EditText barraBuscador = view.findViewById(R.id.etBuscar);
+        EditText barraBuscador = view.findViewById(R.id.etSearch);
 
         barraBuscador.addTextChangedListener(new TextWatcher() {
             @Override
@@ -129,7 +129,7 @@ public class HomeFragment extends Fragment {
      * Configures RecyclerView, adapter, and infinite scroll listener.
      */
     private void setupRecycler(View view) {
-        RecyclerView rvRecetas = view.findViewById(R.id.rvRecetas);
+        RecyclerView rvRecetas = view.findViewById(R.id.rvRecipes);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvRecetas.setLayoutManager(layoutManager);
@@ -180,7 +180,7 @@ public class HomeFragment extends Fragment {
      * Opens the selected recipe detail screen.
      */
     private void openRecipeDetails(Recipe receta) {
-        navigation.abrirDetalle(receta);
+        navigation.openRecipeDetails(receta);
     }
 
     /**

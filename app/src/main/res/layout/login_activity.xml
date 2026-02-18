@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Fondo general -->
     <ImageView
-        android:id="@+id/imgFondo"
+        android:id="@+id/backgroundImageLogin"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
@@ -18,7 +17,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- CardView -->
     <androidx.cardview.widget.CardView
         android:layout_width="320dp"
         android:layout_height="wrap_content"
@@ -35,7 +33,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- Fondo del card -->
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
@@ -43,7 +40,6 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/coocking_cat" />
 
-            <!-- Contenido -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -51,49 +47,48 @@
                 android:padding="24dp">
 
                 <EditText
-                    android:id="@+id/etUsuario"
+                    android:id="@+id/usernameLogin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
 
-                    android:hint="Usuario"
+                    android:hint="Username"
                     android:inputType="textPersonName"
                     android:padding="12dp" />
 
                 <EditText
-                    android:id="@+id/etClave"
+                    android:id="@+id/passwordLogin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:hint="Clave"
+                    android:hint="Passoword"
                     android:inputType="textPassword"
                     android:padding="12dp" />
 
-                <!-- Botones -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/btnEntrar"
+                        android:id="@+id/buttonLogInLogin"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:layout_weight="1"
                         android:backgroundTint="@android:color/black"
-                        android:text="Entrar"
+                        android:text="Log in"
                         android:textAllCaps="false"
                         android:textColor="@android:color/white" />
 
                     <Button
-                        android:id="@+id/btnRegistrarse"
+                        android:id="@+id/buttonRegisterLogin"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_weight="1"
                         android:backgroundTint="@android:color/black"
-                        android:text="Registrarse"
+                        android:text="Register"
                         android:textAllCaps="false"
                         android:textColor="@android:color/white" />
 

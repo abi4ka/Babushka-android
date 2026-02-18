@@ -53,7 +53,7 @@ public class CategoryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        recycler = view.findViewById(R.id.recyclerCategories);
+        recycler = view.findViewById(R.id.recyclerCategory);
         recycler.setLayoutManager(new LinearLayoutManager(getContext()));
 
         loadCategories();

@@ -43,10 +43,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login_activity);
 
         // Bind views
-        usernameInput = findViewById(R.id.etUsuario);
-        passwordInput = findViewById(R.id.etClave);
-        loginButton = findViewById(R.id.btnEntrar);
-        registerButton = findViewById(R.id.btnRegistrarse);
+        usernameInput = findViewById(R.id.usernameLogin);
+        passwordInput = findViewById(R.id.passwordLogin);
+        loginButton = findViewById(R.id.buttonLogInLogin);
+        registerButton = findViewById(R.id.buttonRegisterLogin);
 
         // Login button click
         loginButton.setOnClickListener(v -> login());

@@ -48,10 +48,10 @@ public class MainActivity extends AppCompatActivity implements OnCategorySelecte
         // Handle navigation drawer item clicks
         navigationView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
-            if (id == R.id.menu_inicio) replaceFragment(HomeFragment.newInstance(null, null));
-            else if (id == R.id.menu_categorias) replaceFragment(new CategoryFragment());
-            else if (id == R.id.menu_perfil) replaceFragment(new ProfileFragment());
-            else if (id == R.id.menu_crear_receta) replaceFragment(new CreateRecipeFragment());
+            if (id == R.id.menu_home) replaceFragment(HomeFragment.newInstance(null, null));
+            else if (id == R.id.menu_categories) replaceFragment(new CategoryFragment());
+            else if (id == R.id.menu_profile) replaceFragment(new ProfileFragment());
+            else if (id == R.id.menu_create_recipe) replaceFragment(new CreateRecipeFragment());
 
             drawerLayout.closeDrawer(GravityCompat.START);
             return true;
@@ -72,13 +72,13 @@ public class MainActivity extends AppCompatActivity implements OnCategorySelecte
 
     // Callback for category selection from CategoryFragment
     @Override
-    public void onCategoriaSelected(String categoria, Long categoryId) {
+    public void onCategorySelected(String categoria, Long categoryId) {
         replaceFragment(HomeFragment.newInstance(categoria, categoryId));
     }
 
     // Callback to open recipe detail fragment
     @Override
-    public void abrirDetalle(Recipe receta) {
+    public void openRecipeDetails(Recipe receta) {
         replaceFragment(RecipeDetailsFragment.newInstance(receta));
     }
 }
