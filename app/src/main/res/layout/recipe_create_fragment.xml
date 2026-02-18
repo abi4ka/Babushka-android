@@ -11,9 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!--TÍTULO DE LA RECETA-->
         <EditText
-            android:id="@+id/etNombre"
+            android:id="@+id/recipeTitleCreateRecipe"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -21,7 +20,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
 
-            android:hint="Nombre receta..."
+            android:hint="Recipe name..."
             android:maxLength="50"
             android:textColor="@color/text_primary"
             android:textSize="30sp"
@@ -31,70 +30,66 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- ESPACIO VACÍO -->
         <View
-            android:id="@+id/topSpaceRecipe"
+            android:id="@+id/topSpaceCreateRecipe"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
 
-            app:layout_constraintTop_toBottomOf="@id/etNombre"
+            app:layout_constraintTop_toBottomOf="@id/recipeTitleCreateRecipe"
             tools:ignore="MissingConstraints" />
 
-        <!-- FACTOR TIEMPO PREPARACIÓN -->
         <ImageView
-            android:id="@+id/logoTimeMiniRecipe"
+            android:id="@+id/logoTimeCreateRecipe"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginTop="4dp"
 
             android:src="@android:drawable/ic_lock_idle_alarm"
-            app:layout_constraintStart_toStartOf="@id/etNombre"
-            app:layout_constraintTop_toBottomOf="@id/etNombre" />
+            app:layout_constraintStart_toStartOf="@id/recipeTitleCreateRecipe"
+            app:layout_constraintTop_toBottomOf="@id/recipeTitleCreateRecipe" />
 
         <EditText
-            android:id="@+id/etTiempo"
+            android:id="@+id/timeCreateRecipe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
 
-            android:hint="Tiempo"
+            android:hint="Time"
             android:maxLength="3"
             android:textColor="@color/text_secondary"
             android:textSize="18sp"
 
-            app:layout_constraintBottom_toBottomOf="@id/logoTimeMiniRecipe"
-            app:layout_constraintStart_toEndOf="@id/logoTimeMiniRecipe"
-            app:layout_constraintTop_toTopOf="@id/logoTimeMiniRecipe" />
+            app:layout_constraintBottom_toBottomOf="@id/logoTimeCreateRecipe"
+            app:layout_constraintStart_toEndOf="@id/logoTimeCreateRecipe"
+            app:layout_constraintTop_toTopOf="@id/logoTimeCreateRecipe" />
 
-        <!-- FACTOR DIFICULTAD PREPARACIÓN -->
         <ImageView
-            android:id="@+id/logoDifficultyMiniRecipe"
+            android:id="@+id/logoDifficultyCreateRecipe"
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_marginStart="10dp"
 
             android:src="@android:drawable/ic_menu_sort_by_size"
-            app:layout_constraintStart_toEndOf="@id/etTiempo"
-            app:layout_constraintTop_toTopOf="@id/logoTimeMiniRecipe" />
+            app:layout_constraintStart_toEndOf="@id/timeCreateRecipe"
+            app:layout_constraintTop_toTopOf="@id/logoTimeCreateRecipe" />
 
         <EditText
-            android:id="@+id/etDificultad"
+            android:id="@+id/difficultyCreateRecipe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
 
-            android:hint="Dificultad"
+            android:hint="Dificullty"
             android:maxLength="1"
             android:textColor="@color/text_secondary"
             android:textSize="18sp"
 
-            app:layout_constraintStart_toEndOf="@id/logoDifficultyMiniRecipe"
-            app:layout_constraintTop_toTopOf="@id/etTiempo" />
+            app:layout_constraintStart_toEndOf="@id/logoDifficultyCreateRecipe"
+            app:layout_constraintTop_toTopOf="@id/timeCreateRecipe" />
 
-        <!-- IMAGEN RECETA -->
         <ImageView
-            android:id="@+id/imageMiniRecipe"
+            android:id="@+id/imageCreateRecipe"
             android:layout_width="0dp"
             android:layout_height="250dp"
             android:layout_marginTop="16dp"
@@ -104,99 +99,96 @@
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/topSpaceRecipe" />
+            app:layout_constraintTop_toBottomOf="@id/topSpaceCreateRecipe" />
 
-        <!-- DESCRIPCIÓN -->
         <TextView
-            android:id="@+id/tvDescripcion"
+            android:id="@+id/descriptionTitleCreateRecipe"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
 
-            android:text="Descripción:"
+            android:text="Description:"
             android:textColor="@color/text_primary"
             android:textSize="18sp"
             android:textStyle="bold"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageMiniRecipe" />
+            app:layout_constraintTop_toBottomOf="@id/imageCreateRecipe" />
 
         <EditText
-            android:id="@+id/etDescripcion"
+            android:id="@+id/descriptionCreateRecipe"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="6dp"
             android:layout_marginEnd="16dp"
 
-            android:hint="Breve descripción de la receta..."
+            android:hint="Recipe description..."
             android:maxLength="100"
             android:textColor="@color/text_secondary"
             android:textSize="18sp"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvDescripcion" />
+            app:layout_constraintTop_toBottomOf="@id/descriptionTitleCreateRecipe" />
 
-        <!-- INGREDIENTES RECETA-->
+
         <TextView
-            android:id="@+id/tvIngredientes"
+            android:id="@+id/ingredientsListCreateRecipe"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
 
-            android:text="Ingredientes:"
+            android:text="Ingredients:"
             android:textColor="@color/text_primary"
             android:textSize="18sp"
             android:textStyle="bold"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etDescripcion" />
+            app:layout_constraintTop_toBottomOf="@id/descriptionCreateRecipe" />
 
         <EditText
-            android:id="@+id/etIngredientes"
+            android:id="@+id/ingredientsCreateRecipe"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
 
-            android:hint="Lista ingredientes..."
+            android:hint="ingrediente1, ingrediente2..."
             android:maxLength="1000"
             android:textColor="@color/text_secondary"
             android:textSize="18sp"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvIngredientes" />
+            app:layout_constraintTop_toBottomOf="@id/ingredientsListCreateRecipe" />
 
-
-        <!-- PREPARACIÓN  -->
         <TextView
-            android:id="@+id/tvPreparacion"
+            android:id="@+id/preparationStepsTitleCreateRecipe"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
 
-            android:text="Preparación:"
+            android:text="Preparation steps:"
             android:textColor="@color/text_primary"
             android:textSize="18sp"
             android:textStyle="bold"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etIngredientes" />
+            app:layout_constraintTop_toBottomOf="@id/ingredientsCreateRecipe" />
 
         <EditText
-            android:id="@+id/etPreparacion"
+            android:id="@+id/preparationStepsCreateRecipe"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -204,18 +196,17 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="24dp"
 
-            android:hint="Texto preparación..."
+            android:hint="Preparation steps..."
             android:maxLength="1000"
             android:textColor="@color/text_secondary"
             android:textSize="18sp"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvPreparacion" />
+            app:layout_constraintTop_toBottomOf="@id/preparationStepsTitleCreateRecipe" />
 
-        <!--Mensaje DE ERROR-->
         <TextView
-            android:id="@+id/mensajeError"
+            android:id="@+id/errorMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -224,30 +215,28 @@
             android:textColor="@android:color/holo_red_dark"
             android:textSize="15dp"
 
-            app:layout_constraintEnd_toEndOf="@id/etPreparacion"
-            app:layout_constraintStart_toStartOf="@id/etPreparacion"
-            app:layout_constraintTop_toBottomOf="@id/etPreparacion"
-            tools:ignore="MissingConstraints" />
+            app:layout_constraintEnd_toEndOf="@id/preparationStepsCreateRecipe"
+            app:layout_constraintStart_toStartOf="@id/preparationStepsCreateRecipe"
+            app:layout_constraintTop_toBottomOf="@id/preparationStepsCreateRecipe" />
 
-        <!--BOTÓN DE CREAR-->
         <Button
-            android:id="@+id/botonCrear"
+            android:id="@+id/buttonCreateCreateRecipe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
 
-            android:text="CREAR"
+            android:text="CREATE"
 
-            app:layout_constraintEnd_toEndOf="@id/etPreparacion"
-            app:layout_constraintStart_toStartOf="@id/etPreparacion"
-            app:layout_constraintTop_toBottomOf="@id/mensajeError" />
+            app:layout_constraintEnd_toEndOf="@id/preparationStepsCreateRecipe"
+            app:layout_constraintStart_toStartOf="@id/preparationStepsCreateRecipe"
+            app:layout_constraintTop_toBottomOf="@id/errorMessage" />
 
         <View
-            android:id="@+id/endSpaceRecipe"
+            android:id="@+id/endSpaceCreateRecipe"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            app:layout_constraintTop_toBottomOf="@id/botonCrear"
+            app:layout_constraintTop_toBottomOf="@id/buttonCreateCreateRecipe"
             tools:ignore="MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

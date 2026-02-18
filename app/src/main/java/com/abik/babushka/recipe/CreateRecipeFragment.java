@@ -33,15 +33,15 @@ public class CreateRecipeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // Input fields
-        EditText titleInput = view.findViewById(R.id.etNombre);
-        EditText timeInput = view.findViewById(R.id.etTiempo);
-        EditText difficultyInput = view.findViewById(R.id.etDificultad);
-        EditText descriptionInput = view.findViewById(R.id.etDescripcion);
-        EditText ingredientsListInput = view.findViewById(R.id.etIngredientes);
-        EditText preparationStepsInput = view.findViewById(R.id.etPreparacion);
+        EditText titleInput = view.findViewById(R.id.recipeTitleCreateRecipe);
+        EditText timeInput = view.findViewById(R.id.timeCreateRecipe);
+        EditText difficultyInput = view.findViewById(R.id.difficultyCreateRecipe);
+        EditText descriptionInput = view.findViewById(R.id.descriptionCreateRecipe);
+        EditText ingredientsListInput = view.findViewById(R.id.ingredientsCreateRecipe);
+        EditText preparationStepsInput = view.findViewById(R.id.preparationStepsCreateRecipe);
 
-        TextView errorMessage = view.findViewById(R.id.mensajeError);
-        Button createRecipeButton = view.findViewById(R.id.botonCrear);
+        TextView errorMessage = view.findViewById(R.id.errorMessage);
+        Button createRecipeButton = view.findViewById(R.id.buttonCreateCreateRecipe);
 
         // Handle create button click
         createRecipeButton.setOnClickListener(v -> {
